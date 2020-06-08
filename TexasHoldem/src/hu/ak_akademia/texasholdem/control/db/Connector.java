@@ -51,9 +51,14 @@ public final class Connector {
 	 * Application Ha megjelenic amegfel� �zenet, akkor ez a met�dus t�r�lhet�. Ha
 	 * nem t�rl�d, akkor is ki kell kommentelni.
 	 */
-	/*
-	 * public static void main(String[] args) { try { getInstance().getConnection();
-	 * System.out.println("Sikeresen csatlakozott"); } catch (SQLException e) {
-	 * e.printStackTrace(); } }
-	 */
+
+//	public static void main(String[] args) {
+//		try {
+//			getInstance().getConnection();
+//			System.out.println("Sikeresen csatlakozott");
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
+
 }
