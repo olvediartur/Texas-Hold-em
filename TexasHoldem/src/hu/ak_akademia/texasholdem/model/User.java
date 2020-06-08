@@ -9,4 +9,5 @@ package hu.ak_akademia.texasholdem.model;
  */
 public class User {
 
+
 }
