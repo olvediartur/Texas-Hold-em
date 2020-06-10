@@ -1,5 +1,5 @@
 /**
- * 
+ * Ez a kártyapakli osztály.
  */
 package hu.ak_akademia.texasholdem.model.deck;
 
@@ -23,10 +23,12 @@ public class Deck {
 	}
 
 	/**
-	 * @param 2 String
+	 * @param color-color of the card, figure-figure of the card
+	 * 
 	 */
-	public Deck(String s1, String s2) {
-
+	public Deck(String color, String figure) {
+		CardColor.getColorEnum(color);
+		Figure.getFigureEnum(figure);
 	}
 
 	public void shuffle() {
