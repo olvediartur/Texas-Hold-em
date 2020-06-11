@@ -4,7 +4,8 @@
 package hu.ak_akademia.texasholdem.model.deck;
 
 /**
- * @author Artúr Ölvedi
+ * @author Artï¿½r ï¿½lvedi
+ * @author Iza
  *
  */
 public class Card {
@@ -41,7 +42,6 @@ public class Card {
 	}
 
 	public boolean equals(Card card) {
-		// HIÁNYOS
-		return true;
+		return (color.equals(card.getColor()) && figure.equals(card.getFigure()));
 	}
 }
