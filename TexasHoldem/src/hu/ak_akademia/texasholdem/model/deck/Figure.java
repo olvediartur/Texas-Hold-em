@@ -4,7 +4,7 @@
 package hu.ak_akademia.texasholdem.model.deck;
 
 /**
- * @author Art�r �lvedi
+ * @author Art�r �lvedi
  *
  */
 public enum Figure {
@@ -37,7 +37,18 @@ public enum Figure {
 		return value;
 	}
 
+	/**
+	 * @param figure
+	 * @return
+	 * A bemenetként kapott szöveg alapján
+	 * visszatér a szövegnek megfelelő Figure objektummal
+	 */
 	public static Figure getFigureEnum(String figure) {
+		for(Figure f : Figure.values()) {
+			if(("" + f.getSymbol()).equals(figure)) {
+				return f;
+			}
+		}
 		return null;
 	}
 }

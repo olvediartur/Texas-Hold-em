@@ -4,7 +4,7 @@
 package hu.ak_akademia.texasholdem.model.deck;
 
 /**
- * @author Art�r �lvedi
+ * @author Art�r �lvedi
  *
  */
 public enum CardColor {
@@ -30,8 +30,19 @@ public enum CardColor {
 		return value;
 	}
 	
+	/**
+	 * @param color
+	 * @return
+	 * A bemenetként kapott szöveg alapján
+	 * visszatér a szövegnek megfelelő CardColor objektummal
+	 */
 	public static CardColor getColorEnum(String color) {
-		return null;
-		
+		for(CardColor cc : CardColor.values()) {
+			if(("" + cc.getSymbol()).equals(color)) {
+				return cc;
+			}
+		}		
+		return null;		
 	}
+	
 }
