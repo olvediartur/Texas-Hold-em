@@ -1,5 +1,5 @@
 /**
- * Ez a k·rtyapakli oszt·ly.
+ * Ez a k√°rtyapakli oszt√°ly.
  */
 package hu.ak_akademia.texasholdem.model.deck;
 
@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author Art˙r ÷lvedi
+ * @author Art√∫r √ñlvedi
  *
  */
 public class Deck {
@@ -17,9 +17,13 @@ public class Deck {
 	/**
 	 * @param cards
 	 */
-	public Deck(List<Card> cards) {
-		super();
-		this.cards = cards;
+	public Deck() {
+		for (int i = 1; i < 14; i++) {
+			for (int j = 1; j < 5; j++) {
+				cards.add(new Card(CardColor.getColorEnum(j), Figure.getFigureEnum(i)));
+			}
+		}
+
 	}
 
 	/**

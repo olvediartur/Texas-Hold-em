@@ -4,7 +4,7 @@
 package hu.ak_akademia.texasholdem.model.deck;
 
 /**
- * @author Art�r �lvedi
+ * @author Artúr Ölvedi
  * @author Iza
  *
  */
@@ -17,7 +17,7 @@ public class Card {
 	 * @param color
 	 * @param figure
 	 */
-	public Card(Figure figure, CardColor color) {
+	public Card(CardColor color,Figure figure) {
 		super();
 		this.color = color;
 		this.figure = figure;
@@ -38,7 +38,7 @@ public class Card {
 	}
 
 	public String toString() {
-		return figure.getSymbol() + color.getSymbol();
+		return  color.getSymbol()+figure.getSymbol();
 	}
 
 	public boolean equals(Card card) {
