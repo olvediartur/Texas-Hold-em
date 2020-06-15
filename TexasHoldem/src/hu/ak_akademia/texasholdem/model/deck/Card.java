@@ -38,10 +38,43 @@ public class Card {
 	}
 
 	public String toString() {
-		return  color.getSymbol()+figure.getSymbol();
+		return  color.getSymbol() + figure.getSymbol();
 	}
 
-	public boolean equals(Card card) {
-		return (color.equals(card.getColor()) && figure.equals(card.getFigure()));
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + ((figure == null) ? 0 : figure.hashCode());
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Card other = (Card) obj;
+		if (color != other.color) {
+			return false;
+		}
+		if (figure != other.figure) {
+			return false;
+		}
+		return true;
+	}
+
+	/*
+	 * public boolean equals(Card card) { return (color.equals(card.getColor()) &&
+	 * figure.equals(card.getFigure())); }
+	 */
 }
