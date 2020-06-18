@@ -4,6 +4,8 @@
  */
 package hu.ak_akademia.texasholdem.view;
 
+import hu.ak_akademia.texasholdem.control.ApplicationController;
+
 /**
  * @author bnagy
  *
@@ -24,7 +26,7 @@ public class Main {
 	private void run() {
 
 		System.out.println("Hurrá");
-
+		System.out.println(new ApplicationController().getFirstMenu().show());
 	}
 
 }
