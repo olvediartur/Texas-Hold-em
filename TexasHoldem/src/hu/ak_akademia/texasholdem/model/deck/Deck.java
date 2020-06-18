@@ -1,5 +1,5 @@
 /**
- * 
+ * Ez a kártyapakli osztály.
  */
 package hu.ak_akademia.texasholdem.model.deck;
 
@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author Art�r �lvedi
+ * @author Artúr Ölvedi
  *
  */
 public class Deck {
@@ -17,16 +17,22 @@ public class Deck {
 	/**
 	 * @param cards
 	 */
-	public Deck(List<Card> cards) {
-		super();
-		this.cards = cards;
+	public Deck() {
+		for (int i = 1; i < 14; i++) {
+			for (int j = 1; j < 5; j++) {
+				cards.add(new Card(CardColor.getColorEnum(j), Figure.getFigureEnum(i)));
+			}
+		}
+
 	}
 
 	/**
-	 * @param 2 String
+	 * @param color-color of the card, figure-figure of the card
+	 * 
 	 */
-	public Deck(String s1, String s2) {
-
+	public Deck(String color, String figure) {
+		CardColor.getColorEnum(color);
+		Figure.getFigureEnum(figure);
 	}
 
 	public void shuffle() {

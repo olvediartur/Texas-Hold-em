@@ -1,6 +1,6 @@
 /**
- * Ez egy minta class, hogy ne legyen üres a package
- * A program belépési pontja.
+ * Ez egy minta class, hogy ne legyen ï¿½res a package
+ * A program belï¿½pï¿½si pontja.
  */
 package hu.ak_akademia.texasholdem.view;
 
@@ -19,11 +19,12 @@ public class Main {
 	}
 
 	/**
-	 * Áttérés példány szintre
+	 * ï¿½ttï¿½rï¿½s pï¿½ldï¿½ny szintre
 	 */
 	private void run() {
 
-		System.out.println("Hurrá");
+		System.out.println("HurrÃ¡");
+
 	}
 
 }
