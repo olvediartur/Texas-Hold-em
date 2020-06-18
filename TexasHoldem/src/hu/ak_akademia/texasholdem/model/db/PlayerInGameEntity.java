@@ -3,6 +3,8 @@
  */
 package hu.ak_akademia.texasholdem.model.db;
 
+import hu.ak_akademia.texasholdem.model.deck.Card;
+
 /**
  * @author KarateChopMonkey
  *
