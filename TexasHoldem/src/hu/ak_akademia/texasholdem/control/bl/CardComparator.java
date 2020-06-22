@@ -3,6 +3,8 @@
  */
 package hu.ak_akademia.texasholdem.control.bl;
 
+import java.util.Comparator;
+
 import hu.ak_akademia.texasholdem.model.deck.Card;
 
 /**
@@ -10,23 +12,21 @@ import hu.ak_akademia.texasholdem.model.deck.Card;
  * @author Lidia
  *
  */
-public class CardComparator {
-	
-//	public static int compare(Card o1, Card o2) {
-//		int result;
-//		
-//		if(o1.equals(o2)) {
-//			return 0;
-//		} 
-//		
-//		if (o1 > o2) {
-//			return -1;
-//		}
-//		
-//		if (result == o2) {
-//			return 1;
-//		}
-		
-//	}
+public class CardComparator implements Comparator<Card> {
 
+	@Override
+	public int compare(Card o1, Card o2) {
+		if(o1.getFigure().getValue() < o2.getFigure().getValue()) {
+			return -1;
+		} else if(o1.getFigure().getValue() > o2.getFigure().getValue()) {
+			return 1;
+		} else if(o1.getColor().getValue() < o2.getColor().getValue()){
+			return -1;
+		} else if(o1.getColor().getValue() > o2.getColor().getValue()){
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+	
 }
