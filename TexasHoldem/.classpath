@@ -6,6 +6,18 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+<<<<<<< Updated upstream
 	<classpathentry kind="lib" path="C:/DEV/ojdbc10.jar"/>
+=======
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+	<classpathentry kind="lib" path="C:/Dev/ojdbc10.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/dev/ojdbc10.jar"/>
+>>>>>>> master
+=======
+	<classpathentry kind="lib" path="C:/Dev/ojdbc10.jar"/>
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 	<classpathentry kind="output" path="bin"/>
 </classpath>
