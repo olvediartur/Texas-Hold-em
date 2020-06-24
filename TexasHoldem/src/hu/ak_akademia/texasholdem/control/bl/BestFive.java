@@ -67,11 +67,6 @@ public class BestFive {
 	}
 
 
-//	public boolean equals(Card card){
-//		 return (color.equals(card.getColor()) && figure.equals(card.getFigure()));
-// meg kell fogalmazni azt a logikát, hogy két kéz mikor egyenlő 
-//	} 
-
 	public static void sort(Card[] cards) {
 		CardComparator comp = new CardComparator();
 		boolean sorted = false;

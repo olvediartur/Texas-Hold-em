@@ -147,65 +147,13 @@ public enum BestFiveValue {
 		return true;
 	}
 
-	/**
-	 * @param cards
-	 * @return
-	 */
-//	private static boolean isStraightFlush(Card[] cards) { // színsor és 5 kártya egymás után következik
-//		CardColor cc = cards[0].getColor();
-//		for (Card c : cards) {
-//			if (!cc.equals(c.getColor())) {
-//				return false;
-//			}
-//			;
-//		}
-//	}
 
-//	int max = cards[0]; // maximumkeresés az 5 kártya között - getValue();
-//	for(
-//	int i = 0;i<cards[4];i++)
-//	{
-//		int number = cards[i];
-//
-//		if (number > max) {
-//			max = number;
-//
-//		}
-//	}
-
-	// ellenőrzöm, hogy a maradék 4 kártya sorban következik-e cards[1] > cards[2]
-	// stb.
-//}
-	// vagy sorbarendezés és utána hasonlítom össze a kártyákat
-
-//	sort(bestFiveCard); //-> a kárytákat sorba rendezi
-//	bestFiveValue = BestFiveValue.getValueOfCards(bestFiveCard);
-//}
-//	return true;
-
-//}
-
-//	private static boolean isFourOfKind(Card[] cards) { //4 ugyanolyan értékű, de most mindet összehasonlítom!!
-//		int figure = cards[0].getValue(); 				//szín nem egyezik meg
-//		for(Figure f : Figure.values()) { 
-//			if(!figure.equals(f.getValue())) {
-//				return false;
-//			};
-//		}
-//
-//		//		
-////		if(ha 4 db kártya megegyezik) {
-////			
-//		}
-//		return false;
-//	}
 
 	/**
 	 * @param cards
 	 * @return akkor igaz, ha van két pár és egy drill
 	 */
 	private static boolean isFullHouse(Card[] cards) {
-		// 1 drill és egy pár
 		if(!isThreeOfKind(cards)) {
 			return false;
 		}
