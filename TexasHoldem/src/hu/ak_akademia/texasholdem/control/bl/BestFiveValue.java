@@ -29,7 +29,7 @@ public enum BestFiveValue {
 		return value;
 	}
 
-	public String getTextual(String text) {
+	public String getTextual() {
 		return textual;
 	}
 
