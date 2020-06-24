@@ -83,11 +83,21 @@ public enum BestFiveValue {
 
 	/**
 	 * @param cards
-	 * @return igaz, az öt kártya figurájának az értéke sorban követi egymást
+	 * @return igaz,
+	 * ha az öt kártya A,5,4,3,2 
+	 * vagy ha az öt kártya figurájának az értéke sorban követi egymást
 	 */
 	private static boolean isStraight(Card[] cards) {
 		// 5 egymás után következő kártya
 		Card first = cards[0];
+		if(first.getFigure().equals(Figure.ACE)
+				&& 	cards[1].getFigure().equals(Figure.FIVE)
+				&& 	cards[2].getFigure().equals(Figure.FOUR)
+				&& 	cards[3].getFigure().equals(Figure.THREE)
+				&& 	cards[4].getFigure().equals(Figure.TWO)
+			) {
+			return true;
+		}
 		for(int i = 1; i < cards.length;i++) {
 			if(i + first.getFigure().getValue() != cards[i].getFigure().getValue()) {
 				return false;
@@ -118,7 +128,7 @@ public enum BestFiveValue {
 		if(!isStraightFlush(cards)) {
 			return false;
 		}
-		if (!cards[0].getFigure().equals(Figure.ACE)) {
+		if (!cards[4].getFigure().equals(Figure.TEN)) {
 			return false;
 		}
 		return true;
@@ -127,6 +137,8 @@ public enum BestFiveValue {
 	/**
 	 * @param cards
 	 * @return
+	 * Kétféle képpen lehet
+	 * AAAAX, XAAAA
 	 */
 	private static boolean isFourOfKind(Card[] cards) {
 		Card first = cards[0];
@@ -137,12 +149,14 @@ public enum BestFiveValue {
 					return false;
 				}
 			}
+			//AAAAX
 		} else {
 			for(int i = 2; i <= 4; i++) {
 				if(cards[i].getFigure().getValue() != second.getFigure().getValue()) {
 					return false;
 				}
 			}
+			//XAAAA
 		}
 		return true;
 	}
