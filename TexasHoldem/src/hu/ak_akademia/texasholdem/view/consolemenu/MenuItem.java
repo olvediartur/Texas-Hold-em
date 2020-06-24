@@ -17,7 +17,7 @@ public abstract class MenuItem {
 	 * @param index
 	 * @param title
 	 */
-	public MenuItem(int index, String title) {
+	protected MenuItem(int index, String title) {
 		this.index = index;
 		this.title = title;
 	}
