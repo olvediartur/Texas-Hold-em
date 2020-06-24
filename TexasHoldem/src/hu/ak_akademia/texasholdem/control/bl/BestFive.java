@@ -20,7 +20,7 @@ import hu.ak_akademia.texasholdem.model.deck.Figure;
  *
  */
 
-public class BestFive { // osztály
+public class BestFive {
 
 	private Card[] bestFiveCard = new Card[5]; // 5 card objektum egységbe zárása
 	private BestFiveValue bestFiveValue;
@@ -71,13 +71,6 @@ public class BestFive { // osztály
 //		 return (color.equals(card.getColor()) && figure.equals(card.getFigure()));
 // meg kell fogalmazni azt a logikát, hogy két kéz mikor egyenlő 
 //	} 
-
-	// public enum Color {
-	// GREEN, BLUE, BLACK, RED;
-
-	// }
-
-	
 
 	public static void sort(Card[] cards) {
 		CardComparator comp = new CardComparator();

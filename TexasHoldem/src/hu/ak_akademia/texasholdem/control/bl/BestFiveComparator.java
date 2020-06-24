@@ -10,12 +10,17 @@ import java.util.Comparator;
  * @author user
  *
  */
-public class BestFiveComparator implements Comparator<BestFive>{
+public class BestFiveComparator implements Comparator<BestFive> {
 
 	@Override
 	public int compare(BestFive o1, BestFive o2) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (o1.getBestFiveValue().getValue() < o2.getBestFiveValue().getValue()) {
+			return -1;
+		} else if (o1.getBestFiveValue().getValue() > o2.getBestFiveValue().getValue()) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 }
