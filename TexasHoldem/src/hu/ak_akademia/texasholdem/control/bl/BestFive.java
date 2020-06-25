@@ -9,8 +9,6 @@ import java.util.Arrays;
  * Meghívtam a deck packaget.
  */
 import hu.ak_akademia.texasholdem.model.deck.Card;
-import hu.ak_akademia.texasholdem.model.deck.CardColor;
-import hu.ak_akademia.texasholdem.model.deck.Figure;
 
 /**
  * Ez a legjobb 5 kártyát tároló osztály.
