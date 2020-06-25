@@ -3,7 +3,7 @@
  */
 package hu.ak_akademia.texasholdem.view.consolemenu;
 
-import hu.ak_akademia.texasholdem.exception.CantSelectExeption;
+import hu.ak_akademia.texasholdem.exception.CantSelectException;
 
 /**
  * @author bnagy
@@ -66,9 +66,9 @@ public abstract class MenuItem {
 	}
 	
 	/**
-	 * @throws CantSelectExeption
+	 * @throws CantSelectException
 	 */
-	public void select() throws CantSelectExeption {
-		throw new CantSelectExeption();
+	public void select() throws CantSelectException {
+		throw new CantSelectException();
 	}
 }

@@ -7,9 +7,9 @@ package hu.ak_akademia.texasholdem.exception;
  * @author bnagy
  *
  */
-public class CantSelectExeption extends Exception {
+public class CantSelectException extends Exception {
 	
-	public CantSelectExeption() {
+	public CantSelectException() {
 		super("This option is not avaiable");
 	}
 	

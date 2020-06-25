@@ -6,7 +6,7 @@ package hu.ak_akademia.texasholdem.view.consolemenu;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.ak_akademia.texasholdem.exception.CantSelectExeption;
+import hu.ak_akademia.texasholdem.exception.CantSelectException;
 
 /**
  * @author bnagy
@@ -32,9 +32,9 @@ public class Menu extends MenuItem {
 
 	/**
 	 * @param index
-	 * @throws CantSelectExeption
+	 * @throws CantSelectException
 	 */
-	public void selectOption(int index) throws CantSelectExeption {
+	public void selectOption(int index) throws CantSelectException {
 		options.get(index - 1).select();
 	}
 	
@@ -59,7 +59,7 @@ public class Menu extends MenuItem {
 	}
 
 	@Override
-	public void select() throws CantSelectExeption {
+	public void select() throws CantSelectException {
 		super.select();
 	}
 	

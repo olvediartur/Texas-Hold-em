@@ -6,7 +6,7 @@ package hu.ak_akademia.texasholdem.control;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import hu.ak_akademia.texasholdem.exception.CantSelectExeption;
+import hu.ak_akademia.texasholdem.exception.CantSelectException;
 import hu.ak_akademia.texasholdem.view.UI;
 import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
 import hu.ak_akademia.texasholdem.view.consolemenu.MenuItem;
@@ -38,7 +38,7 @@ public class ApplicationController {
 		ui.showMenu(firstMenu);
 		try {
 			firstMenu.selectOption(ui.getMenuChoice(firstMenu.getOptions().size()));
-		} catch (CantSelectExeption e) {
+		} catch (CantSelectException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
