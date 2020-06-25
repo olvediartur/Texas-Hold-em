@@ -7,8 +7,15 @@ package hu.ak_akademia.texasholdem.view;
  */
 public class Validator {
 
-	boolean isValidMenuChoice(int userChoice, int numberOfOptions) {
-
+	public boolean isValidMenuChoice(int userChoice, int numberOfOptions) {
+		if(userChoice < 1) {
+			return false;
+		} else if(userChoice > numberOfOptions) {
+			return false;
+		} else {
+			return true;
+		}
+		/*
 		int menuItems[] = new int[numberOfOptions];
 		for (int i = 0; i < menuItems.length; i++) {
 			menuItems[i] = i + 1;
@@ -18,9 +25,10 @@ public class Validator {
 				return true;
 		}
 		return false;
+		*/
 	}
 
-	boolean isStrongPassword(String pw) {
+	public boolean isStrongPassword(String pw) {
 		return pw.matches("[^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$]");
 	}
 

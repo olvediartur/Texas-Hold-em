@@ -11,7 +11,6 @@ import hu.ak_akademia.texasholdem.control.ApplicationController;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
 
-
 /**
  * @author Iza
  * @author Enikő
@@ -23,11 +22,11 @@ public class UI {
 	private Printer printer;
 	private Scanner scanner;
 
-	public UI(Validator validator, Printer printer, Scanner scanner) {
+	public UI() {
 		super();
-		this.validator = validator;
-		this.printer = printer;
-		this.scanner = scanner;
+		this.validator = new Validator();
+		this.printer = new Printer();
+		this.scanner = new Scanner(System.in);
 	}
 
 	public void showMenu(Menu m) {
@@ -38,7 +37,7 @@ public class UI {
 		printer.print(msg);
 	}
 
-	public void showBoard(List<Card> board) { 
+	public void showBoard(List<Card> board) {
 		String printMe = "";
 		for (int i = 0; i < board.size(); i++) {
 			printMe += board.get(i).toString();
@@ -71,9 +70,23 @@ public class UI {
 			printer.print(ApplicationController.bundle.getString("ui_getint_askfornumber"));
 			input = scanner.nextInt();
 		} catch (NoSuchElementException e) {
-			printer.print(ApplicationController.bundle.getString("ui_getint_askfornumber"));
+			scanner.next();
+			//printer.print(ApplicationController.bundle.getString("ui_getint_askfornumber"));
 		}
 		return input;
+	}
+
+	public int getMenuChoice(int numberOfOptions) {
+		int res = 0;
+		do {
+			res = getIntFromUser();
+		} while (!validator.isValidMenuChoice(res, numberOfOptions));
+		return res;
+	}
+
+	public void shutDown() {
+		printer.print(ApplicationController.bundle.getString("goodbyemsg"));
+		scanner.close();
 	}
 
 }

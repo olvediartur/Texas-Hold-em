@@ -6,6 +6,7 @@ package hu.ak_akademia.texasholdem.control;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import hu.ak_akademia.texasholdem.exception.CantSelectExeption;
 import hu.ak_akademia.texasholdem.view.UI;
 import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
 import hu.ak_akademia.texasholdem.view.consolemenu.MenuItem;
@@ -27,26 +28,20 @@ public class ApplicationController {
 
 	public static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle", new Locale("en", "US"));
 
-	private UI userInterface;
+	private UI ui = new UI();
 	private Menu firstMenu = new Menu(bundle.getString("firstmenu"));
 	private Menu mainMenu = new Menu(bundle.getString("mainmenu"));
 	private Menu newGameMenu = new Menu(bundle.getString("newgamemenu"));
 	private Menu inGameMenu = new Menu(bundle.getString("ingamemenu"));
-
-	public Menu getFirstMenu() {
-		return firstMenu;
-	}
-
-	public Menu getMainMenu() {
-		return mainMenu;
-	}
-
-	public Menu getNewGameMenu() {
-		return newGameMenu;
-	}
-
-	public Menu getInGameMenu() {
-		return inGameMenu;
+	
+	public void start() {
+		ui.showMenu(firstMenu);
+		try {
+			firstMenu.selectOption(ui.getMenuChoice(firstMenu.getOptions().size()));
+		} catch (CantSelectExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -68,6 +63,7 @@ public class ApplicationController {
 		MenuItem shutDown = new Option(3, bundle.getString("firstmenu_shutdown")) {
 			@Override
 			public void select() {
+				ui.shutDown();
 				System.exit(0);
 			}
 		};

@@ -21,12 +21,12 @@ public class Main {
 	}
 
 	/**
-	 * �tt�r�s p�ld�ny szintre
+	 * Áttérés példány szintre
 	 */
 	private void run() {
-
+		ApplicationController appCtrl = new ApplicationController();
 		System.out.println("Hurrá");
-		System.out.println(new ApplicationController().getFirstMenu().show());
+		appCtrl.start();
 	}
 
 }
