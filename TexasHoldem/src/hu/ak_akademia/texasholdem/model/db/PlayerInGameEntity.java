@@ -3,6 +3,8 @@
  */
 package hu.ak_akademia.texasholdem.model.db;
 
+import java.util.Arrays;
+
 import hu.ak_akademia.texasholdem.model.deck.Card;
 
 /**
@@ -11,24 +13,9 @@ import hu.ak_akademia.texasholdem.model.deck.Card;
  */
 public class PlayerInGameEntity extends DbEntity {
 
-	private int id;
 	private int pokerUserId;
 	private int gameId;
 	private Card[] bestCombination;
-
-	/**
-	 * @param id
-	 * @param pokerUserId
-	 * @param gameId
-	 * @param bestCombination
-	 */
-	public PlayerInGameEntity(int id, int pokerUserId, int gameId, Card[] bestCombination) {
-		super();
-		this.id = id;
-		this.pokerUserId = pokerUserId;
-		this.gameId = gameId;
-		this.bestCombination = bestCombination;
-	}
 
 	/**
 	 * @param pokerUserId
@@ -43,24 +30,18 @@ public class PlayerInGameEntity extends DbEntity {
 	}
 
 	/**
+	 * @param bestCombination
+	 */
+	public PlayerInGameEntity(Card[] bestCombination) {
+		super();
+		this.bestCombination = bestCombination;
+	}
+
+	/**
 	 * 
 	 */
 	public PlayerInGameEntity() {
 		super();
-	}
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	/**
@@ -107,15 +88,16 @@ public class PlayerInGameEntity extends DbEntity {
 
 	@Override
 	public String toString() {
-		return "PlayerInGameEntity [id=" + id + ", pokerUserId=" + pokerUserId + ", gameId=" + gameId + "]";
+		return "PlayerInGameEntity [pokerUserId=" + pokerUserId + ", gameId=" + gameId + ", bestCombination="
+				+ Arrays.toString(bestCombination) + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + Arrays.hashCode(bestCombination);
 		result = prime * result + gameId;
-		result = prime * result + id;
 		result = prime * result + pokerUserId;
 		return result;
 	}
@@ -129,9 +111,9 @@ public class PlayerInGameEntity extends DbEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		PlayerInGameEntity other = (PlayerInGameEntity) obj;
-		if (gameId != other.gameId)
+		if (!Arrays.equals(bestCombination, other.bestCombination))
 			return false;
-		if (id != other.id)
+		if (gameId != other.gameId)
 			return false;
 		if (pokerUserId != other.pokerUserId)
 			return false;
