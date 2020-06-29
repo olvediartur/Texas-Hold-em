@@ -13,7 +13,7 @@ import hu.ak_akademia.texasholdem.model.db.DbEntity;
  * @author bnagy
  *
  */
-public abstract class AbstractDao<T extends DbEntity> {
+public abstract class AbstractDao<E extends DbEntity> {
 	
 	String createSql = "";
 	String readSql = "";
@@ -23,8 +23,8 @@ public abstract class AbstractDao<T extends DbEntity> {
 		return Connector.getInstance().getConnection().prepareStatement(query);
 	}
 	
-	abstract String create(T e);
-	abstract T read(int id);
-	abstract String update(T e);
-	abstract List<T> getAll();
+	abstract String create(E e);
+	abstract E read(int id);
+	abstract String update(E e);
+	abstract List<E> getAll();
 }
