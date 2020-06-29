@@ -4,9 +4,11 @@
 package hu.ak_akademia.texasholdem.control.db;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import hu.ak_akademia.texasholdem.control.bl.BestFive;
 import hu.ak_akademia.texasholdem.model.db.PlayerInGameEntity;
 
 /**
@@ -41,8 +43,20 @@ public class PlayerInGameDao extends AbstractDao<PlayerInGameEntity> {
 
 	@Override
 	PlayerInGameEntity read(int id) {
-
-		return null;
+		String query = readSql + id;
+		PlayerInGameEntity playerInGame = new PlayerInGameEntity();
+		PreparedStatement ps;
+		try {
+			ps = getStatement(query);
+			ResultSet rs = ps.executeQuery();
+			playerInGame.setPokerUserId(rs.getInt(1));
+			playerInGame.setGameId(rs.getInt(2));
+			playerInGame.setBestCombination(BestFive.getBestFive(rs.getString(3)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return playerInGame;
 	}
 
 	@Override

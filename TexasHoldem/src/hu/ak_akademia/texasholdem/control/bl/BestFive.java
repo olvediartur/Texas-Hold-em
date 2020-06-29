@@ -24,8 +24,8 @@ public class BestFive {
 	private BestFiveValue bestFiveValue;
 
 	/**
-	 * konstruktorában 5 kártyát vár, amit
-	 * eltárol magában
+	 * konstruktorában 5 kártyát vár, amit eltárol magában
+	 * 
 	 * @param card1
 	 * @param card2
 	 * @param card3
@@ -38,12 +38,13 @@ public class BestFive {
 		bestFiveCard[2] = card3;
 		bestFiveCard[3] = card4;
 		bestFiveCard[4] = card5;
-		sort(bestFiveCard); //-> a kárytákat sorba rendezi
+		sort(bestFiveCard); // -> a kárytákat sorba rendezi
 		bestFiveValue = BestFiveValue.getValueOfCards(bestFiveCard);
 	}
 
 	/**
 	 * visszatér a magában tárolt kártyák tömbjével
+	 * 
 	 * @return
 	 */
 	public Card[] getBestFiveCards() {
@@ -52,6 +53,18 @@ public class BestFive {
 
 	public BestFiveValue getBestFiveValue() {
 		return bestFiveValue;
+	}
+
+	public static BestFive getBestFive(String bestCombination) {
+		BestFive bestFive;
+		String[] cards = bestCombination.split(" - ");
+		Card[] individualCards = new Card[5];
+		for (int i = 0; i < cards.length; i++) {
+			individualCards[i] = new Card(cards[i]);
+		}
+		bestFive = new BestFive(individualCards[0], individualCards[1], individualCards[2], individualCards[3],
+				individualCards[4]);
+		return bestFive;
 	}
 
 	public String toString() {
@@ -63,7 +76,6 @@ public class BestFive {
 		}
 		return result;
 	}
-
 
 	public static void sort(Card[] cards) {
 		CardComparator comp = new CardComparator();
