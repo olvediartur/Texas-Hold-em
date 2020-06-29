@@ -17,7 +17,7 @@ public class Card {
 	 * @param color
 	 * @param figure
 	 */
-	public Card(CardColor color,Figure figure) {
+	public Card(CardColor color, Figure figure) {
 		super();
 		this.color = color;
 		this.figure = figure;
@@ -38,11 +38,9 @@ public class Card {
 	}
 
 	public String toString() {
-		return  color.getSymbol() + figure.getSymbol();
+		return color.getSymbol() + figure.getSymbol();
 	}
 
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -71,6 +69,13 @@ public class Card {
 			return false;
 		}
 		return true;
+	}
+
+	public Card(String cardInDb) {
+		char[] cards = cardInDb.toCharArray();
+		this.color = (CardColor.getColorEnum("" + cards[0])); 
+		this.figure = Figure.getFigureEnum("" + cards[1]);
+		
 	}
 
 	/*

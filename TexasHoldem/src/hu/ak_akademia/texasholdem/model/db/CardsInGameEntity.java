@@ -16,7 +16,7 @@ public class CardsInGameEntity extends DbEntity {
 	private Card flop1;
 	private Card flop2;
 	private Card flop3;
-	private Card tum;
+	private Card turn;
 	private Card river;
 
 	/**
@@ -28,14 +28,14 @@ public class CardsInGameEntity extends DbEntity {
 	 * @param tum
 	 * @param river
 	 */
-	public CardsInGameEntity(int id, int gameId, Card flop1, Card flop2, Card flop3, Card tum, Card river) {
+	public CardsInGameEntity(int id, int gameId, Card flop1, Card flop2, Card flop3, Card turn, Card river) {
 		super();
 		this.id = id;
 		this.gameId = gameId;
 		this.flop1 = flop1;
 		this.flop2 = flop2;
 		this.flop3 = flop3;
-		this.tum = tum;
+		this.turn = turn;
 		this.river = river;
 	}
 
@@ -53,7 +53,7 @@ public class CardsInGameEntity extends DbEntity {
 		this.flop1 = flop1;
 		this.flop2 = flop2;
 		this.flop3 = flop3;
-		this.tum = tum;
+		this.turn = tum;
 		this.river = river;
 	}
 
@@ -137,15 +137,15 @@ public class CardsInGameEntity extends DbEntity {
 	/**
 	 * @return the tum
 	 */
-	public Card getTum() {
-		return tum;
+	public Card getTurn() {
+		return turn;
 	}
 
 	/**
 	 * @param tum the tum to set
 	 */
-	public void setTum(Card tum) {
-		this.tum = tum;
+	public void setTurn(Card turn) {
+		this.turn = turn;
 	}
 
 	/**
