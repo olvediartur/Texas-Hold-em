@@ -19,7 +19,6 @@ public class PokerUserController extends AbstractController<PokerUserEntity> {
 	@Override
 	public void setSelected(String[] dataFromUi) {
 		selected = new PokerUserEntity();
-		//selected.setId(0);
 		selected.setName(dataFromUi[0]);
 		selected.setPassword(dataFromUi[1]);
 		selected.setCredits(Integer.parseInt(dataFromUi[2]));

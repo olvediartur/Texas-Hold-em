@@ -35,7 +35,6 @@ public class UI {
 
 	public void showMessage(String msg) {
 		printer.print(msg);
-		scanner.nextLine();
 	}
 
 	public void showBoard(List<Card> board) {
@@ -71,6 +70,7 @@ public class UI {
 		try {
 			printer.print(ApplicationController.bundle.getString(askMsg));
 			input = scanner.nextInt();
+			scanner.nextLine();
 		} catch (NoSuchElementException e) {
 			scanner.next();
 			// printer.print(ApplicationController.bundle.getString("ui_getint_askfornumber"));
@@ -91,6 +91,9 @@ public class UI {
 		scanner.close();
 	}
 
+	/**
+	 * @return
+	 */
 	public String[] registration() {
 		String[] userData = new String[3];
 		userData[0] = getStringFromUser("ui_getstring_askforname");
@@ -98,6 +101,16 @@ public class UI {
 			userData[1] = getStringFromUser("ui_getstring_askforpassword");
 		} while (!validator.isStrongPassword(userData[1]));
 		userData[2] = "" + getIntFromUser("ui_getint_askforcredits");
+		return userData;
+	}
+
+	/**
+	 * 
+	 */
+	public String[] login() {
+		String[] userData = new String[2];
+		userData[0] = getStringFromUser("login_username");
+		userData[1] = getStringFromUser("login_psw");
 		return userData;
 	}
 
