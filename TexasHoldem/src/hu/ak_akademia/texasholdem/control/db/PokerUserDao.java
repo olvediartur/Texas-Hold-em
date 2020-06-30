@@ -13,12 +13,11 @@ import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
  *
  */
 public class PokerUserDao extends AbstractDao<PokerUserEntity> {
-	
+
 	String createSql = " INSERT INTO poker_user (poker_user_id, name, password, credits, is_deleted) VALUES (POKER_USER_SEQ.nextval,?,?,?,?) ";
 	String readSql = " SELECT * FROM poker_user WHERE poker_user_id = ";
 	String updateSql = " UPDATE poker_user SET name = ?, password = ?, credits = ?, is_deleted = ? WHERE poker_user_id = ? ";
-	
-	
+
 	@Override
 	String create(PokerUserEntity pokerUser) {
 		String feedbackMsg = "";
@@ -28,13 +27,10 @@ public class PokerUserDao extends AbstractDao<PokerUserEntity> {
 			ps.setString(2, pokerUser.getPassword());
 			ps.setInt(3, pokerUser.getCredits());
 			ps.setInt(4, pokerUser.isIs_deleted() ? 1 : 0);
-			boolean res = ps.execute();
-			if(res) {
-				feedbackMsg = "Poker user created";
-			} else {
-				feedbackMsg = "User creating failed";
-			}
+			ps.execute();
+			feedbackMsg = "Poker user created";
 		} catch (SQLException e) {
+			feedbackMsg = "User creating failed";
 			e.printStackTrace();
 		}
 		return feedbackMsg;
@@ -48,7 +44,7 @@ public class PokerUserDao extends AbstractDao<PokerUserEntity> {
 		try {
 			ps = getStatement(query);
 			ResultSet rs = ps.executeQuery();
-			
+
 			pokerUser.setId(rs.getInt(1));
 			pokerUser.setName(rs.getString(2));
 			pokerUser.setPassword(rs.getNString(3));
@@ -71,7 +67,7 @@ public class PokerUserDao extends AbstractDao<PokerUserEntity> {
 			ps.setInt(4, pokerUser.isIs_deleted() ? 1 : 0);
 			ps.setInt(5, pokerUser.getId());
 			boolean res = ps.execute();
-			if(res) {
+			if (res) {
 				feedbackMsg = "Poker user updated";
 			} else {
 				feedbackMsg = "User updating failed";
@@ -85,10 +81,11 @@ public class PokerUserDao extends AbstractDao<PokerUserEntity> {
 	@Override
 	List<PokerUserEntity> getAll() {
 		List<PokerUserEntity> result = new ArrayList<>();
+		String query = " SELECT * FROM poker_user ";
 		try {
-			PreparedStatement ps = getStatement(updateSql);
+			PreparedStatement ps = getStatement(query);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				PokerUserEntity pokerUser = new PokerUserEntity();
 				pokerUser.setId(rs.getInt(1));
 				pokerUser.setName(rs.getString(2));

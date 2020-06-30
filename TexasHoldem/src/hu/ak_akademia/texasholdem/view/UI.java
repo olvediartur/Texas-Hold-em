@@ -53,25 +53,27 @@ public class UI {
 		printer.print(printMe);
 	}
 
-	public String getStringFromUser() {
+	public String getStringFromUser(String askMsg) {
 		String input = "";
 		try {
-			printer.print(ApplicationController.bundle.getString("ui_getstring_askforpassword"));
+			printer.print(ApplicationController.bundle.getString(askMsg));
 			input = scanner.nextLine();
 		} catch (NoSuchElementException e) {
-			printer.print(ApplicationController.bundle.getString("ui_getstring_askforcorrection"));
+			//printer.print(ApplicationController.bundle.getString("ui_getstring_askforcorrection"));
+			e.printStackTrace();
 		}
 		return input;
 	}
 
-	public int getIntFromUser() {
+	public int getIntFromUser(String askMsg) {
 		int input = 0;
 		try {
-			printer.print(ApplicationController.bundle.getString("ui_getint_askfornumber"));
+			printer.print(ApplicationController.bundle.getString(askMsg));
 			input = scanner.nextInt();
+			scanner.nextLine();
 		} catch (NoSuchElementException e) {
 			scanner.next();
-			//printer.print(ApplicationController.bundle.getString("ui_getint_askfornumber"));
+			// printer.print(ApplicationController.bundle.getString("ui_getint_askfornumber"));
 		}
 		return input;
 	}
@@ -79,7 +81,7 @@ public class UI {
 	public int getMenuChoice(int numberOfOptions) {
 		int res = 0;
 		do {
-			res = getIntFromUser();
+			res = getIntFromUser("ui_getint_askfornumber");
 		} while (!validator.isValidMenuChoice(res, numberOfOptions));
 		return res;
 	}
@@ -87,6 +89,29 @@ public class UI {
 	public void shutDown() {
 		printer.print(ApplicationController.bundle.getString("goodbyemsg"));
 		scanner.close();
+	}
+
+	/**
+	 * @return
+	 */
+	public String[] registration() {
+		String[] userData = new String[3];
+		userData[0] = getStringFromUser("ui_getstring_askforname");
+		do {
+			userData[1] = getStringFromUser("ui_getstring_askforpassword");
+		} while (!validator.isStrongPassword(userData[1]));
+		userData[2] = "" + getIntFromUser("ui_getint_askforcredits");
+		return userData;
+	}
+
+	/**
+	 * 
+	 */
+	public String[] login() {
+		String[] userData = new String[2];
+		userData[0] = getStringFromUser("login_username");
+		userData[1] = getStringFromUser("login_psw");
+		return userData;
 	}
 
 }

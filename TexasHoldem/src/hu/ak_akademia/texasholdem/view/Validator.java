@@ -29,7 +29,7 @@ public class Validator {
 	}
 
 	public boolean isStrongPassword(String pw) {
-		return pw.matches("[^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$]");
+		return pw.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$");
 	}
 
 }
