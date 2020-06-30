@@ -23,6 +23,13 @@ public class Card {
 		this.figure = figure;
 	}
 
+	public Card(String cardInDb) {
+		char[] cards = cardInDb.toCharArray();
+		this.color = (CardColor.getColorEnum("" + cards[0])); 
+		this.figure = Figure.getFigureEnum("" + cards[1]);
+		
+	}
+
 	/**
 	 * @return the color
 	 */
@@ -69,13 +76,6 @@ public class Card {
 			return false;
 		}
 		return true;
-	}
-
-	public Card(String cardInDb) {
-		char[] cards = cardInDb.toCharArray();
-		this.color = (CardColor.getColorEnum("" + cards[0])); 
-		this.figure = Figure.getFigureEnum("" + cards[1]);
-		
 	}
 
 	/*

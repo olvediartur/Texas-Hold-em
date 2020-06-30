@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import hu.ak_akademia.texasholdem.exception.CantSelectException;
+import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 import hu.ak_akademia.texasholdem.view.UI;
 import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
 import hu.ak_akademia.texasholdem.view.consolemenu.MenuItem;
@@ -29,6 +30,8 @@ public class ApplicationController {
 	public static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle", new Locale("en", "US"));
 
 	private UI ui = new UI();
+	private DbController dbController = new DbController();
+	
 	private Menu firstMenu = new Menu(bundle.getString("firstmenu"));
 	private Menu mainMenu = new Menu(bundle.getString("mainmenu"));
 	private Menu newGameMenu = new Menu(bundle.getString("newgamemenu"));
@@ -51,7 +54,26 @@ public class ApplicationController {
 		MenuItem reg = new Option(1, bundle.getString("firstmenu_register")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				String[] dataFromUser;
+				String notUniqueName = "";
+				do {
+					ui.showMessage(notUniqueName);
+					dataFromUser = ui.registration();
+					notUniqueName = bundle.getString("ui_notUnique_msg");
+				} while(isUniqueName(dataFromUser[0]));
+				dbController.getPokerUserController().setSelected(dataFromUser);
+				String feedback = dbController.getPokerUserController().create();
+				ui.showMessage(feedback);
+				start();
+			}
+
+			private boolean isUniqueName(String string) {
+				for(PokerUserEntity user : dbController.getPokerUserController().getAll()) {
+					if(user.getName().equals(string)) {
+						return true;
+					}
+				}
+				return false;
 			}
 		};
 		MenuItem login = new Option(2, bundle.getString("firstmenu_login")) {

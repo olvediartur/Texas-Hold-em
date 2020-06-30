@@ -15,6 +15,9 @@ import hu.ak_akademia.texasholdem.model.db.DbEntity;
  */
 public abstract class AbstractDao<E extends DbEntity> {
 	
+	public AbstractDao() {
+	}
+	
 	String createSql = "";
 	String readSql = "";
 	String updateSql = "";
