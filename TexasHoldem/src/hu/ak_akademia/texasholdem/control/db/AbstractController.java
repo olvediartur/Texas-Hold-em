@@ -32,7 +32,7 @@ public abstract class AbstractController<T extends DbEntity> {
 	}
 	
 	public String getById(int id) {
-		String feedBackMsg = "Ezt még ki kell találni, hogy hogyan állítsuk";
+		String feedBackMsg;
 		try {
 			selected = dao.read(id);
 			feedBackMsg = "getting_succes";
