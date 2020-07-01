@@ -28,9 +28,9 @@ public class PokerUserDao extends AbstractDao<PokerUserEntity> {
 			ps.setInt(3, pokerUser.getCredits());
 			ps.setInt(4, pokerUser.isIs_deleted() ? 1 : 0);
 			ps.execute();
-			feedbackMsg = "Poker user created";
+			feedbackMsg = "poker_user_created";
 		} catch (SQLException e) {
-			feedbackMsg = "User creating failed";
+			feedbackMsg = "user_creating_failed";
 			e.printStackTrace();
 		}
 		return feedbackMsg;
@@ -68,9 +68,9 @@ public class PokerUserDao extends AbstractDao<PokerUserEntity> {
 			ps.setInt(5, pokerUser.getId());
 			boolean res = ps.execute();
 			if (res) {
-				feedbackMsg = "Poker user updated";
+				feedbackMsg = "poker_user_updated";
 			} else {
-				feedbackMsg = "User updating failed";
+				feedbackMsg = "user_updating_failed";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

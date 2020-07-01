@@ -37,14 +37,20 @@ public class ApplicationController {
 	private Menu newGameMenu = new Menu(bundle.getString("newgamemenu"));
 	private Menu inGameMenu = new Menu(bundle.getString("ingamemenu"));
 
-	public void start() {
-		ui.showMenu(firstMenu);
+	/**
+	 * 
+	 */
+	
+	private void useMenu(Menu m) {
+		ui.showMenu(m);
 		try {
-			firstMenu.selectOption(ui.getMenuChoice(firstMenu.getOptions().size()));
+			m.selectOption(ui.getMenuChoice(m.getOptions().size()));
 		} catch (CantSelectException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public void start() {
+		useMenu(firstMenu);
 	}
 
 	/**
@@ -59,17 +65,17 @@ public class ApplicationController {
 				do {
 					ui.showMessage(notUniqueName);
 					dataFromUser = ui.registration();
-					notUniqueName = bundle.getString("ui_notUnique_msg");
-				} while(isUniqueName(dataFromUser[0]));
+					notUniqueName = "ui_notUnique_msg";
+				} while (isUniqueName(dataFromUser[0]));
 				dbController.getPokerUserController().setSelected(dataFromUser);
 				String feedback = dbController.getPokerUserController().create();
 				ui.showMessage(feedback);
-				start();
+				useMenu(firstMenu);
 			}
 
 			private boolean isUniqueName(String string) {
-				for(PokerUserEntity user : dbController.getPokerUserController().getAll()) {
-					if(user.getName().equals(string)) {
+				for (PokerUserEntity user : dbController.getPokerUserController().getAll()) {
+					if (user.getName().equals(string)) {
 						return true;
 					}
 				}
@@ -81,24 +87,30 @@ public class ApplicationController {
 			public void select() {
 				String[] dataFromUser;
 				int wrongCounter = 0;
+				out:
 				do {
 					dataFromUser = ui.login();
-					for(PokerUserEntity user : dbController.getPokerUserController().getAll()) {
-						if(user.getName().equals(dataFromUser[0])) {
-							if(user.getPassword().equals(dataFromUser[1])) {
-								ui.showMenu(mainMenu);
+					for (PokerUserEntity user : dbController.getPokerUserController().getAll()) {
+						if (user.getName().equals(dataFromUser[0])) {
+							if (user.getPassword().equals(dataFromUser[1])) {
+								ui.setLogedUser(user);
+								useMenu(mainMenu);
+								break out;
+							} else {
+								ui.showMessage("login_wrongPassword_msg");
+								wrongCounter++;
 							}
-							ui.showMessage(bundle.getString("login_wrongPassword_msg"));
+						} else {
+							ui.showMessage("login_wrongUserName_msg");
 							wrongCounter++;
-							break;
 						}
 					}
-					ui.showMessage(bundle.getString("login_wrongUserName_msg"));
-					wrongCounter++;
-				} while(wrongCounter < 5);
-				ui.showMessage(bundle.getString("login_tomanytry_msg"));
-				ui.shutDown();
-				System.exit(0);
+				} while (wrongCounter < 5);
+				if(wrongCounter == 5) {
+					ui.showMessage("login_tomanytry_msg");
+					ui.shutDown();
+					System.exit(0);
+				}
 			}
 		};
 		MenuItem shutDown = new Option(3, bundle.getString("firstmenu_shutdown")) {
@@ -121,38 +133,54 @@ public class ApplicationController {
 		MenuItem start = new Option(1, bundle.getString("mainmenu_start")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				useMenu(newGameMenu);
 			}
 		};
 
 		MenuItem editProfile = new SubMenu(2, bundle.getString("mainmenu_edit")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				useMenu(this);
 			}
 		};
 		MenuItem payIn = new Option(1, bundle.getString("mainmenu_edit_payin")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				int amountToPayIn = ui.getIntFromUser("mainmenu_edit_payin_msg");
+				PokerUserEntity user = ui.getLogedUser();
+				user.setCredits(user.getCredits() + amountToPayIn);				
+				dbController.getPokerUserController().setSelected(user);
+				dbController.getPokerUserController().update();
+				useMenu(mainMenu);
 			}
 		};
 		MenuItem payOff = new Option(2, bundle.getString("mainmenu_edit_payoff")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				int amountToPayIn = ui.getIntFromUser("mainmenu_edit_payoff_msg");
+				PokerUserEntity user = ui.getLogedUser();
+				user.setCredits(user.getCredits() - amountToPayIn);				
+				dbController.getPokerUserController().setSelected(user);
+				String msg = dbController.getPokerUserController().update();
+				ui.showMessage(msg);
+				useMenu(mainMenu);
 			}
 		};
 		MenuItem stats = new Option(3, bundle.getString("mainmenu_edit_stats")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				// TODO Player in game controller kell hozzá
 			}
 		};
 		MenuItem changePW = new Option(4, bundle.getString("mainmenu_edit_changepw")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				String newPw = ui.changePassword();
+				PokerUserEntity user = ui.getLogedUser();
+				user.setPassword(newPw);
+				dbController.getPokerUserController().setSelected(user);
+				dbController.getPokerUserController().update();
+				useMenu(mainMenu);
 			}
 		};
 		Menu subMenu = (Menu) editProfile;
@@ -164,7 +192,8 @@ public class ApplicationController {
 		MenuItem quit = new Option(3, bundle.getString("mainmenu_quit")) {
 			@Override
 			public void select() {
-				start();
+				ui.setLogedUser(null);
+				useMenu(firstMenu);
 			}
 		};
 
@@ -180,7 +209,7 @@ public class ApplicationController {
 		MenuItem setup = new SubMenu(1, bundle.getString("newgamemenu_setup")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				useMenu(this);
 			}
 		};
 		MenuItem addUser = new Option(1, bundle.getString("newgamemenu_setup_adduser")) {
@@ -216,7 +245,7 @@ public class ApplicationController {
 		MenuItem back = new Option(3, bundle.getString("newgamemenu_back")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				useMenu(mainMenu);
 			}
 		};
 

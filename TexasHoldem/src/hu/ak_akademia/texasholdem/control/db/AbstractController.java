@@ -53,6 +53,10 @@ public abstract class AbstractController<T extends DbEntity> {
 		return selected;
 	}
 
+	public void setSelected(T selected) {
+		this.selected = selected;
+	}
+
 	public List<T> getAll() {
 		setAll();
 		return all;

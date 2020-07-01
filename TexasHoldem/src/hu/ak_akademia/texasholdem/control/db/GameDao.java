@@ -6,7 +6,6 @@ package hu.ak_akademia.texasholdem.control.db;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 
 import hu.ak_akademia.texasholdem.model.db.GameEntity;
