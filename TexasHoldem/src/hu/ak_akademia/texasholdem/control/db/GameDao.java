@@ -27,15 +27,11 @@ public class GameDao extends AbstractDao<GameEntity> {
 			PreparedStatement ps = getStatement(createSql);
 			ps.setDate(1, new Date(game.getDateOfGame().toEpochDay()));
 			ps.setInt(2, game.getPot());
-			boolean res = ps.execute();
-			if (res) {
-				feedbackMsg = "Game created";
-			} else {
-				feedbackMsg = "Game creating failed";
-			}
-
+			ps.execute();
+			feedbackMsg = "Game created";
 		} catch (SQLException e) {
-			e.printStackTrace();
+			feedbackMsg = "Game creating failed";
+			System.err.println("Cause: " + e.getMessage());
 
 		}
 
@@ -43,8 +39,8 @@ public class GameDao extends AbstractDao<GameEntity> {
 	}
 
 	@Override
-	GameEntity read(int id) {
-		// TODO Auto-generated method stub
+	GameEntity read(int id) throws SQLException {
+		// TODO getGameEntity by id
 		return null;
 	}
 
@@ -55,24 +51,19 @@ public class GameDao extends AbstractDao<GameEntity> {
 			PreparedStatement ps = getStatement(createSql);
 			ps.setDate(1, new Date(game.getDateOfGame().toEpochDay()));
 			ps.setInt(2, game.getPot());
-			boolean res = ps.execute();
-			if (res) {
-				feedbackMsg = "Game updated";
-			} else {
-				feedbackMsg = "Game updating failed";
-			}
-
+			ps.execute();
+			feedbackMsg = "game_updated";
 		} catch (SQLException e) {
-			e.printStackTrace();
-
+			feedbackMsg = "game_updating_failed";
+			System.err.println("Cause: " + e.getMessage());
 		}
 
 		return feedbackMsg;
 	}
 
 	@Override
-	List<GameEntity> getAll() {
-		// TODO Auto-generated method stub
+	List<GameEntity> getAll() throws SQLException {
+		// TODO getAll GameEntity
 		return null;
 	}
 
