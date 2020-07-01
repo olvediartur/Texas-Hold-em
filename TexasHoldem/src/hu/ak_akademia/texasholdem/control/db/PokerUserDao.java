@@ -14,9 +14,11 @@ import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
  */
 public class PokerUserDao extends AbstractDao<PokerUserEntity> {
 
-	String createSql = " INSERT INTO poker_user (poker_user_id, name, password, credits, is_deleted) VALUES (POKER_USER_SEQ.nextval,?,?,?,?) ";
-	String readSql = " SELECT * FROM poker_user WHERE poker_user_id = ";
-	String updateSql = " UPDATE poker_user SET name = ?, password = ?, credits = ?, is_deleted = ? WHERE poker_user_id = ? ";
+	public PokerUserDao() {
+		createSql = " INSERT INTO poker_user (poker_user_id, name, password, credits, is_deleted) VALUES (POKER_USER_SEQ.nextval,?,?,?,?) ";
+		readSql = " SELECT * FROM poker_user WHERE poker_user_id = ";
+		updateSql = " UPDATE poker_user SET name = ?, password = ?, credits = ?, is_deleted = ? WHERE poker_user_id = ? ";
+	}
 
 	@Override
 	String create(PokerUserEntity pokerUser) {
@@ -31,28 +33,23 @@ public class PokerUserDao extends AbstractDao<PokerUserEntity> {
 			feedbackMsg = "poker_user_created";
 		} catch (SQLException e) {
 			feedbackMsg = "user_creating_failed";
-			e.printStackTrace();
+			System.err.println("Cause:" + e.getMessage());
 		}
 		return feedbackMsg;
 	}
 
 	@Override
-	PokerUserEntity read(int id) {
+	PokerUserEntity read(int id) throws SQLException {
 		String query = readSql + id;
 		PokerUserEntity pokerUser = new PokerUserEntity();
 		PreparedStatement ps;
-		try {
-			ps = getStatement(query);
-			ResultSet rs = ps.executeQuery();
-
-			pokerUser.setId(rs.getInt(1));
-			pokerUser.setName(rs.getString(2));
-			pokerUser.setPassword(rs.getNString(3));
-			pokerUser.setCredits(rs.getInt(4));
-			pokerUser.setIs_deleted(rs.getInt(5) == 1);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		ps = getStatement(query);
+		ResultSet rs = ps.executeQuery();
+		pokerUser.setId(rs.getInt(1));
+		pokerUser.setName(rs.getString(2));
+		pokerUser.setPassword(rs.getNString(3));
+		pokerUser.setCredits(rs.getInt(4));
+		pokerUser.setIs_deleted(rs.getInt(5) == 1);
 		return pokerUser;
 	}
 
@@ -66,37 +63,29 @@ public class PokerUserDao extends AbstractDao<PokerUserEntity> {
 			ps.setInt(3, pokerUser.getCredits());
 			ps.setInt(4, pokerUser.isIs_deleted() ? 1 : 0);
 			ps.setInt(5, pokerUser.getId());
-			boolean res = ps.execute();
-			if (res) {
-				feedbackMsg = "poker_user_updated";
-			} else {
-				feedbackMsg = "user_updating_failed";
-			}
+			ps.execute();
+			feedbackMsg = "poker_user_updated";
 		} catch (SQLException e) {
-			e.printStackTrace();
+			feedbackMsg = "user_updating_failed";
+			System.err.println("Cause:" + e.getMessage());
 		}
 		return feedbackMsg;
 	}
 
 	@Override
-	List<PokerUserEntity> getAll() {
+	List<PokerUserEntity> getAll() throws SQLException {
 		List<PokerUserEntity> result = new ArrayList<>();
 		String query = " SELECT * FROM poker_user ";
-		try {
-			PreparedStatement ps = getStatement(query);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				PokerUserEntity pokerUser = new PokerUserEntity();
-				pokerUser.setId(rs.getInt(1));
-				pokerUser.setName(rs.getString(2));
-				pokerUser.setPassword(rs.getNString(3));
-				pokerUser.setCredits(rs.getInt(4));
-				pokerUser.setIs_deleted(rs.getInt(5) == 1);
-				result.add(pokerUser);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		PreparedStatement ps = getStatement(query);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			PokerUserEntity pokerUser = new PokerUserEntity();
+			pokerUser.setId(rs.getInt(1));
+			pokerUser.setName(rs.getString(2));
+			pokerUser.setPassword(rs.getNString(3));
+			pokerUser.setCredits(rs.getInt(4));
+			pokerUser.setIs_deleted(rs.getInt(5) == 1);
+			result.add(pokerUser);
 		}
 		return result;
 	}

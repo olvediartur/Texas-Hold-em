@@ -3,6 +3,7 @@
  */
 package hu.ak_akademia.texasholdem.control.db;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,18 +33,31 @@ public abstract class AbstractController<T extends DbEntity> {
 	
 	public String getById(int id) {
 		String feedBackMsg = "Ezt még ki kell találni, hogy hogyan állítsuk";
-		selected = dao.read(id);
+		try {
+			selected = dao.read(id);
+			feedBackMsg = "getting_succes";
+		} catch (SQLException e) {
+			feedBackMsg = "getting_failed";
+			System.err.println("Cause: " + e.getMessage());
+		}
 		return feedBackMsg;
 	}
 	
 	public String setAll() {
-		String feedBackMsg = "Ezt még ki kell találni, hogy hogyan állítsuk";
-		List<T> items = dao.getAll();
-		for(T t : items) {
-			if(!all.contains(t)) {
-				all.add(t);
-			}		
-		}
+		String feedBackMsg;
+		List<T> items;
+		try {
+			items = dao.getAll();
+			for(T t : items) {
+				if(!all.contains(t)) {
+					all.add(t);
+				}		
+			}
+			feedBackMsg = "all_user_setted";
+		} catch (SQLException e) {
+			feedBackMsg = "all_user_setting failed";
+			System.err.println("Cause: " + e.getMessage());
+		}		
 		return feedBackMsg;
 	}
 	

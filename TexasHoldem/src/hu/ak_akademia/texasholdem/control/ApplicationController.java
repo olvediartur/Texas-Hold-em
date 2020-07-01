@@ -31,6 +31,7 @@ public class ApplicationController {
 
 	private UI ui = new UI();
 	private DbController dbController = new DbController();
+	private Game game = new Game();
 
 	private Menu firstMenu = new Menu(bundle.getString("firstmenu"));
 	private Menu mainMenu = new Menu(bundle.getString("mainmenu"));
@@ -169,7 +170,7 @@ public class ApplicationController {
 		MenuItem stats = new Option(3, bundle.getString("mainmenu_edit_stats")) {
 			@Override
 			public void select() {
-				// TODO Player in game controller kell hozzá
+				// TODO write Player in game controller
 			}
 		};
 		MenuItem changePW = new Option(4, bundle.getString("mainmenu_edit_changepw")) {
@@ -215,19 +216,19 @@ public class ApplicationController {
 		MenuItem addUser = new Option(1, bundle.getString("newgamemenu_setup_adduser")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				// TODO set the fields of game
 			}
 		};
 		MenuItem setEntry = new Option(2, bundle.getString("newgamemenu_setup_setentry")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				// TODO set the fields of game
 			}
 		};
 		MenuItem backToNewMenu = new Option(3, bundle.getString("newgamemenu_setup_back")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				useMenu(newGameMenu);
 			}
 		};
 		Menu subMenu = (SubMenu) setup;
@@ -238,7 +239,7 @@ public class ApplicationController {
 		MenuItem start = new Option(2, bundle.getString("newgamemenu_start")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				game.start();
 			}
 		};
 
@@ -261,25 +262,25 @@ public class ApplicationController {
 		MenuItem call = new Option(1, bundle.getString("ingamemenu_call")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				// TODO write game methods
 			}
 		};
 		MenuItem check = new Option(2, bundle.getString("ingamemenu_check")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				// TODO write game methods
 			}
 		};
 		MenuItem raise = new Option(3, bundle.getString("ingamemenu_raise")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				// TODO write game methods
 			}
 		};
 		MenuItem fold = new Option(4, bundle.getString("ingamemenu_fold")) {
 			@Override
 			public void select() {
-				// TODO Auto-generated method stub
+				// TODO write game methods
 			}
 		};
 		inGameMenu.getOptions().add(call);

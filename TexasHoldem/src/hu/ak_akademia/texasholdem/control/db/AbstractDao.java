@@ -27,7 +27,7 @@ public abstract class AbstractDao<E extends DbEntity> {
 	}
 	
 	abstract String create(E e);
-	abstract E read(int id);
+	abstract E read(int id) throws SQLException;
 	abstract String update(E e);
-	abstract List<E> getAll();
+	abstract List<E> getAll() throws SQLException;
 }

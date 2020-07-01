@@ -19,7 +19,6 @@ public class Option extends MenuItem {
 
 	@Override
 	public void select() {
-		// TODO Auto-generated method stub
 	}
 
 }
