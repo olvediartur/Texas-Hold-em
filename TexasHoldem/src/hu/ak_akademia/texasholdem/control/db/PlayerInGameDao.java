@@ -6,10 +6,13 @@ package hu.ak_akademia.texasholdem.control.db;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import hu.ak_akademia.texasholdem.control.bl.BestFive;
+import hu.ak_akademia.texasholdem.model.db.CardsInGameEntity;
 import hu.ak_akademia.texasholdem.model.db.PlayerInGameEntity;
+import hu.ak_akademia.texasholdem.model.deck.Card;
 
 /**
  * @author KarateChopMonkey
@@ -72,8 +75,17 @@ public class PlayerInGameDao extends AbstractDao<PlayerInGameEntity> {
 
 	@Override
 	List<PlayerInGameEntity> getAll() throws SQLException {
-		// TODO getAll PlayerInGame
-		return null;
+		List<PlayerInGameEntity> result = new ArrayList<>();
+		PreparedStatement ps = getStatement(updateSql);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			PlayerInGameEntity playerInGame = new PlayerInGameEntity();
+			playerInGame.setPokerUserId(rs.getInt(1));
+			playerInGame.setGameId(rs.getInt(2));
+			playerInGame.setBestCombination(BestFive.getBestFive(rs.getString(3)));
+			result.add(playerInGame);
+		}
+		return result;
 	}
 
 }
