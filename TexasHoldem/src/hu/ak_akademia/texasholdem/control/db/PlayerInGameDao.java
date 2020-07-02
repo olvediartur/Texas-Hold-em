@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.ak_akademia.texasholdem.control.bl.BestFive;
-import hu.ak_akademia.texasholdem.model.db.CardsInGameEntity;
 import hu.ak_akademia.texasholdem.model.db.PlayerInGameEntity;
-import hu.ak_akademia.texasholdem.model.deck.Card;
 
 /**
  * @author KarateChopMonkey

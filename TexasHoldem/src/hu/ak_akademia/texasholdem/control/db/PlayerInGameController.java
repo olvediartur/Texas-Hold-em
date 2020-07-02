@@ -21,8 +21,8 @@ public class PlayerInGameController extends AbstractController<PlayerInGameEntit
 	public void setSelected(String[] dataFromUi) {
 		selected = new PlayerInGameEntity();
 		selected.setPokerUserId(Integer.parseInt(dataFromUi[0]));
-		selected.setGameId(Integer.parseInt(dataFromUi[0]));
-		selected.setBestCombination(BestFive.getBestFive(dataFromUi[0]));
+		selected.setGameId(Integer.parseInt(dataFromUi[1]));
+		selected.setBestCombination(BestFive.getBestFive(dataFromUi[2]));
 	}
 	
 	
