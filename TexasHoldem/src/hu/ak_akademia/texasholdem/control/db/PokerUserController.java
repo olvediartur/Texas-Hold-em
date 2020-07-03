@@ -25,5 +25,4 @@ public class PokerUserController extends AbstractController<PokerUserEntity> {
 		selected.setIs_deleted(false);
 	}
 	
-	
 }

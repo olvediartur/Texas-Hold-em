@@ -5,11 +5,11 @@ package test;
 
 import java.util.Random;
 
-import hu.ak_akademia.texasholdem.control.ApplicationController;
 import hu.ak_akademia.texasholdem.control.bl.BestFive;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 import hu.ak_akademia.texasholdem.model.deck.CardColor;
 import hu.ak_akademia.texasholdem.model.deck.Figure;
+import hu.ak_akademia.texasholdem.view.UI;
 
 /**
  * @author bnagy
@@ -52,7 +52,7 @@ public class TestBestFive {
 			BestFive bf = new BestFive(cards[0], cards[1], cards[2], cards[3], cards[4]);
 			print(bf.getBestFiveCards());
 			System.out.println("The value of this poker hand is " +
-					ApplicationController.bundle.getString(bf.getBestFiveValue().getTextual()));
+					UI.bundle.getString(bf.getBestFiveValue().getTextual()));
 			System.out.println("----------------------------------------------");
 		}
 		System.out.println("Royal Flush:");
@@ -66,7 +66,7 @@ public class TestBestFive {
 		BestFive bf = new BestFive(cards[0], cards[1], cards[2], cards[3], cards[4]);
 		print(bf.getBestFiveCards());
 		System.out.println("The value of this poker hand is " + 
-				ApplicationController.bundle.getString(bf.getBestFiveValue().getTextual())
+				UI.bundle.getString(bf.getBestFiveValue().getTextual())
 		);
 		System.out.println("----------------------------------------------");
 		System.out.println("Straight Flush:");
@@ -79,7 +79,7 @@ public class TestBestFive {
 		BestFive bf2 = new BestFive(cards[0], cards[1], cards[2], cards[3], cards[4]);
 		print(bf2.getBestFiveCards());
 		System.out.println("The value of this poker hand is " + 
-				ApplicationController.bundle.getString(bf2.getBestFiveValue().getTextual())
+				UI.bundle.getString(bf2.getBestFiveValue().getTextual())
 		);
 		System.out.println("----------------------------------------------");
 		System.out.println("Straight:");
@@ -92,7 +92,7 @@ public class TestBestFive {
 		BestFive bf3 = new BestFive(cards[0], cards[1], cards[2], cards[3], cards[4]);
 		print(bf3.getBestFiveCards());
 		System.out.println("The value of this poker hand is " + 
-				ApplicationController.bundle.getString(bf3.getBestFiveValue().getTextual())
+				UI.bundle.getString(bf3.getBestFiveValue().getTextual())
 		);
 		System.out.println("----------------------------------------------");
 	}

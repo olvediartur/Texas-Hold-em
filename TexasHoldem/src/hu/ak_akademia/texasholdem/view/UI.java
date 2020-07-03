@@ -4,10 +4,11 @@
 package hu.ak_akademia.texasholdem.view;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
-import hu.ak_akademia.texasholdem.control.ApplicationController;
 import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
@@ -17,24 +18,28 @@ import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
  * @author Enikő
  *
  */
-public class UI {
+public final class UI {
 
 	private Validator validator;
 	private Printer printer;
 	private Scanner scanner;
+	
+	public static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle", new Locale("en", "US"));
+	private static final UI ui = new UI();
 
 	/**
 	 * 
 	 */
 	private PokerUserEntity logedUser = null;
 
-	public UI() {
-		super();
+	private UI() {
 		this.validator = new Validator();
 		this.printer = new Printer();
 		this.scanner = new Scanner(System.in);
 	}
-
+	public static UI getUi() {
+		return ui;
+	}
 	/**
 	 * @return
 	 */
@@ -60,7 +65,7 @@ public class UI {
 	 * @param msg
 	 */
 	public void showMessage(String msg) {
-		printer.print(ApplicationController.bundle.getString(msg));
+		printer.print(bundle.getString(msg));
 	}
 
 	/**
@@ -92,7 +97,7 @@ public class UI {
 	public String getStringFromUser(String askMsg) {
 		String input = "";
 		try {
-			printer.print(ApplicationController.bundle.getString(askMsg));
+			printer.print(bundle.getString(askMsg));
 			input = scanner.nextLine();
 		} catch (NoSuchElementException e) {
 			// printer.print(ApplicationController.bundle.getString("ui_getstring_askforcorrection"));
@@ -108,7 +113,7 @@ public class UI {
 	public int getIntFromUser(String askMsg) {
 		int input = 0;
 		try {
-			printer.print(ApplicationController.bundle.getString(askMsg));
+			printer.print(bundle.getString(askMsg));
 			input = scanner.nextInt();
 			scanner.nextLine();
 		} catch (NoSuchElementException e) {
@@ -134,7 +139,7 @@ public class UI {
 	 * 
 	 */
 	public void shutDown() {
-		printer.print(ApplicationController.bundle.getString("goodbyemsg"));
+		printer.print(bundle.getString("goodbyemsg"));
 		scanner.close();
 	}
 

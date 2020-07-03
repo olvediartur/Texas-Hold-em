@@ -25,5 +25,4 @@ public class PlayerInGameController extends AbstractController<PlayerInGameEntit
 		selected.setBestCombination(BestFive.getBestFive(dataFromUi[2]));
 	}
 	
-	
 }
