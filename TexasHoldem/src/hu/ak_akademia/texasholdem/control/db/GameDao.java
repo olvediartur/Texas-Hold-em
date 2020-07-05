@@ -5,10 +5,14 @@ package hu.ak_akademia.texasholdem.control.db;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import hu.ak_akademia.texasholdem.model.db.GameEntity;
+import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 
 /**
  * @author szebe
@@ -40,8 +44,16 @@ public class GameDao extends AbstractDao<GameEntity> {
 
 	@Override
 	GameEntity read(int id) throws SQLException {
-		// TODO getGameEntity by id
-		return null;
+		String query = readSql + id;
+		GameEntity gameEntity = new GameEntity();
+		PreparedStatement ps;
+		ps = getStatement(query);
+		ResultSet rs = ps.executeQuery();
+		gameEntity.setId(rs.getInt(1));
+		Date xxx = rs.getDate(2);
+		gameEntity.setDateOfGame(LocalDate.of(xxx.getYear(), xxx.getMonth(), xxx.getDay()));
+		gameEntity.setPot(rs.getInt(3));
+		return gameEntity;
 	}
 
 	@Override
@@ -63,8 +75,19 @@ public class GameDao extends AbstractDao<GameEntity> {
 
 	@Override
 	List<GameEntity> getAll() throws SQLException {
-		// TODO getAll GameEntity
-		return null;
+		List<GameEntity> result = new ArrayList<>();
+		String query = " SELECT * FROM poker_user ";
+		PreparedStatement ps = getStatement(query);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			GameEntity gameEntity = new GameEntity();
+			gameEntity.setId(rs.getInt(1));
+			Date xxx = rs.getDate(2);
+			gameEntity.setDateOfGame(LocalDate.of(xxx.getYear(), xxx.getMonth(), xxx.getDay()));
+			gameEntity.setPot(rs.getInt(3));
+			result.add(gameEntity);
+		}
+		return result;
 	}
 
 }
