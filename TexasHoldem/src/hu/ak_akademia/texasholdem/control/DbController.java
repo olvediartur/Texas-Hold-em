@@ -4,7 +4,9 @@
 package hu.ak_akademia.texasholdem.control;
 
 import hu.ak_akademia.texasholdem.control.db.AbstractController;
+import hu.ak_akademia.texasholdem.control.db.PlayerInGameController;
 import hu.ak_akademia.texasholdem.control.db.PokerUserController;
+import hu.ak_akademia.texasholdem.model.db.PlayerInGameEntity;
 import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 
 /**
@@ -23,9 +25,14 @@ public final class DbController {
 	}
 	
 	private final AbstractController<PokerUserEntity> pokerUserController = new PokerUserController();
-
+	private final AbstractController<PlayerInGameEntity> playerInGameController = new PlayerInGameController();
+	
 	public AbstractController<PokerUserEntity> getPokerUserController() {
 		return pokerUserController;
+	}
+
+	public AbstractController<PlayerInGameEntity> getPlayerInGameController() {
+		return playerInGameController;
 	}
 	
 	

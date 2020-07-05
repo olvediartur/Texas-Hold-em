@@ -13,6 +13,6 @@ public interface PlayerInGame {
 	public void call();
 	public void check();
 	public void fold();
-	public void out();
+	public void sitOut();
 	
 }

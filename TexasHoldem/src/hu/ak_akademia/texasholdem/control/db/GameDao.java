@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import hu.ak_akademia.texasholdem.model.db.GameEntity;
@@ -20,9 +19,11 @@ import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
  */
 public class GameDao extends AbstractDao<GameEntity> {
 
-	String createSql = "INSERT INTO game (game_id, date_of_game, pot) VALUES (GAME_SEQ.nextval, ?, ?)";
-	String readSql = " SELECT * FROM game WHERE game_id = ";
-	String updateSql = " UPDATE game SET date_of_game = ?, pot = ? WHERE game_id = ? ";
+	public GameDao() {
+		createSql = " INSERT INTO game (game_id, date_of_game, pot) VALUES (GAME_SEQ.nextval, ?, ?) ";
+		readSql = " SELECT * FROM game WHERE game_id = ";
+		updateSql = " UPDATE game SET date_of_game = ?, pot = ? WHERE game_id = ? ";
+	}
 
 	@Override
 	String create(GameEntity game) {
@@ -36,9 +37,7 @@ public class GameDao extends AbstractDao<GameEntity> {
 		} catch (SQLException e) {
 			feedbackMsg = "Game creating failed";
 			System.err.println("Cause: " + e.getMessage());
-
 		}
-
 		return feedbackMsg;
 	}
 

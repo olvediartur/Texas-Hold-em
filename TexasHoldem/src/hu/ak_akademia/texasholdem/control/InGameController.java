@@ -52,12 +52,14 @@ public class InGameController extends ApplicationController {
 			@Override
 			public void select() {
 				// TODO set the fields of game
+				// Hozzáad egy játékost a játékhoz
 			}
 		};
 		MenuItem setEntry = new Option(2, UI.bundle.getString("newgamemenu_setup_setentry")) {
 			@Override
 			public void select() {
 				// TODO set the fields of game
+				// beülő
 			}
 		};
 		MenuItem backToNewMenu = new Option(3, UI.bundle.getString("newgamemenu_setup_back")) {

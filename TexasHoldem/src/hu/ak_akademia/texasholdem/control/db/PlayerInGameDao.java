@@ -19,9 +19,9 @@ import hu.ak_akademia.texasholdem.model.db.PlayerInGameEntity;
 public class PlayerInGameDao extends AbstractDao<PlayerInGameEntity> {
 
 	public PlayerInGameDao() {
-		createSql = "INSERT INTO  player_in_game (best_combination, poker_user_id, game_id) VALUES (?, ?, ?)";
-		readSql = "SELECT * FROM player_in_game WHERE game_id AND poker_user_id = ?";
-		updateSql = "UPDATE player_in_game SET best_combination = ? WHERE game_id = ? AND poker_user_id = ?";
+		createSql = " INSERT INTO  player_in_game (best_combination, poker_user_id, game_id) VALUES (?, ?, ?) ";
+		readSql = " SELECT * FROM player_in_game WHERE game_id AND poker_user_id = ?";
+		updateSql = " UPDATE player_in_game SET best_combination = ? WHERE game_id = ? AND poker_user_id = ? ";
 	}
 
 	@Override

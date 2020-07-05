@@ -99,6 +99,7 @@ public class MainController extends ApplicationController {
 				System.exit(0);
 			}
 		};
+		MenuItem rules; // TODO rules
 		firstMenu.getOptions().add(reg);
 		firstMenu.getOptions().add(login);
 		firstMenu.getOptions().add(shutDown);

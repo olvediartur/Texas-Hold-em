@@ -9,7 +9,7 @@ import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
  * @author bnagy
  *
  */
-public class Player {
+public class Player implements PlayerInGame {
 	
 	final int id;
 	final String name;
@@ -78,6 +78,36 @@ public class Player {
 
 	public boolean isOwner() {
 		return owner;
+	}
+
+	@Override
+	public void raise(int credits) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void call() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void check() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void fold() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sitOut() {
+		// TODO Auto-generated method stub
+		
 	}
 		
 }
