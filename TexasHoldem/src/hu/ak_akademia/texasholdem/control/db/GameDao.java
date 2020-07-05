@@ -8,10 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import hu.ak_akademia.texasholdem.model.db.GameEntity;
-import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 
 /**
  * @author szebe
