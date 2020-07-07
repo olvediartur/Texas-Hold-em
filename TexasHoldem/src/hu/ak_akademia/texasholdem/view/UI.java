@@ -148,9 +148,12 @@ public final class UI {
 	 */
 	public String[] registration() {
 		String[] userData = new String[3];
+		String msg = "ui_void_msg";
 		userData[0] = getStringFromUser("ui_getstring_askforname");
 		do {
+			ui.showMessage(msg);
 			userData[1] = getStringFromUser("ui_getstring_askforpassword");
+			msg = "reg_notstrongpw_msg";
 		} while (!validator.isStrongPassword(userData[1]));
 		userData[2] = "" + getIntFromUser("ui_getint_askforcredits");
 		return userData;
