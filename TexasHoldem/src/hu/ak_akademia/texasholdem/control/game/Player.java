@@ -11,9 +11,11 @@ import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
  */
 public class Player implements PlayerInGame {
 	
-	final int id;
-	final String name;
-	int credits;
+	private final int id;
+	private final String name;
+	private final String pw;
+	private final boolean deleted;
+	private int credits;
 	
 	final boolean owner;
 	boolean dealer;
@@ -24,10 +26,18 @@ public class Player implements PlayerInGame {
 	public Player(PokerUserEntity entity, boolean isOwner) {
 		this.id = entity.getId();
 		this.name = entity.getName();
+		this.pw = entity.getPassword();
+		this.deleted = entity.isIs_deleted();
 		this.credits = entity.getCredits();
 		this.owner = isOwner;
 	}
-
+	public void sitIn(int entry) {
+		credits -= entry;
+		creditsInGame = entry;
+	}
+	public PokerUserEntity getUser() {
+		return new PokerUserEntity(id,name,pw,credits,deleted);
+	}
 	public int getCredits() {
 		return credits;
 	}

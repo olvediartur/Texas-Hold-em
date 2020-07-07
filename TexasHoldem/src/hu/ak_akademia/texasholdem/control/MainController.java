@@ -48,11 +48,11 @@ public class MainController extends ApplicationController {
 			@Override
 			public void select() {
 				String[] dataFromUser;
-				String notUniqueName = "";
+				String regMsg = "ui_void_msg";
 				do {
-					ui.showMessage(notUniqueName);
+					ui.showMessage(regMsg);
 					dataFromUser = ui.registration();
-					notUniqueName = "ui_notUnique_msg";
+					regMsg = "ui_notUnique_msg";
 				} while (isUniqueName(dataFromUser[0]));
 				dbc.getPokerUserController().setSelected(dataFromUser);
 				String feedback = dbc.getPokerUserController().create();
@@ -85,12 +85,12 @@ public class MainController extends ApplicationController {
 							} else {
 								ui.showMessage("login_wrongPassword_msg");
 								wrongCounter++;
+								continue out;
 							}
-						} else {
-							ui.showMessage("login_wrongUserName_msg");
-							wrongCounter++;
 						}
 					}
+					ui.showMessage("login_wrongUserName_msg");
+					wrongCounter++;
 				} while (wrongCounter < 5);
 				if (wrongCounter == 5) {
 					ui.showMessage("login_tomanytry_msg");

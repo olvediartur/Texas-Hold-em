@@ -13,16 +13,21 @@ import hu.ak_akademia.texasholdem.model.deck.Deck;
  *
  */
 public class Game {
-	private Deck deck = new Deck();
 	private List<Player> players = new ArrayList<>();
+	private int entry = 0;
 	
 	/**
 	 * @param player
 	 */
-	public void addPlayer(Player player) {
+	public String addPlayer(Player player) {
+		String feedbackMsg = "";
 		if(!players.contains(player)) {
 			players.add(player);
+			feedbackMsg = "newgame_player_addedtogame";
+		} else {
+			feedbackMsg = "newgame_player_alreadyingame";
 		}
+		return feedbackMsg;
 	}
 	
 	/**
@@ -30,6 +35,14 @@ public class Game {
 	 */
 	public List<Player> getPlayers() {
 		return players;
+	}
+	
+	public int getEntry() {
+		return entry;
+	}
+
+	public void setEntry(int entry) {
+		this.entry = entry;
 	}
 
 	/**
