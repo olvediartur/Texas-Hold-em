@@ -86,7 +86,7 @@ public class InGameController extends ApplicationController {
 		MenuItem back = new Option(3, UI.bundle.getString("newgamemenu_back")) {
 			@Override
 			public void select() {
-				new MainController().start();
+				useMenu(new MainController().getMainMenu());
 			}
 		};
 	

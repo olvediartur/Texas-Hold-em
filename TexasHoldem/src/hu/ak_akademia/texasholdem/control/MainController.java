@@ -33,6 +33,13 @@ public class MainController extends ApplicationController {
 		useMenu(firstMenu);
 	}
 
+	public Menu getFirstMenu() {
+		return firstMenu;
+	}
+	public Menu getMainMenu() {
+		return mainMenu;
+	}
+
 	/**
 	 * 
 	 */
@@ -92,16 +99,24 @@ public class MainController extends ApplicationController {
 				}
 			}
 		};
-		MenuItem shutDown = new Option(3, UI.bundle.getString("firstmenu_shutdown")) {
+		MenuItem rules = new Option(3, UI.bundle.getString("firstmenu_rules")) {
+			@Override
+			public void select() {
+				ui.showMessage("gamerules");
+				useMenu(firstMenu);
+			}
+		};
+		MenuItem shutDown = new Option(4, UI.bundle.getString("firstmenu_shutdown")) {
 			@Override
 			public void select() {
 				ui.shutDown();
 				System.exit(0);
 			}
 		};
-		MenuItem rules; // TODO rules
+		
 		firstMenu.getOptions().add(reg);
 		firstMenu.getOptions().add(login);
+		firstMenu.getOptions().add(rules);
 		firstMenu.getOptions().add(shutDown);
 	}
 
