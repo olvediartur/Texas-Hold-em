@@ -15,8 +15,8 @@ public class TestUI {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		UI.getUi().getMenuChoice(3);
-
+		//UI.getUi().getMenuChoice(3);
+		UI.getUi().showRules();
 	}
 
 }

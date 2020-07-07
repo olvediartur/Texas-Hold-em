@@ -102,7 +102,7 @@ public class MainController extends ApplicationController {
 		MenuItem rules = new Option(3, UI.bundle.getString("firstmenu_rules")) {
 			@Override
 			public void select() {
-				ui.showMessage("gamerules");
+				ui.showRules();
 				useMenu(firstMenu);
 			}
 		};

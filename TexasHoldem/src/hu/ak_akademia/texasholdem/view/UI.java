@@ -3,6 +3,7 @@
  */
 package hu.ak_akademia.texasholdem.view;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
@@ -67,7 +68,9 @@ public final class UI {
 	public void showMessage(String msg) {
 		printer.print(bundle.getString(msg));
 	}
-
+	public void showRules() {
+		printer.print(new File("res\\rules.txt"));
+	}
 	/**
 	 * @param board
 	 */
