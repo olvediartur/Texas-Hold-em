@@ -18,6 +18,9 @@ public class GameController extends AbstractController<GameEntity> {
 		dao = new GameDao();
 	}
 
+	/**
+	 * Valószínűleg nem kell.
+	 */
 	@Override
 	public void setSelected(String[] dataFromUi) {
 		selected = new GameEntity();

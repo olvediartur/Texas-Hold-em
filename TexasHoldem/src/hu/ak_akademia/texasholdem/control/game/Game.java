@@ -12,7 +12,7 @@ import hu.ak_akademia.texasholdem.model.deck.Deck;
  * @author bnagy
  *
  */
-public class Game {
+public class Game {//Session
 	private List<Player> players = new ArrayList<>();
 	private int entry = 0;
 	
@@ -50,6 +50,9 @@ public class Game {
 	 */
 	public void start() {
 		//TODO write methods of game object
+		while(players.size() > 1) {
+			new Turn(players).runHand();
+		}
 		System.out.println("MEGY A JÁTÉK");
 	}
 	
