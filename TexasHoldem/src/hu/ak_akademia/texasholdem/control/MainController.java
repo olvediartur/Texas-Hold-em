@@ -70,7 +70,7 @@ public class MainController extends ApplicationController {
 		MenuItem top10Ever = new Option(1, UI.bundle.getString("statistic_top10_ever")) {
 			@Override
 			public void select() {
-				//TODO
+				dbc.getPlayerInGameController().getAll();
 				useMenu(menu);
 			}
 		};
