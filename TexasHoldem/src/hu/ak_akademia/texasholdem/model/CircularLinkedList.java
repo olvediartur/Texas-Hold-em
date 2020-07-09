@@ -1,4 +1,4 @@
-package hu.ak_akademia.texasholdem.control.game;
+package hu.ak_akademia.texasholdem.model;
 
 /**
  * @author Artúr Ölvedi

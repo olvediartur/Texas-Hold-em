@@ -136,5 +136,10 @@ public class MainController extends ApplicationController {
 		menu.getOptions().add(subMenuEdit);
 		menu.getOptions().add(quit);
 	}
-
+	
+	@Override
+	public void start() {
+		super.start();
+		//TODO Rita TEX02-74
+	}
 }

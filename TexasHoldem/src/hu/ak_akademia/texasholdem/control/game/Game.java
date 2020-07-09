@@ -14,7 +14,7 @@ import hu.ak_akademia.texasholdem.model.deck.Deck;
  */
 public class Game {//Session
 	private List<Player> players = new ArrayList<>();
-	private int entry = 0;
+	private int buyIn = 0;
 	
 	/**
 	 * @param player
@@ -37,12 +37,12 @@ public class Game {//Session
 		return players;
 	}
 	
-	public int getEntry() {
-		return entry;
+	public int getBuyIn() {
+		return buyIn;
 	}
 
-	public void setEntry(int entry) {
-		this.entry = entry;
+	public void setBuyIn(int entry) {
+		this.buyIn = entry;
 	}
 
 	/**
@@ -55,5 +55,13 @@ public class Game {//Session
 		}
 		System.out.println("MEGY A JÁTÉK");
 	}
+
+	@Override
+	public String toString() {
+		//TODO Iza
+		return "";
+	}
+	
+	
 	
 }

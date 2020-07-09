@@ -102,7 +102,8 @@ and shall be required to place the big blind.
 big blind buttons, and are used to initiate action.
 	b. Both blind wagers shall be placed in the designated wagering area, referred to as
 “the pot.”
-5. Once the blinds have been placed in the pot, the house dealer shall deal one card facedown to each player, starting with the player to the left of the dealer button, the player
+5. Once the blinds have been placed in the pot, the house dealer shall deal one card facedown
+to each player, starting with the player to the left of the dealer button, the player
 that received the small blind button, and continuing clockwise around the table until all
 players have two cards face-down.
 	a. These initial two cards are referred to as “hole cards.”

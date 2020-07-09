@@ -18,7 +18,7 @@ import hu.ak_akademia.texasholdem.view.consolemenu.SubMenu;
  */
 public class NewGameController extends ApplicationController {
 	
-	private Game game;
+	private Game game;//Session
 	
 	public NewGameController() {
 		super();
@@ -53,14 +53,16 @@ public class NewGameController extends ApplicationController {
 					}
 				}
 				ui.showMessage("newgamemenu_setup_adduser_failed");
+				
 				useMenu((SubMenu) setup);
 			}
 		};
 		MenuItem setEntry = new Option(2, UI.bundle.getString("newgamemenu_setup_setentry")) {
 			@Override
 			public void select() {
-				int entry = UI.getUi().getIntFromUser("newgamemenu_setup_setentry_msg");
-				game.setEntry(entry);
+				int buyIn = UI.getUi().getIntFromUser("newgamemenu_setup_setentry_msg");
+				game.setBuyIn(buyIn);
+				//Felhasználóbarát üzenet
 				useMenu((SubMenu) setup);
 			}
 		};
@@ -82,12 +84,12 @@ public class NewGameController extends ApplicationController {
 					ui.showMessage(UI.bundle.getString("newgamemenu_start_notenoughplayer"));
 					useMenu(subMenu);
 				}
-				if (game.getEntry() == 0) {
+				if (game.getBuyIn() == 0) {
 					ui.showMessage(UI.bundle.getString("newgamemenu_start_noentry"));
 					useMenu(subMenu);
 				}
 				for(Player p : game.getPlayers()) {
-					p.sitIn(game.getEntry());
+					p.sitIn(game.getBuyIn());
 					dbc.getPokerUserController().setSelected(p.getUser());
 					dbc.getPokerUserController().update();
 				}
