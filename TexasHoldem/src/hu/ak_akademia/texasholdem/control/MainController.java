@@ -16,122 +16,22 @@ import hu.ak_akademia.texasholdem.view.consolemenu.SubMenu;
  */
 public class MainController extends ApplicationController {
 
-	private Menu firstMenu = new Menu(UI.bundle.getString("firstmenu"));
-	private Menu mainMenu = new Menu(UI.bundle.getString("mainmenu"));
-
 	public MainController() {
 		super();
-		initialiseFirstMenu();
+		menu = new Menu(UI.bundle.getString("mainmenu"));
 		initialiseMainMenu();
 	}
 
 	/**
 	 * 
 	 */
-	@Override
-	public void start() {
-		useMenu(firstMenu);
-	}
-
-	public Menu getFirstMenu() {
-		return firstMenu;
-	}
-	public Menu getMainMenu() {
-		return mainMenu;
-	}
-
-	/**
-	 * 
-	 */
-	private void initialiseFirstMenu() {
-		MenuItem reg = new Option(1, UI.bundle.getString("firstmenu_register")) {
-			@Override
-			public void select() {
-				String[] dataFromUser;
-				String regMsg = "ui_void_msg";
-				do {
-					ui.showMessage(regMsg);
-					dataFromUser = ui.registration();
-					regMsg = "ui_notUnique_msg";
-				} while (isUniqueName(dataFromUser[0]));
-				dbc.getPokerUserController().setSelected(dataFromUser);
-				String feedback = dbc.getPokerUserController().create();
-				ui.showMessage(feedback);
-				useMenu(firstMenu);
-			}
-
-			private boolean isUniqueName(String string) {
-				for (PokerUserEntity user : dbc.getPokerUserController().getAll()) {
-					if (user.getName().equals(string)) {
-						return true;
-					}
-				}
-				return false;
-			}
-		};
-		MenuItem login = new Option(2, UI.bundle.getString("firstmenu_login")) {
-			@Override
-			public void select() {
-				String[] dataFromUser;
-				int wrongCounter = 0;
-				out: do {
-					dataFromUser = ui.login();
-					for (PokerUserEntity user : dbc.getPokerUserController().getAll()) {
-						if (user.getName().equals(dataFromUser[0])) {
-							if (user.getPassword().equals(dataFromUser[1])) {
-								ui.setLogedUser(user);
-								useMenu(mainMenu);
-								break out;
-							} else {
-								ui.showMessage("login_wrongPassword_msg");
-								wrongCounter++;
-								continue out;
-							}
-						}
-					}
-					ui.showMessage("login_wrongUserName_msg");
-					wrongCounter++;
-				} while (wrongCounter < 5);
-				if (wrongCounter == 5) {
-					ui.showMessage("login_tomanytry_msg");
-					ui.shutDown();
-					System.exit(0);
-				}
-			}
-		};
-		MenuItem rules = new Option(3, UI.bundle.getString("firstmenu_rules")) {
-			@Override
-			public void select() {
-				ui.showRules();
-				useMenu(firstMenu);
-			}
-		};
-		MenuItem shutDown = new Option(4, UI.bundle.getString("firstmenu_shutdown")) {
-			@Override
-			public void select() {
-				ui.shutDown();
-				System.exit(0);
-			}
-		};
-		
-		firstMenu.getOptions().add(reg);
-		firstMenu.getOptions().add(login);
-		firstMenu.getOptions().add(rules);
-		firstMenu.getOptions().add(shutDown);
-	}
-
-	/**
-	 * 
-	 */
 	private void initialiseMainMenu() {
-
 		MenuItem start = new Option(1, UI.bundle.getString("mainmenu_start")) {
 			@Override
 			public void select() {
 				new InGameController().start();
 			}
 		};
-
 		MenuItem editProfile = new SubMenu(2, UI.bundle.getString("mainmenu_edit")) {
 			@Override
 			public void select() {
@@ -146,7 +46,7 @@ public class MainController extends ApplicationController {
 				user.setCredits(user.getCredits() + amountToPayIn);
 				dbc.getPokerUserController().setSelected(user);
 				ui.showMessage(dbc.getPokerUserController().update());
-				useMenu(mainMenu);
+				useMenu(menu);
 			}
 		};
 		MenuItem payOff = new Option(2, UI.bundle.getString("mainmenu_edit_payoff")) {
@@ -157,7 +57,7 @@ public class MainController extends ApplicationController {
 				user.setCredits(user.getCredits() - amountToPayIn);
 				dbc.getPokerUserController().setSelected(user);
 				ui.showMessage(dbc.getPokerUserController().update());
-				useMenu(mainMenu);
+				useMenu(menu);
 			}
 		};
 		MenuItem stats = new Option(3, UI.bundle.getString("mainmenu_edit_stats")) {
@@ -174,13 +74,13 @@ public class MainController extends ApplicationController {
 				user.setPassword(newPw);
 				dbc.getPokerUserController().setSelected(user);
 				ui.showMessage(dbc.getPokerUserController().update());
-				useMenu(mainMenu);
+				useMenu(menu);
 			}
 		};
 		MenuItem backToMain = new Option(5, UI.bundle.getString("mainmenu_edit_back")) {
 			@Override
 			public void select() {
-				useMenu(mainMenu);
+				useMenu(menu);
 			}
 		};
 		Menu subMenu = (Menu) editProfile;
@@ -194,13 +94,13 @@ public class MainController extends ApplicationController {
 			@Override
 			public void select() {
 				ui.setLogedUser(null);
-				useMenu(firstMenu);
+				new AdminController().start();
 			}
 		};
 
-		mainMenu.getOptions().add(start);
-		mainMenu.getOptions().add(subMenu);
-		mainMenu.getOptions().add(quit);
+		menu.getOptions().add(start);
+		menu.getOptions().add(subMenu);
+		menu.getOptions().add(quit);
 	}
 
 }

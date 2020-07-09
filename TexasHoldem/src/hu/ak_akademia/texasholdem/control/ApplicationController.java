@@ -16,6 +16,8 @@ public abstract class ApplicationController {
 	UI ui;
 	DbController dbc;
 	
+	Menu menu;
+	
 	protected ApplicationController() {
 		this.ui = UI.getUi();
 		this.dbc = DbController.getDbc();
@@ -30,6 +32,11 @@ public abstract class ApplicationController {
 		}
 	}
 	
-	public abstract void start();
+	Menu getMenu() {
+		return menu;
+	}
+	public void start() {
+		useMenu(menu);
+	}
 
 }

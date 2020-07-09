@@ -3,8 +3,8 @@
  */
 package hu.ak_akademia.texasholdem.view;
 
+import hu.ak_akademia.texasholdem.control.AdminController;
 import hu.ak_akademia.texasholdem.control.ApplicationController;
-import hu.ak_akademia.texasholdem.control.MainController;
 
 /**
  * @author bnagy
@@ -21,10 +21,10 @@ public class Main {
 
 	/**
 	 * Áttérés példány szintre
-	 * Elindítja a MainController-t.
+	 * Elindítja az alkalmazást.
 	 */
 	private void run() {
-		ApplicationController appCtrl = new MainController();
+		ApplicationController appCtrl = new AdminController();
 		System.out.println("Hurrá");
 		appCtrl.start();
 	}
