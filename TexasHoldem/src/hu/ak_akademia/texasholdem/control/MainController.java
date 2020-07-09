@@ -60,14 +60,46 @@ public class MainController extends ApplicationController {
 				useMenu(menu);
 			}
 		};
-		MenuItem stats = new Option(3, UI.bundle.getString("mainmenu_edit_stats")) {
+		
+		MenuItem stats = new SubMenu(3, UI.bundle.getString("mainmenu_edit_stats")) {
 			@Override
 			public void select() {
-				// TODO write Player in game controller
-				System.out.println("TODO");
+				useMenu(this);
+			}
+		};
+		MenuItem top10Ever = new Option(1, UI.bundle.getString("statistic_top10_ever")) {
+			@Override
+			public void select() {
+				//TODO
 				useMenu(menu);
 			}
 		};
+		MenuItem top10Month = new Option(2, UI.bundle.getString("statistic_top10_month")) {
+			@Override
+			public void select() {
+				//TODO
+				useMenu(menu);
+			}
+		};
+		MenuItem myTop10ever = new Option(3, UI.bundle.getString("statistic_mytop10")) {
+			@Override
+			public void select() {
+				//TODO
+				useMenu(menu);
+			}
+		};
+		MenuItem back = new Option(4, UI.bundle.getString("mainmenu_edit_back")) {
+			@Override
+			public void select() {
+				useMenu(menu);
+			}
+		};
+		SubMenu subMenuStats = (SubMenu) stats;
+		subMenuStats.getOptions().add(top10Ever);
+		subMenuStats.getOptions().add(top10Month);
+		subMenuStats.getOptions().add(myTop10ever);
+		subMenuStats.getOptions().add(back);
+		
 		MenuItem changePW = new Option(4, UI.bundle.getString("mainmenu_edit_changepw")) {
 			@Override
 			public void select() {
@@ -85,12 +117,12 @@ public class MainController extends ApplicationController {
 				useMenu(menu);
 			}
 		};
-		Menu subMenu = (Menu) editProfile;
-		subMenu.getOptions().add(payIn);
-		subMenu.getOptions().add(payOff);
-		subMenu.getOptions().add(stats);
-		subMenu.getOptions().add(changePW);
-		subMenu.getOptions().add(backToMain);
+		Menu subMenuEdit = (Menu) editProfile;
+		subMenuEdit.getOptions().add(payIn);
+		subMenuEdit.getOptions().add(payOff);
+		subMenuEdit.getOptions().add(subMenuStats);
+		subMenuEdit.getOptions().add(changePW);
+		subMenuEdit.getOptions().add(backToMain);
 
 		MenuItem quit = new Option(3, UI.bundle.getString("mainmenu_quit")) {
 			@Override
@@ -101,7 +133,7 @@ public class MainController extends ApplicationController {
 		};
 
 		menu.getOptions().add(start);
-		menu.getOptions().add(subMenu);
+		menu.getOptions().add(subMenuEdit);
 		menu.getOptions().add(quit);
 	}
 
