@@ -196,5 +196,8 @@ public final class UI {
 		}
 		return newPassword;
 	}
-
+	
+	public void clearConsole() {
+		Printer.clearConsole();
+	}
 }
