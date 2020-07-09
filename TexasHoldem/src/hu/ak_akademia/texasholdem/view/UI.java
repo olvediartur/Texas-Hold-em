@@ -177,20 +177,20 @@ public final class UI {
 		boolean ready = false;
 		while (!ready) {
 			String oldPw = getStringFromUser("mainmenu_edit_oldpw_msg");
-			String newPw = getStringFromUser("mainmenu_edit_newpw_msg");
-			String new2Pw = getStringFromUser("mainmenu_edit_newpwagain_msg");
 			if (!oldPw.equals(logedUser.getPassword())) {
 				showMessage(("mainmenu_edit_wrongoldpw_msg"));
 				continue;
 			}
-			if (!newPw.equals(new2Pw)) {
-				showMessage(("mainmenu_edit_differentpw_msg"));
-				continue;
-			}
-			if (validator.isStrongPassword(newPw)) {
+			String newPw = getStringFromUser("mainmenu_edit_newpw_msg");
+			if (!validator.isStrongPassword(newPw)) {
 				showMessage(("reg_notstrongpw_msg"));
 				continue;
 			}
+			String new2Pw = getStringFromUser("mainmenu_edit_newpwagain_msg");			
+			if (!newPw.equals(new2Pw)) {
+				showMessage(("mainmenu_edit_differentpw_msg"));
+				continue;
+			}			
 			newPassword = newPw;
 			ready = true;
 		}

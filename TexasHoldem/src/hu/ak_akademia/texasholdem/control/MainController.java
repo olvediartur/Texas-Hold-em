@@ -174,7 +174,13 @@ public class MainController extends ApplicationController {
 				PokerUserEntity user = ui.getLogedUser();
 				user.setPassword(newPw);
 				dbc.getPokerUserController().setSelected(user);
-				dbc.getPokerUserController().update();
+				ui.showMessage(dbc.getPokerUserController().update());
+				useMenu(mainMenu);
+			}
+		};
+		MenuItem backToMain = new Option(5, UI.bundle.getString("mainmenu_edit_back")) {
+			@Override
+			public void select() {
 				useMenu(mainMenu);
 			}
 		};
@@ -183,6 +189,7 @@ public class MainController extends ApplicationController {
 		subMenu.getOptions().add(payOff);
 		subMenu.getOptions().add(stats);
 		subMenu.getOptions().add(changePW);
+		subMenu.getOptions().add(backToMain);
 
 		MenuItem quit = new Option(3, UI.bundle.getString("mainmenu_quit")) {
 			@Override
