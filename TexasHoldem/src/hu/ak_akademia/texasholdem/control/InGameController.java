@@ -18,12 +18,19 @@ import hu.ak_akademia.texasholdem.view.consolemenu.SubMenu;
  */
 public class InGameController extends ApplicationController {
 
-	private Menu inGameMenu = new Menu(UI.bundle.getString("ingamemenu"));
 	private Game game;
 
 	public InGameController() {
 		super();
+		menu = new Menu(UI.bundle.getString("ingamemenu"));
 		initialiseInGameMenu();
+	}
+	
+	public InGameController(Game game) {
+		super();
+		menu = new Menu(UI.bundle.getString("ingamemenu"));
+		initialiseInGameMenu();
+		this.game = game;
 	}
 
 	/**
@@ -60,11 +67,11 @@ public class InGameController extends ApplicationController {
 				// TODO write game methods
 			}
 		};
-		inGameMenu.getOptions().add(call);
-		inGameMenu.getOptions().add(check);
-		inGameMenu.getOptions().add(raise);
-		inGameMenu.getOptions().add(fold);
-		inGameMenu.getOptions().add(sitOut);
+		menu.getOptions().add(call);
+		menu.getOptions().add(check);
+		menu.getOptions().add(raise);
+		menu.getOptions().add(fold);
+		menu.getOptions().add(sitOut);
 	}
 
 }

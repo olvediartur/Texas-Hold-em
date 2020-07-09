@@ -29,7 +29,7 @@ public class MainController extends ApplicationController {
 		MenuItem start = new Option(1, UI.bundle.getString("mainmenu_start")) {
 			@Override
 			public void select() {
-				new InGameController().start();
+				new NewGameController().start();
 			}
 		};
 		MenuItem editProfile = new SubMenu(2, UI.bundle.getString("mainmenu_edit")) {
@@ -64,6 +64,8 @@ public class MainController extends ApplicationController {
 			@Override
 			public void select() {
 				// TODO write Player in game controller
+				System.out.println("TODO");
+				useMenu(menu);
 			}
 		};
 		MenuItem changePW = new Option(4, UI.bundle.getString("mainmenu_edit_changepw")) {
