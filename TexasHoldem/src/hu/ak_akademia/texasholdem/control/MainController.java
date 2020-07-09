@@ -145,7 +145,7 @@ public class MainController extends ApplicationController {
 				PokerUserEntity user = ui.getLogedUser();
 				user.setCredits(user.getCredits() + amountToPayIn);
 				dbc.getPokerUserController().setSelected(user);
-				dbc.getPokerUserController().update();
+				ui.showMessage(dbc.getPokerUserController().update());
 				useMenu(mainMenu);
 			}
 		};
@@ -156,8 +156,7 @@ public class MainController extends ApplicationController {
 				PokerUserEntity user = ui.getLogedUser();
 				user.setCredits(user.getCredits() - amountToPayIn);
 				dbc.getPokerUserController().setSelected(user);
-				String msg = dbc.getPokerUserController().update();
-				ui.showMessage(msg);
+				ui.showMessage(dbc.getPokerUserController().update());
 				useMenu(mainMenu);
 			}
 		};
