@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import hu.ak_akademia.texasholdem.control.bl.WinnerPokerHand;
 import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
@@ -97,7 +98,19 @@ public final class UI {
 		}
 		printer.print(printMe);
 	}
-
+	public void showStatisticList(List<WinnerPokerHand> list) {
+		if(list.isEmpty()) {
+			showMessage("statistic_emptylist");
+			return;
+		}
+		StringBuilder sb = new StringBuilder();
+		int index = 1;
+		for (WinnerPokerHand w : list) {
+			sb.append(index + w.toString() + "\n");
+			index++;
+		}
+		printer.print(sb.toString());
+	}
 	/**
 	 * @param askMsg
 	 * @return
@@ -108,7 +121,6 @@ public final class UI {
 			printer.print(bundle.getString(askMsg));
 			input = scanner.nextLine();
 		} catch (NoSuchElementException e) {
-			// printer.print(ApplicationController.bundle.getString("ui_getstring_askforcorrection"));
 			e.printStackTrace();
 		}
 		return input;
@@ -121,7 +133,8 @@ public final class UI {
 	public String getPasswordFromUser(String askMsg) {
 		Console console = System.console();
 		if (console == null) {
-			System.out.println("Couldn't get Console instance, please run it in command line!");
+			showMessage("firstmenu_login_noconsole");
+			shutDown();
 			System.exit(0);
 		}
 		printer.print(bundle.getString(askMsg));
@@ -141,7 +154,6 @@ public final class UI {
 			scanner.nextLine();
 		} catch (NoSuchElementException e) {
 			scanner.next();
-			// printer.print(ApplicationController.bundle.getString("ui_getint_askfornumber"));
 		}
 		return input;
 	}

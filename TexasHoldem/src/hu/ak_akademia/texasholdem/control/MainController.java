@@ -3,6 +3,11 @@
  */
 package hu.ak_akademia.texasholdem.control;
 
+import java.util.List;
+
+import hu.ak_akademia.texasholdem.control.bl.Statistic;
+import hu.ak_akademia.texasholdem.control.db.AbstractController;
+import hu.ak_akademia.texasholdem.model.db.PlayerInGameEntity;
 import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 import hu.ak_akademia.texasholdem.view.UI;
 import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
@@ -70,21 +75,27 @@ public class MainController extends ApplicationController {
 		MenuItem top10Ever = new Option(1, UI.bundle.getString("statistic_top10_ever")) {
 			@Override
 			public void select() {
-				dbc.getPlayerInGameController().getAll();
+				//AbstractController<PlayerInGameEntity> pig = dbc.getPlayerInGameController();
+				//List<PlayerInGameEntity> list = pig.getAll();
+				//Statistic stat = new Statistic(list);
+				Statistic stat = new Statistic(dbc.getPlayerInGameController().getAll());
+				ui.showStatisticList(stat.getTopTenEver());
 				useMenu(menu);
 			}
 		};
 		MenuItem top10Month = new Option(2, UI.bundle.getString("statistic_top10_month")) {
 			@Override
 			public void select() {
-				//TODO
+				Statistic stat = new Statistic(dbc.getPlayerInGameController().getAll());
+				ui.showStatisticList(stat.getTopTenInThisMonth());
 				useMenu(menu);
 			}
 		};
 		MenuItem myTop10ever = new Option(3, UI.bundle.getString("statistic_mytop10")) {
 			@Override
 			public void select() {
-				//TODO
+				Statistic stat = new Statistic(dbc.getPlayerInGameController().getAll());
+				ui.showStatisticList(stat.getLogedUserTopTenEver(ui.getLogedUser().getId()));
 				useMenu(menu);
 			}
 		};

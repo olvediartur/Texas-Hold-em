@@ -11,13 +11,13 @@ import hu.ak_akademia.texasholdem.model.db.GameEntity;
  * @author bnagy
  *
  */
-public class GameGame {
+public class Game {
 	
 	private int id;
 	private LocalDate dateOfGame;
 	private int pot;
 	
-	public GameGame(GameEntity entity) {
+	public Game(GameEntity entity) {
 		id = entity.getId();
 		dateOfGame = entity.getDateOfGame();
 		pot = entity.getPot();

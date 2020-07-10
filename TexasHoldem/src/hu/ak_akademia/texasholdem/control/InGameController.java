@@ -3,9 +3,7 @@
  */
 package hu.ak_akademia.texasholdem.control;
 
-import hu.ak_akademia.texasholdem.control.game.Player;
 import hu.ak_akademia.texasholdem.control.game.Session;
-import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 import hu.ak_akademia.texasholdem.view.UI;
 import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
 import hu.ak_akademia.texasholdem.view.consolemenu.MenuItem;

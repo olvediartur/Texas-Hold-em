@@ -6,13 +6,11 @@ package hu.ak_akademia.texasholdem.control.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.ak_akademia.texasholdem.model.deck.Deck;
-
 /**
  * @author bnagy
  *
  */
-public class Session {//Session
+public class Session {
 	private List<Player> players = new ArrayList<>();
 	private int buyIn = 0;
 	

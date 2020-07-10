@@ -12,7 +12,7 @@ import hu.ak_akademia.texasholdem.model.deck.Deck;
  * @author bnagy
  *
  */
-public class Hand {// Hand
+public class Hand {
 	private Deck deck = new Deck();
 	private List<Player> players = new ArrayList<>();
 

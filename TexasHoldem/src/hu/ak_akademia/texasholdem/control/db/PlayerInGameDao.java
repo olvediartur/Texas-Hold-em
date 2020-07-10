@@ -74,7 +74,8 @@ public class PlayerInGameDao extends AbstractDao<PlayerInGameEntity> {
 	@Override
 	List<PlayerInGameEntity> getAll() throws SQLException {
 		List<PlayerInGameEntity> result = new ArrayList<>();
-		PreparedStatement ps = getStatement(updateSql);
+		String query = " SELECT * FROM player_in_game ";
+		PreparedStatement ps = getStatement(query);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			PlayerInGameEntity playerInGame = new PlayerInGameEntity();

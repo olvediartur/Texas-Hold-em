@@ -12,7 +12,7 @@ import hu.ak_akademia.texasholdem.model.db.PlayerInGameEntity;
  */
 public class WinnerPokerHand implements Comparable<WinnerPokerHand>{
 	private PokerUser user;
-	private GameGame gameGame;
+	private Game game;
 	private BestFive cards;
 	
 	
@@ -20,9 +20,34 @@ public class WinnerPokerHand implements Comparable<WinnerPokerHand>{
 		DbController.getDbc().getPokerUserController().getById(entity.getPokerUserId());
 		user = new PokerUser(DbController.getDbc().getPokerUserController().getSelected());
 		DbController.getDbc().getGameController().getById(entity.getGameId());
-		gameGame = new GameGame(DbController.getDbc().getGameController().getSelected());
+		game = new Game(DbController.getDbc().getGameController().getSelected());
 		cards = entity.getBestCombination();
 	}
+	
+	public PokerUser getUser() {
+		return user;
+	}
+
+	public void setUser(PokerUser user) {
+		this.user = user;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game gameGame) {
+		this.game = gameGame;
+	}
+
+	public BestFive getCards() {
+		return cards;
+	}
+
+	public void setCards(BestFive cards) {
+		this.cards = cards;
+	}
+
 	@Override
 	public int compareTo(WinnerPokerHand o) {
 		return new BestFiveComparator().compare(this.cards, o.cards);
@@ -30,7 +55,7 @@ public class WinnerPokerHand implements Comparable<WinnerPokerHand>{
 	@Override
 	public String toString() {
 		String result = "";
-		result = result + "Date=" + gameGame.getDateOfGame().toString();
+		result = result + "Date=" + game.getDateOfGame().toString();
 		result = result + " ; User=" + user.getName();
 		result = result + " ; Cards=" + cards.toString();
 		return result;
