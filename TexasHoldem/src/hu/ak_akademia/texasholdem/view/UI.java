@@ -3,6 +3,7 @@
  */
 package hu.ak_akademia.texasholdem.view;
 
+import java.io.Console;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
@@ -24,7 +25,7 @@ public final class UI {
 	private Validator validator;
 	private Printer printer;
 	private Scanner scanner;
-	
+
 	public static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle", new Locale("en", "US"));
 	private static final UI ui = new UI();
 
@@ -38,9 +39,11 @@ public final class UI {
 		this.printer = new Printer();
 		this.scanner = new Scanner(System.in);
 	}
+
 	public static UI getUi() {
 		return ui;
 	}
+
 	/**
 	 * @return
 	 */
@@ -68,9 +71,11 @@ public final class UI {
 	public void showMessage(String msg) {
 		printer.print(bundle.getString(msg));
 	}
+
 	public void showRules() {
 		printer.print(new File("res\\rules.txt"));
 	}
+
 	/**
 	 * @param board
 	 */
@@ -107,6 +112,20 @@ public final class UI {
 			e.printStackTrace();
 		}
 		return input;
+	}
+
+	/**
+	 * @param 
+	 * @return
+	 */
+	public String getPasswordFromUser() {
+		Console console = System.console();
+		if (console == null) {
+			System.out.println("Couldn't get Console instance, please run it in command line!");
+			System.exit(0);
+		}
+		char passwordArray[] = console.readPassword("Enter your password: ");
+		return new String(passwordArray);
 	}
 
 	/**
@@ -168,7 +187,7 @@ public final class UI {
 	public String[] login() {
 		String[] userData = new String[2];
 		userData[0] = getStringFromUser("login_username");
-		userData[1] = getStringFromUser("login_psw");
+		userData[1] = getPasswordFromUser();
 		return userData;
 	}
 
@@ -186,17 +205,17 @@ public final class UI {
 				showMessage(("reg_notstrongpw_msg"));
 				continue;
 			}
-			String new2Pw = getStringFromUser("mainmenu_edit_newpwagain_msg");			
+			String new2Pw = getStringFromUser("mainmenu_edit_newpwagain_msg");
 			if (!newPw.equals(new2Pw)) {
 				showMessage(("mainmenu_edit_differentpw_msg"));
 				continue;
-			}			
+			}
 			newPassword = newPw;
 			ready = true;
 		}
 		return newPassword;
 	}
-	
+
 	public void clearConsole() {
 		Printer.clearConsole();
 	}

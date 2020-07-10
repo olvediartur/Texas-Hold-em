@@ -34,6 +34,9 @@ public class Printer {
 		System.out.println(sb.toString());
 	}
 
+	/**
+	 * 
+	 */
 	public final static void clearConsole() {
 		if (System.console() == null) {
 			for (int clear = 0; clear < 1000; clear++) {
@@ -52,6 +55,7 @@ public class Printer {
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 }
