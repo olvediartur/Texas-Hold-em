@@ -118,13 +118,14 @@ public final class UI {
 	 * @param 
 	 * @return
 	 */
-	public String getPasswordFromUser() {
+	public String getPasswordFromUser(String askMsg) {
 		Console console = System.console();
 		if (console == null) {
 			System.out.println("Couldn't get Console instance, please run it in command line!");
 			System.exit(0);
 		}
-		char passwordArray[] = console.readPassword("Enter your password: ");
+		printer.print(bundle.getString(askMsg));
+		char passwordArray[] = console.readPassword();
 		return new String(passwordArray);
 	}
 
@@ -187,7 +188,11 @@ public final class UI {
 	public String[] login() {
 		String[] userData = new String[2];
 		userData[0] = getStringFromUser("login_username");
-		userData[1] = getPasswordFromUser();
+		if (System.console()==null) {
+			userData[1]=getStringFromUser("login_psw");
+		} else {
+			userData[1] = getPasswordFromUser("login_psw");
+		}
 		return userData;
 	}
 
