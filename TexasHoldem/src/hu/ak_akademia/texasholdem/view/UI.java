@@ -130,16 +130,19 @@ public final class UI {
 	 * @param 
 	 * @return
 	 */
-	public String getPasswordFromUser(String askMsg) {
+	private String getPasswordFromUser(String askMsg) {
 		Console console = System.console();
-		if (console == null) {
+		if (console != null) {
+			printer.print(bundle.getString(askMsg));
+			char passwordArray[] = console.readPassword();
+			return new String(passwordArray);
+		} else {
 			showMessage("firstmenu_login_noconsole");
 			shutDown();
 			System.exit(0);
 		}
-		printer.print(bundle.getString(askMsg));
-		char passwordArray[] = console.readPassword();
-		return new String(passwordArray);
+		return null;
+		
 	}
 
 	/**

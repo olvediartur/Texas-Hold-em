@@ -29,9 +29,9 @@ public class PlayerInGameDao extends AbstractDao<PlayerInGameEntity> {
 		String feedbackMsg = "";
 		try {
 			PreparedStatement ps = getStatement(createSql);
-			ps.setInt(1, playerInGame.getPokerUserId());
-			ps.setInt(2, playerInGame.getGameId());
-			ps.setString(3, playerInGame.getBestCombination().toString());
+			ps.setInt(2, playerInGame.getPokerUserId());
+			ps.setInt(3, playerInGame.getGameId());
+			ps.setString(1, playerInGame.getBestCombination().toString());
 			ps.execute();
 			feedbackMsg = "playeringame_created";
 		} catch (SQLException e) {

@@ -40,7 +40,7 @@ CREATE TABLE cards_in_game (
 
 CREATE SEQUENCE player_in_game_seq;
 CREATE TABLE player_in_game (
-	best_combination NVARCHAR2 (20),
+	best_combination NVARCHAR2 (30),
     poker_user_id INT NOT NULL,
     game_id INT NOT NULL,
     CONSTRAINT player_in_game_fk1 FOREIGN KEY (poker_user_id) REFERENCES poker_user(poker_user_id),
