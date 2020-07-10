@@ -12,11 +12,11 @@ import hu.ak_akademia.texasholdem.model.deck.Deck;
  * @author bnagy
  *
  */
-public class Turn {// Hand
+public class Hand {// Hand
 	private Deck deck = new Deck();
 	private List<Player> players = new ArrayList<>();
 
-	public Turn(List<Player> players) {
+	public Hand(List<Player> players) {
 		this.players = players;
 		boolean hasDealer = false;
 		for (Player p : players) {

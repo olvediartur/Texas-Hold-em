@@ -3,14 +3,13 @@
  */
 package hu.ak_akademia.texasholdem.control;
 
-import hu.ak_akademia.texasholdem.control.game.Game;
 import hu.ak_akademia.texasholdem.control.game.Player;
+import hu.ak_akademia.texasholdem.control.game.Session;
 import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 import hu.ak_akademia.texasholdem.view.UI;
 import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
 import hu.ak_akademia.texasholdem.view.consolemenu.MenuItem;
 import hu.ak_akademia.texasholdem.view.consolemenu.Option;
-import hu.ak_akademia.texasholdem.view.consolemenu.SubMenu;
 
 /**
  * @author bnagy
@@ -18,7 +17,7 @@ import hu.ak_akademia.texasholdem.view.consolemenu.SubMenu;
  */
 public class InGameController extends ApplicationController {
 
-	private Game game;
+	private Session session;
 
 	public InGameController() {
 		super();
@@ -26,11 +25,11 @@ public class InGameController extends ApplicationController {
 		initialiseInGameMenu();
 	}
 	
-	public InGameController(Game game) {
+	public InGameController(Session session) {
 		super();
 		menu = new Menu(UI.bundle.getString("ingamemenu"));
 		initialiseInGameMenu();
-		this.game = game;
+		this.session = session;
 	}
 
 	/**
