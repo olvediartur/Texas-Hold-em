@@ -66,7 +66,7 @@ public class CardsInGameDao extends AbstractDao<CardsInGameEntity> {
 	String update(CardsInGameEntity game) {
 		String feedbackMsg = "";
 		try {
-			PreparedStatement ps = getStatement(createSql);
+			PreparedStatement ps = getStatement(updateSql);
 			ps.setInt(1, game.getGameId());
 			ps.setNString(2, game.getFlop1().toString());
 			ps.setNString(3, game.getFlop2().toString());
@@ -86,7 +86,8 @@ public class CardsInGameDao extends AbstractDao<CardsInGameEntity> {
 	@Override
 	List<CardsInGameEntity> getAll() throws SQLException {
 		List<CardsInGameEntity> result = new ArrayList<>();
-		PreparedStatement ps = getStatement(updateSql);
+		String query = " SELECT * FROM cards_in_game ";
+		PreparedStatement ps = getStatement(query);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			CardsInGameEntity cardsInGame = new CardsInGameEntity();

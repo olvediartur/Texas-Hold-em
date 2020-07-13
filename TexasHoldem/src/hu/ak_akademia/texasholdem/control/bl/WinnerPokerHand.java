@@ -4,7 +4,10 @@
 package hu.ak_akademia.texasholdem.control.bl;
 
 import hu.ak_akademia.texasholdem.control.DbController;
+import hu.ak_akademia.texasholdem.control.db.AbstractController;
+import hu.ak_akademia.texasholdem.control.db.PokerUserController;
 import hu.ak_akademia.texasholdem.model.db.PlayerInGameEntity;
+import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 
 /**
  * @author bnagy
@@ -15,10 +18,11 @@ public class WinnerPokerHand implements Comparable<WinnerPokerHand>{
 	private Game game;
 	private BestFive cards;
 	
-	
 	public WinnerPokerHand(PlayerInGameEntity entity) {
-		DbController.getDbc().getPokerUserController().getById(entity.getPokerUserId());
-		user = new PokerUser(DbController.getDbc().getPokerUserController().getSelected());
+		AbstractController<PokerUserEntity> puc = DbController.getDbc().getPokerUserController();
+		puc.getById(entity.getPokerUserId());
+		PokerUserEntity pue = puc.getSelected();
+		user = new PokerUser(pue);
 		DbController.getDbc().getGameController().getById(entity.getGameId());
 		game = new Game(DbController.getDbc().getGameController().getSelected());
 		cards = entity.getBestCombination();

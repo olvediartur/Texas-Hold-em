@@ -48,6 +48,7 @@ public class GameDao extends AbstractDao<GameEntity> {
 		PreparedStatement ps;
 		ps = getStatement(query);
 		ResultSet rs = ps.executeQuery();
+		rs.next();
 		gameEntity.setId(rs.getInt(1));
 		Date xxx = rs.getDate(2);
 		gameEntity.setDateOfGame(LocalDate.of(xxx.getYear(), xxx.getMonth(), xxx.getDay()));
@@ -75,7 +76,7 @@ public class GameDao extends AbstractDao<GameEntity> {
 	@Override
 	List<GameEntity> getAll() throws SQLException {
 		List<GameEntity> result = new ArrayList<>();
-		String query = " SELECT * FROM poker_user ";
+		String query = " SELECT * FROM game ";
 		PreparedStatement ps = getStatement(query);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {

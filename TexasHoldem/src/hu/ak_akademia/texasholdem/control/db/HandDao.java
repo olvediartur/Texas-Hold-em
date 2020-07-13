@@ -52,6 +52,7 @@ public class HandDao extends AbstractDao<HandEntity> {
 		PreparedStatement ps;
 		ps = getStatement(query);
 		ResultSet rs = ps.executeQuery();
+		rs.next();
 		hand.setPokerUserId(rs.getInt(1));
 		hand.setGameId(rs.getInt(2));
 		hand.setCard1(new Card(rs.getString(3)));

@@ -48,6 +48,7 @@ public class PlayerInGameDao extends AbstractDao<PlayerInGameEntity> {
 		PreparedStatement ps;
 		ps = getStatement(query);
 		ResultSet rs = ps.executeQuery();
+		rs.next();
 		playerInGame.setPokerUserId(rs.getInt(1));
 		playerInGame.setGameId(rs.getInt(2));
 		playerInGame.setBestCombination(BestFive.getBestFive(rs.getString(3)));
@@ -79,9 +80,9 @@ public class PlayerInGameDao extends AbstractDao<PlayerInGameEntity> {
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			PlayerInGameEntity playerInGame = new PlayerInGameEntity();
-			playerInGame.setPokerUserId(rs.getInt(1));
-			playerInGame.setGameId(rs.getInt(2));
-			playerInGame.setBestCombination(BestFive.getBestFive(rs.getString(3)));
+			playerInGame.setPokerUserId(rs.getInt(2));
+			playerInGame.setGameId(rs.getInt(3));
+			playerInGame.setBestCombination(BestFive.getBestFive(rs.getString(1)));
 			result.add(playerInGame);
 		}
 		return result;

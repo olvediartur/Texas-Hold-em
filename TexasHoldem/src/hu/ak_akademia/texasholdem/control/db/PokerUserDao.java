@@ -16,7 +16,7 @@ public class PokerUserDao extends AbstractDao<PokerUserEntity> {
 
 	public PokerUserDao() {
 		createSql = " INSERT INTO poker_user (poker_user_id, name, password, credits, is_deleted) VALUES (POKER_USER_SEQ.nextval,?,?,?,?) ";
-		readSql = " SELECT * FROM poker_user WHERE poker_user_id = ";
+		readSql = " SELECT * FROM poker_user WHERE poker_user_id = ? ";
 		updateSql = " UPDATE poker_user SET name = ?, password = ?, credits = ?, is_deleted = ? WHERE poker_user_id = ? ";
 	}
 
@@ -40,11 +40,12 @@ public class PokerUserDao extends AbstractDao<PokerUserEntity> {
 
 	@Override
 	PokerUserEntity read(int id) throws SQLException {
-		String query = readSql + id;
+		String query = readSql;
 		PokerUserEntity pokerUser = new PokerUserEntity();
-		PreparedStatement ps;
-		ps = getStatement(query);
+		PreparedStatement ps = getStatement(query);
+		ps.setInt(1, id);
 		ResultSet rs = ps.executeQuery();
+		rs.next();
 		pokerUser.setId(rs.getInt(1));
 		pokerUser.setName(rs.getString(2));
 		pokerUser.setPassword(rs.getNString(3));

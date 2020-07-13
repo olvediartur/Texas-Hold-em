@@ -106,7 +106,7 @@ public final class UI {
 		StringBuilder sb = new StringBuilder();
 		int index = 1;
 		for (WinnerPokerHand w : list) {
-			sb.append(index + w.toString() + "\n");
+			sb.append(index + ") "+ w.toString() + "\n");
 			index++;
 		}
 		printer.print(sb.toString());
