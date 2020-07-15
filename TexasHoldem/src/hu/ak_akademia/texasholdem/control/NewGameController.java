@@ -89,7 +89,7 @@ public class NewGameController extends ApplicationController {
 					useMenu(subMenu);
 				}
 				for(Player p : session.getPlayers().getListOfPlayers()) {
-					p.sitIn(session.getBuyIn());
+					p.buyIn(session.getBuyIn());
 					dbc.getPokerUserController().setSelected(p.getUser());
 					dbc.getPokerUserController().update();
 				}

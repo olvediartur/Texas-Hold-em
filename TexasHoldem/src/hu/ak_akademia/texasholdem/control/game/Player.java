@@ -140,7 +140,7 @@ public class Player extends PokerUser implements PlayerInGame {
 	}
 	@Override
 	public String toString() {
-		return "Player [name=" + name + ", credits=" + credits + "]";
+		return "Player [name=" + getName() + ", credits=" + getCredits() + "]";
 	}
 		
 }
