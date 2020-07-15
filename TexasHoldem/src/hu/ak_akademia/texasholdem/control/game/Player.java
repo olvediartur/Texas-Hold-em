@@ -162,5 +162,9 @@ public class Player implements PlayerInGame {
 		creditsInGame = 0;
 		
 	}
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", credits=" + credits + "]";
+	}
 		
 }

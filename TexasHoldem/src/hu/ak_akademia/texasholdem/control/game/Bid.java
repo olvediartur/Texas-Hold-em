@@ -34,10 +34,13 @@ public class Bid {//licit
 	}
 	
 	public void run() {
+		
 		// while(nincs vége a licitnek)
 		// mit csinál az akt játékos
 		// léptetni az aktuális játékost
-		currentPlayer = stepTroughCurrentPlayer(currentPlayer);		
+		
+		currentPlayer = stepTroughCurrentPlayer(currentPlayer);	
+		
 	}
 	
 	private Player stepTroughCurrentPlayer(Player currentPlayer) {

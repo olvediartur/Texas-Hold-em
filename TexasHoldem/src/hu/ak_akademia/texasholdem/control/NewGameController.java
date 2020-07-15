@@ -80,7 +80,7 @@ public class NewGameController extends ApplicationController {
 		MenuItem start = new Option(2, UI.bundle.getString("newgamemenu_start")) {
 			@Override
 			public void select() {
-				if (session.getPlayers().size() <= 1) {
+				if (session.getPlayers().getListOfPlayers().size() <= 1) {
 					ui.showMessage(UI.bundle.getString("newgamemenu_start_notenoughplayer"));
 					useMenu(subMenu);
 				}
@@ -88,7 +88,7 @@ public class NewGameController extends ApplicationController {
 					ui.showMessage(UI.bundle.getString("newgamemenu_start_noentry"));
 					useMenu(subMenu);
 				}
-				for(Player p : session.getPlayers()) {
+				for(Player p : session.getPlayers().getListOfPlayers()) {
 					p.sitIn(session.getBuyIn());
 					dbc.getPokerUserController().setSelected(p.getUser());
 					dbc.getPokerUserController().update();

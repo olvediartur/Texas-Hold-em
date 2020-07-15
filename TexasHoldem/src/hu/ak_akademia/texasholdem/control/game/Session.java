@@ -3,23 +3,26 @@
  */
 package hu.ak_akademia.texasholdem.control.game;
 
-import java.util.ArrayList;
-import java.util.List;
+import hu.ak_akademia.texasholdem.model.CircularLinkedList;
+import hu.ak_akademia.texasholdem.model.deck.Deck;
+import hu.ak_akademia.texasholdem.view.UI;
 
 /**
  * @author bnagy
  *
  */
 public class Session {
-	private List<Player> players = new ArrayList<>();
+	private CircularLinkedList<Player> players = new CircularLinkedList<Player>();
+	private Deck deck = new Deck();
+	UI ui = UI.getUi();
 	private int buyIn = 0;
-	
+
 	/**
 	 * @param player
 	 */
 	public String addPlayer(Player player) {
 		String feedbackMsg = "";
-		if(!players.contains(player)) {
+		if (!players.contains(player)) {
 			players.add(player);
 			feedbackMsg = "newgame_player_addedtogame";
 		} else {
@@ -27,16 +30,13 @@ public class Session {
 		}
 		return feedbackMsg;
 	}
-	
-	/**
-	 * @return
-	 */
-	public List<Player> getPlayers() {
-		return players;
-	}
-	
+
 	public int getBuyIn() {
 		return buyIn;
+	}
+
+	public CircularLinkedList<Player> getPlayers() {
+		return players;
 	}
 
 	public void setBuyIn(int entry) {
@@ -47,19 +47,52 @@ public class Session {
 	 * 
 	 */
 	public void start() {
-		//TODO write methods of game object
-		while(players.size() > 1) {
-			new Hand(players).runHand();
+		/*
+		 * while(players.size() > 1) { new Hand(players.getListOfPlayers()).runHand(); }
+		 */
+		shuffleUpAndDeal();
+		deck.shuffle();
+		System.out.println();
+		System.out.print("A játék elindult a következő játékosokkal: ");
+		for (int i = 0; i < players.getListOfPlayers().size(); i++) {
+			System.out.print(players.getListOfPlayers().get(i).getName() + ":");
+			players.getListOfPlayers().get(i).setCard1(deck.draw());
+			deck.burn();
+			players.getListOfPlayers().get(i).setCard2(deck.draw());
+			deck.burn();
+			System.out.print(players.getListOfPlayers().get(i).getCard1());
+			System.out.print(players.getListOfPlayers().get(i).getCard2() + " ");
 		}
-		System.out.println("MEGY A JÁTÉK");
+		System.out.println();
+
 	}
 
 	@Override
 	public String toString() {
-		//TODO Iza
+		// TODO Iza
 		return "";
 	}
-	
-	
-	
+
+	private void shuffleUpAndDeal() {
+		ui.showMessage("the_game_is_starting");
+		for (int i = 3; i > 0; i--) {
+			wait(333);
+			System.out.print(i);
+			wait(333);
+			System.out.print(".");
+			wait(333);
+			System.out.print(".");
+			wait(333);
+			System.out.print(".");
+		}
+		ui.showMessage("shuffle_up_and_deal");
+	}
+
+	private void wait(int mSecond) {
+		try {
+			Thread.sleep(mSecond);
+		} catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+	}
 }

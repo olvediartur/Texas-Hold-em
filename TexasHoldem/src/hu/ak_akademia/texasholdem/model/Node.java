@@ -4,11 +4,13 @@ package hu.ak_akademia.texasholdem.model;
  * @author Artúr Ölvedi
  *
  */
-public class Node {
-	String data;
-	Node next;
+public class Node<T> {
 
-	public Node(String data) {
+	T data;
+
+	Node<T> next;
+
+	public Node(T data) {
 		this.data = data;
 	}
 
