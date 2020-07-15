@@ -42,17 +42,17 @@ public class Deck {
 		Figure.getFigureEnum(figure);
 	}
 
-	public void shuffle() {
+	public void shuffle() { //megkeveri a paklit
 		Collections.shuffle(cards);
 	}
 
-	public Card draw() {
+	public Card draw() { //kiosztunk 1 lapot
 		Card lastCard = cards.get(cards.size() - 1);
 		cards.remove(cards.size() - 1);
 		return lastCard;
 	}
 
-	public void burn() {
+	public void burn() { //égetünk 1 lapot
 		int index = cards.size() - 1;
 		cards.remove(index);
 	}

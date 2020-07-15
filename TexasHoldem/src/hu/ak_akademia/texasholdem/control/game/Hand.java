@@ -54,13 +54,13 @@ public class Hand {
 		System.out.println("preflop bid ...");
 		new Bid(players, Round.PREFLOP);
 		if(!isOver()) {
-			dealFlop();
+			dealOnStreet(Round.FLOP);
 			new Bid(players, Round.FLOP);
 			if(!isOver()) {
-				dealTurn();
+				dealOnStreet(Round.TURN);
 				new Bid(players, Round.TURN);
 				if(!isOver()) {
-					dealRiver();
+					dealOnStreet(Round.RIVER);
 					new Bid(players, Round.RIVER);
 				}
 			}
@@ -76,34 +76,14 @@ public class Hand {
 		// Győztes meghatározása
 		// Adatok leküldése a db-be
 	}
-
 	/**
 	 * 
 	 */
-	private void dealRiver() {
-		// TODO
-		// Eléget egy lapot
-		// egy kártya megy a boardra (-ba)
-	}
-
-	/**
-	 * 
-	 */
-	private void dealTurn() {
-		// TODO
-		// Eléget egy lapot
-		// egy kártya megy a boardra (-ba)
-		
-	}
-
-	/**
-	 * 
-	 */
-	private void dealFlop() {
-		// TODO
-		// Elégetünk egy lapot
-		// boardra (-ba) teszünk hármat
-		
+	private void dealOnStreet(Round round) {
+		deck.burn();
+		for(int i=0;i<round.getValue();i++) {
+			board.add(deck.draw());
+		}
 	}
 
 	/**
