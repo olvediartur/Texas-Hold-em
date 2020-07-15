@@ -20,6 +20,8 @@ public class PokerUser {
 	public PokerUser(PokerUserEntity entity) {
 		id = entity.getId();
 		name = entity.getName();
+		password = entity.getPassword();
+		deleted = entity.isIs_deleted();
 		credits = entity.getCredits();
 	}
 
