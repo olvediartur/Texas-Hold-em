@@ -13,10 +13,14 @@ public class PokerUser {
 	
 	private int id;
 	private String name;
+	private String password;
+	private boolean deleted;
+	private int credits;
 	
 	public PokerUser(PokerUserEntity entity) {
 		id = entity.getId();
 		name = entity.getName();
+		credits = entity.getCredits();
 	}
 
 	public int getId() {
@@ -25,6 +29,22 @@ public class PokerUser {
 
 	public String getName() {
 		return name;
+	}
+
+	public int getCredits() {
+		return credits;
+	}
+
+	public void setCredits(int credits) {
+		this.credits = credits;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
 	}
 	
 }

@@ -15,6 +15,7 @@ import hu.ak_akademia.texasholdem.model.deck.Deck;
 public class Hand {
 	private Deck deck = new Deck();
 	private List<Player> players = new ArrayList<>();
+	private int pot = 0;
 
 	public Hand(List<Player> players) {
 		this.players = players;

@@ -3,6 +3,7 @@
  */
 package hu.ak_akademia.texasholdem.control.game;
 
+import hu.ak_akademia.texasholdem.control.bl.PokerUser;
 import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 
@@ -10,13 +11,7 @@ import hu.ak_akademia.texasholdem.model.deck.Card;
  * @author bnagy
  *
  */
-public class Player implements PlayerInGame {
-	
-	private final int id;
-	private final String name;
-	private final String pw;
-	private final boolean deleted;
-	private int credits;
+public class Player extends PokerUser implements PlayerInGame {
 	
 	private final boolean owner;
 	private boolean dealer;
@@ -31,26 +26,15 @@ public class Player implements PlayerInGame {
 	private boolean folded;
 	
 	public Player(PokerUserEntity entity, boolean isOwner) {
-		this.id = entity.getId();
-		this.name = entity.getName();
-		this.pw = entity.getPassword();
-		this.deleted = entity.isIs_deleted();
-		this.credits = entity.getCredits();
+		super(entity);
 		this.owner = isOwner;
 	}
-	public void sitIn(int entry) {
-		credits -= entry;
+	public void buyIn(int entry) {
+		setCredits(getCredits() - entry);
 		creditsInGame = entry;
 	}
 	public PokerUserEntity getUser() {
-		return new PokerUserEntity(id,name,pw,credits,deleted);
-	}
-	public int getCredits() {
-		return credits;
-	}
-
-	public void setCredits(int credits) {
-		this.credits = credits;
+		return new PokerUserEntity(getId(),getName(),getPassword(),getCredits(),isDeleted());
 	}
 
 	public boolean isDealer() {
@@ -91,14 +75,6 @@ public class Player implements PlayerInGame {
 
 	public void setPrevPlayer(Player prevPlayer) {
 		this.prevPlayer = prevPlayer;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public boolean isOwner() {
