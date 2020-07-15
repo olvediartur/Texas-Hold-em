@@ -16,8 +16,8 @@ public class Player extends PokerUser implements PlayerInGame {
 	private final boolean owner;
 	private boolean dealer;
 	private int creditsInGame;
-	private Player nextPlayer;
-	private Player prevPlayer;
+	//private Player nextPlayer;
+	//private Player prevPlayer;
 	private boolean inHand;
 	
 	private Card card1;
@@ -29,6 +29,7 @@ public class Player extends PokerUser implements PlayerInGame {
 		super(entity);
 		this.owner = isOwner;
 	}
+	
 	public void buyIn(int entry) {
 		setCredits(getCredits() - entry);
 		creditsInGame = entry;
@@ -40,14 +41,11 @@ public class Player extends PokerUser implements PlayerInGame {
 	public boolean isDealer() {
 		return dealer;
 	}
-	
-	public boolean isSmallBlind() {
-		return prevPlayer.isDealer();
-	}
-	
-	public boolean isBigBlind() {
-		return prevPlayer.isSmallBlind();
-	}
+	/*
+	 * public boolean isSmallBlind() { return prevPlayer.isDealer(); }
+	 * 
+	 * public boolean isBigBlind() { return prevPlayer.isSmallBlind(); }
+	 */
 	
 	public void setDealer(boolean dealer) {
 		this.dealer = dealer;
@@ -61,21 +59,17 @@ public class Player extends PokerUser implements PlayerInGame {
 		this.creditsInGame = creditsInGame;
 	}
 
-	public Player getNextPlayer() {
-		return nextPlayer;
-	}
-
-	public void setNextPlayer(Player nextPlayer) {
-		this.nextPlayer = nextPlayer;
-	}
-
-	public Player getPrevPlayer() {
-		return prevPlayer;
-	}
-
-	public void setPrevPlayer(Player prevPlayer) {
-		this.prevPlayer = prevPlayer;
-	}
+	/*
+	 * public Player getNextPlayer() { return nextPlayer; }
+	 * 
+	 * public void setNextPlayer(Player nextPlayer) { this.nextPlayer = nextPlayer;
+	 * }
+	 * 
+	 * public Player getPrevPlayer() { return prevPlayer; }
+	 * 
+	 * public void setPrevPlayer(Player prevPlayer) { this.prevPlayer = prevPlayer;
+	 * }
+	 */
 
 	public boolean isOwner() {
 		return owner;

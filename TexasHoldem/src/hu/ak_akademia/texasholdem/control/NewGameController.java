@@ -81,11 +81,11 @@ public class NewGameController extends ApplicationController {
 			@Override
 			public void select() {
 				if (session.getPlayers().getListOfPlayers().size() <= 1) {
-					ui.showMessage(UI.bundle.getString("newgamemenu_start_notenoughplayer"));
+					ui.showMessage("newgamemenu_start_notenoughplayer");
 					useMenu(subMenu);
 				}
 				if (session.getBuyIn() == 0) {
-					ui.showMessage(UI.bundle.getString("newgamemenu_start_noentry"));
+					ui.showMessage("newgamemenu_start_noentry");
 					useMenu(subMenu);
 				}
 				for(Player p : session.getPlayers().getListOfPlayers()) {

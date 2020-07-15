@@ -1,28 +1,36 @@
 package hu.ak_akademia.texasholdem.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import hu.ak_akademia.texasholdem.control.game.Player;
 
 /**
  * @author Artúr Ölvedi
  *
  */
-public class CircularLinkedList<T>  {
+//public class CircularLinkedList<T>  implements Iterator<T>,Iterable<T> {
+public class CircularLinkedList<T>  implements Iterable<T> {
 	private int size = 0;
-	private Node<T> head;
-	private Node<T> tail;
-	private List<Player> listOfPlayers = new ArrayList<Player>();
+	private Node<T> head = new Node(null);
+	private Node<T> tail = new Node(null);
 	
-	
+	//private Node<T> actualNode;
+	private List<T> listOfPlayers = new ArrayList<>();
+
+	public CircularLinkedList() {
+		super();
+		head.next = tail;
+		tail.next = head;
+		//actualNode = head;
+	}
+
 	public Node<T> getDealer() {
 		return tail;
 	}
 
-	public void add(T player) {
-		Node<T> newNode = new Node<T>(player);
-		if (head == null) {
+	public void add(T element) {
+		Node<T> newNode = new Node<T>(element);
+		if (head.data == null) {
 			head = newNode;
 			tail = newNode;
 			newNode.next = head;
@@ -31,7 +39,7 @@ public class CircularLinkedList<T>  {
 			tail = newNode;
 			tail.next = head;
 		}
-		listOfPlayers.add((Player) player);
+		listOfPlayers.add(element);
 		size++;
 	}
 
@@ -72,7 +80,7 @@ public class CircularLinkedList<T>  {
 
 	public T getNext(T player) {
 		Node<T> currentNode = head;
-		if (head == null) {
+		if (head.data == null) {
 			return null;
 		} else {
 			do {
@@ -88,7 +96,7 @@ public class CircularLinkedList<T>  {
 	public T getPrevious(T player) {
 		Node<T> curr = head;
 		int counter = 0;
-		if (curr == null) {
+		if (curr.data == null) {
 			return null;
 		} else {
 			Node<T> temp = curr;
@@ -107,8 +115,21 @@ public class CircularLinkedList<T>  {
 		return size;
 	}
 
-	public List<Player> getListOfPlayers() {
+	public List<T> getListOfPlayers() {
 		return listOfPlayers;
+	}
+
+	/*
+	 * @Override public boolean hasNext() { if(actualNode.data == null) { actualNode
+	 * = head; } if(!actualNode.equals(tail)) { return true; } return false; }
+	 * 
+	 * @Override public T next() { actualNode = actualNode.next; return
+	 * actualNode.data; }
+	 */
+
+	@Override
+	public Iterator<T> iterator() {
+		return listOfPlayers.iterator();
 	}
 	
 }
