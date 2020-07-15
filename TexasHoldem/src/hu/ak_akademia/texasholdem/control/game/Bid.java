@@ -29,11 +29,14 @@ public class Bid {//licit
 	}
 	
 	public void run() {
-		Player lastRaiser = 
-		// while(nincs vége a licitnek)
-		// mit csinál az akt játékos
-		// léptetni az aktuális játékost
-		
+		Player lastRaiser = getBigBlind();
+				/*
+				 * while(nincs vége a licitnek)
+				 * mit csinál az akt játékos
+				 * léptetni az aktuális játékost
+				 * 
+				 * addig tart, amíg players.getNext() vissza nem ér a lastRaiser-hez.
+				 */
 		currentPlayer = stepTroughCurrentPlayer(currentPlayer);	
 		
 	}
@@ -55,5 +58,12 @@ public class Bid {//licit
 		return null;//Ilyen nem lehet.
 	}
 	
+	private Player getSmallBlind() {
+		return playersInHand.getNext(getDealer());
+	}
+	
+	private Player getBigBlind() {
+		return playersInHand.getNext(getSmallBlind());
+	}
 	
 }

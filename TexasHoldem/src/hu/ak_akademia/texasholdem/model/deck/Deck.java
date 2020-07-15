@@ -18,9 +18,16 @@ public class Deck {
 	 * @param cards
 	 */
 	public Deck() {
+		/*
 		for (int i = 1; i < 14; i++) {
 			for (int j = 1; j < 5; j++) {
 				cards.add(new Card(CardColor.getColorEnum(j), Figure.getFigureEnum(i)));
+			}
+		}
+		*/
+		for (Figure f : Figure.values()) {
+			for (CardColor cc : CardColor.values()) {
+				cards.add(new Card(cc, f));
 			}
 		}
 
