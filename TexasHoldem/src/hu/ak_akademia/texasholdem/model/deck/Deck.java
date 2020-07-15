@@ -18,19 +18,11 @@ public class Deck {
 	 * @param cards
 	 */
 	public Deck() {
-		/*
-		for (int i = 1; i < 14; i++) {
-			for (int j = 1; j < 5; j++) {
-				cards.add(new Card(CardColor.getColorEnum(j), Figure.getFigureEnum(i)));
-			}
-		}
-		*/
 		for (Figure f : Figure.values()) {
 			for (CardColor cc : CardColor.values()) {
 				cards.add(new Card(cc, f));
 			}
 		}
-
 	}
 
 	/**
@@ -42,17 +34,17 @@ public class Deck {
 		Figure.getFigureEnum(figure);
 	}
 
-	public void shuffle() { //megkeveri a paklit
+	public void shuffle() { // megkeveri a paklit
 		Collections.shuffle(cards);
 	}
 
-	public Card draw() { //kiosztunk 1 lapot
+	public Card draw() { // kiosztunk 1 lapot
 		Card lastCard = cards.get(cards.size() - 1);
 		cards.remove(cards.size() - 1);
 		return lastCard;
 	}
 
-	public void burn() { //égetünk 1 lapot
+	public void burn() { // égetünk 1 lapot
 		int index = cards.size() - 1;
 		cards.remove(index);
 	}

@@ -5,7 +5,6 @@ package hu.ak_akademia.texasholdem.control.game;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import hu.ak_akademia.texasholdem.model.CircularLinkedList;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 import hu.ak_akademia.texasholdem.model.deck.Deck;
@@ -32,7 +31,6 @@ public class Hand {
 				break;
 			}
 		}
-		
 		if (!hasDealer) {
 			for (Player p : players) {
 				if (p.isOwner()) {
@@ -42,7 +40,7 @@ public class Hand {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -53,13 +51,13 @@ public class Hand {
 		deal();
 		System.out.println("preflop bid ...");
 		new Bid(players, Round.PREFLOP);
-		if(!isOver()) {
+		if (!isOver()) {
 			dealOnStreet(Round.FLOP);
 			new Bid(players, Round.FLOP);
-			if(!isOver()) {
+			if (!isOver()) {
 				dealOnStreet(Round.TURN);
 				new Bid(players, Round.TURN);
-				if(!isOver()) {
+				if (!isOver()) {
 					dealOnStreet(Round.RIVER);
 					new Bid(players, Round.RIVER);
 				}
@@ -76,12 +74,13 @@ public class Hand {
 		// Győztes meghatározása
 		// Adatok leküldése a db-be
 	}
+
 	/**
 	 * 
 	 */
 	private void dealOnStreet(Round round) {
 		deck.burn();
-		for(int i=0;i<round.getValue();i++) {
+		for (int i = 0; i < round.getValue(); i++) {
 			board.add(deck.draw());
 		}
 	}
@@ -90,19 +89,19 @@ public class Hand {
 	 * 
 	 */
 	private void deal() {
-		for(Player p : players) {
+		for (Player p : players) {
 			p.setCard1(deck.draw());
 		}
-		for(Player p : players) {
+		for (Player p : players) {
 			p.setCard2(deck.draw());
-		}		
+		}
 	}
-	
+
 	/**
 	 * @return
 	 */
 	private boolean isOver() {
-		if(getNumberOfPlayersInHand() > 1) {
+		if (getNumberOfPlayersInHand() > 1) {
 			return false;
 		}
 		return true;
@@ -113,8 +112,8 @@ public class Hand {
 	 */
 	private int getNumberOfPlayersInHand() {
 		int ans = 0;
-		for(Player p : players) {
-			if(p.isInHand()) {
+		for (Player p : players) {
+			if (p.isInHand()) {
 				ans++;
 			}
 		}

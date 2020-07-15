@@ -9,7 +9,7 @@ import hu.ak_akademia.texasholdem.view.UI;
 
 /**
  * @author bnagy
- *
+ * @author Artúr Ölvedi
  */
 public class Session {
 	private CircularLinkedList<Player> players = new CircularLinkedList<Player>();
@@ -23,6 +23,7 @@ public class Session {
 	public String addPlayer(Player player) {
 		String feedbackMsg = "";
 		if (!players.contains(player)) {
+			addChipsToPlayer(player);
 			players.add(player);
 			feedbackMsg = "newgame_player_addedtogame";
 		} else {
@@ -31,6 +32,10 @@ public class Session {
 		return feedbackMsg;
 	}
 
+	//ezzel a metódussal a játékos a befizetett összeg 10szeres zsetonját kapja meg
+	private void addChipsToPlayer(Player player) {
+		player.setChips(buyIn*10);
+	}
 	public int getBuyIn() {
 		return buyIn;
 	}
