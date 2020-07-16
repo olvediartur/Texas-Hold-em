@@ -13,17 +13,17 @@ import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
  */
 public abstract class ApplicationController {
 	
-	UI ui;
-	DbController dbc;
+	public UI ui;
+	public DbController dbc;
 	
-	Menu menu;
+	public Menu menu;
 	
 	protected ApplicationController() {
 		this.ui = UI.getUi();
 		this.dbc = DbController.getDbc();
 	}
 
-	void useMenu(Menu m) {
+	public void useMenu(Menu m) {
 		ui.showMenu(m);
 		try {
 			m.selectOption(ui.getMenuChoice(m.getOptions().size()));

@@ -3,6 +3,7 @@
  */
 package hu.ak_akademia.texasholdem.control.game;
 
+import hu.ak_akademia.texasholdem.control.InGameController;
 import hu.ak_akademia.texasholdem.model.CircularLinkedList;
 import hu.ak_akademia.texasholdem.view.UI;
 
@@ -12,12 +13,14 @@ import hu.ak_akademia.texasholdem.view.UI;
  */
 public class Bid {// licit
 	private Player currentPlayer;
+	private Player lastRaiser;
 	private CircularLinkedList<Player> playersInHand = new CircularLinkedList<>();
 	private Round round;
-	private UI ui = UI.getUi();
+	private InGameController igc;
 
-	public Bid(CircularLinkedList<Player> players, Round round) {
+	public Bid(CircularLinkedList<Player> players, Round round, InGameController igc) {
 		this.round = round;
+		this.igc = igc;
 		for (Player p : players) {
 			if (p.isInHand()) {
 				playersInHand.add(p);
@@ -31,16 +34,17 @@ public class Bid {// licit
 	}
 
 	public void run() {
-		Player lastRaiser = getBigBlind();
+		lastRaiser = getBigBlind();
 		//Megnézi, ha preflop vagyunk akkor a nagyvak utáni cselekszik elsőnek, 
 		//különben a dealer utáni.
-		if (round.getValue()==0) {
+		if (round.getValue() == 0) {
 			currentPlayer=playersInHand.getNext(lastRaiser);
 		} else {
 			currentPlayer=playersInHand.getNext(getDealer());
 		}
 		//
-		while (isEndOfBid(currentPlayer, lastRaiser)) {
+		while (!isEndOfBid(currentPlayer, lastRaiser)) {
+			igc.useMenu(igc.menu);
 			/*
 			 * while(nincs vége a licitnek)
 			 * mit csinál az akt játékos
@@ -48,27 +52,28 @@ public class Bid {// licit
 			 * 
 			 * addig tart, amíg players.getNext() vissza nem ér a lastRaiser-hez.
 			 */
-			
+			currentPlayer = stepTroughCurrentPlayer(currentPlayer);	
 		}
-		currentPlayer = stepTroughCurrentPlayer(currentPlayer);	
 		
 	}
 	//Akkor van vége egy licitkörnek amikor az utolsó hand-ben lévő játékos
 	//után az emelő következne ÉS az utolsó játékos nem emel vissza(vagyis csak megad vagy dob).
 	private boolean isEndOfBid(Player raisingPlayer, Player actualPlayer) {
-		if (playersInHand.getNext(actualPlayer) == raisingPlayer && !actualPlayer.isRaised()) {
+		if (playersInHand.getNext(actualPlayer) == raisingPlayer && actualPlayer.getLastAction() != InGameAction.RAISE) {
 			return true;
 		}
 		return false;
 	}
 
 	private Player stepTroughCurrentPlayer(Player currentPlayer) {
-		ui.showMessage(currentPlayer + "is_your_turn");
+		Player nextPlayer = playersInHand.getNext(currentPlayer);
+		igc.ui.print(nextPlayer.getName());
+		igc.ui.showMessage("is_your_turn");
 		/*
 		 * Player act = currentPlayer; while(act.getNextPlayer().isFolded()) { act =
 		 * currentPlayer.getNextPlayer(); } return act.getNextPlayer();
 		 */
-		return playersInHand.getNext(currentPlayer);
+		return nextPlayer;
 	}
 
 	private Player getDealer() {
@@ -87,5 +92,13 @@ public class Bid {// licit
 	private Player getBigBlind() {
 		return playersInHand.getNext(getSmallBlind());
 	}
+	
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
 
+	public Player getLastRaiser() {
+		return lastRaiser;
+	}
+	
 }

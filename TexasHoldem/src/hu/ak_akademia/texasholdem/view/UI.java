@@ -63,16 +63,19 @@ public final class UI {
 	 * @param m
 	 */
 	public void showMenu(Menu m) {
-		printer.print(m.show());
+		printer.printLine(m.show());
 	}
 
 	/**
 	 * @param msg
 	 */
 	public void showMessage(String msg) {
-		printer.print(bundle.getString(msg));
+		printer.printLine(bundle.getString(msg));
 	}
-
+	
+	public void print(String text) {
+		printer.print(text);
+	}
 	public void showRules() {
 		printer.print(new File("res\\rules.txt"));
 	}
@@ -85,7 +88,7 @@ public final class UI {
 		for (int i = 0; i < board.size(); i++) {
 			printMe += board.get(i).toString();
 		}
-		printer.print(printMe);
+		printer.printLine(printMe);
 	}
 
 	/**
@@ -96,7 +99,7 @@ public final class UI {
 		for (int i = 0; i < cards.size(); i++) {
 			printMe += cards.get(i).toString();
 		}
-		printer.print(printMe);
+		printer.printLine(printMe);
 	}
 	public void showStatisticList(List<WinnerPokerHand> list) {
 		if(list.isEmpty()) {
@@ -109,7 +112,7 @@ public final class UI {
 			sb.append(index + ") "+ w.toString() + "\n");
 			index++;
 		}
-		printer.print(sb.toString());
+		printer.printLine(sb.toString());
 	}
 	/**
 	 * @param askMsg
@@ -118,7 +121,7 @@ public final class UI {
 	public String getStringFromUser(String askMsg) {
 		String input = "";
 		try {
-			printer.print(bundle.getString(askMsg));
+			printer.printLine(bundle.getString(askMsg));
 			input = scanner.nextLine();
 		} catch (NoSuchElementException e) {
 			e.printStackTrace();
@@ -133,7 +136,7 @@ public final class UI {
 	private String getPasswordFromUser(String askMsg) {
 		Console console = System.console();
 		if (console != null) {
-			printer.print(bundle.getString(askMsg));
+			printer.printLine(bundle.getString(askMsg));
 			char passwordArray[] = console.readPassword();
 			return new String(passwordArray);
 		} else {
@@ -152,7 +155,7 @@ public final class UI {
 	public int getIntFromUser(String askMsg) {
 		int input = 0;
 		try {
-			printer.print(bundle.getString(askMsg));
+			printer.printLine(bundle.getString(askMsg));
 			input = scanner.nextInt();
 			scanner.nextLine();
 		} catch (NoSuchElementException e) {
@@ -177,7 +180,7 @@ public final class UI {
 	 * 
 	 */
 	public void shutDown() {
-		printer.print(bundle.getString("goodbyemsg"));
+		printer.printLine(bundle.getString("goodbyemsg"));
 		scanner.close();
 	}
 

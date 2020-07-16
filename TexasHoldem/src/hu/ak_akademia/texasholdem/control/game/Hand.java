@@ -5,6 +5,8 @@ package hu.ak_akademia.texasholdem.control.game;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import hu.ak_akademia.texasholdem.control.InGameController;
 import hu.ak_akademia.texasholdem.model.CircularLinkedList;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 import hu.ak_akademia.texasholdem.model.deck.Deck;
@@ -16,12 +18,20 @@ import hu.ak_akademia.texasholdem.model.deck.Deck;
 public class Hand {
 	private Deck deck = new Deck();
 	private CircularLinkedList<Player> players = new CircularLinkedList<>();
+	private InGameController igc;
 	private List<Card> board = new ArrayList<>();
+	private Bid currentBid;
 	private boolean over = false;
 	private int pot = 0;
 
-	public Hand(CircularLinkedList<Player> players) {
+	public Hand(InGameController igc) {
+		super();
+		this.igc = igc;
+	}
+
+	public Hand(CircularLinkedList<Player> players, InGameController igc) {
 		this.players = players;
+		this.igc = igc;
 		boolean hasDealer = false;
 		for (Player p : players) {
 			if (p.isDealer()) {
@@ -39,31 +49,39 @@ public class Hand {
 				}
 			}
 		}
+		for (Player p : players) {
+			p.setInHand(true);
+		}
 	}
 
 	/**
 	 * 
 	 */
 	public void runHand() {
-		System.out.println("shuffle deck ...");
 		deck.shuffle();
-		System.out.println("dealing ...");
 		deal();
-		System.out.println("preflop bid ...");
-		new Bid(players, Round.PREFLOP);
+		currentBid = new Bid(players, Round.PREFLOP, igc);
+		currentBid.run();
 		if (!isOver()) {
 			dealOnStreet(Round.FLOP);
-			new Bid(players, Round.FLOP);
+			currentBid = new Bid(players, Round.FLOP, igc);
+			currentBid.run();
 			if (!isOver()) {
 				dealOnStreet(Round.TURN);
-				new Bid(players, Round.TURN);
+				currentBid = new Bid(players, Round.TURN, igc);
+				currentBid.run();
 				if (!isOver()) {
 					dealOnStreet(Round.RIVER);
-					new Bid(players, Round.RIVER);
+					currentBid = new Bid(players, Round.RIVER, igc);
+					currentBid.run();
 				}
 			}
 		}
 		showDown();
+	}
+
+	public Bid getCurrentBid() {
+		return currentBid;
 	}
 
 	/**

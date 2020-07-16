@@ -93,7 +93,7 @@ public class NewGameController extends ApplicationController {
 					dbc.getPokerUserController().setSelected(p.getUser());
 					dbc.getPokerUserController().update();
 				}
-				session.start();
+				new InGameController(session).start();
 				useMenu(menu);
 			}
 		};

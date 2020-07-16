@@ -14,8 +14,12 @@ import java.util.Scanner;
  */
 public class Printer {
 
-	public void print(String str) {
+	public void printLine(String str) {
 		System.out.println(str);
+	}
+	
+	public void print(String str) {
+		System.out.print(str);
 	}
 
 	public void print(File file) {

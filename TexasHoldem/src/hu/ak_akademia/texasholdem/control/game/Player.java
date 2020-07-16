@@ -15,12 +15,12 @@ public class Player extends PokerUser implements PlayerInGame {
 
 	private final boolean owner;
 	private boolean dealer;
-	private int creditsInGame;
-	private boolean inHand;
+	private boolean inHand = true;
 	private Card card1;
 	private Card card2;
-	private boolean folded;
-	private int chips=0;
+	private int chips = 0;
+	private int chipsInPot = 0;
+	private InGameAction lastAction;
 
 	public Player(PokerUserEntity entity, boolean isOwner) {
 		super(entity);
@@ -29,7 +29,7 @@ public class Player extends PokerUser implements PlayerInGame {
 
 	public void buyIn(int entry) {
 		setCredits(getCredits() - entry);
-		creditsInGame = entry;
+		chips = entry * 10;
 	}
 
 	public PokerUserEntity getUser() {
@@ -42,14 +42,6 @@ public class Player extends PokerUser implements PlayerInGame {
 
 	public void setDealer(boolean dealer) {
 		this.dealer = dealer;
-	}
-
-	public int getCreditsInGame() {
-		return creditsInGame;
-	}
-
-	public void setCreditsInGame(int creditsInGame) {
-		this.creditsInGame = creditsInGame;
 	}
 
 	public boolean isOwner() {
@@ -80,14 +72,6 @@ public class Player extends PokerUser implements PlayerInGame {
 		this.inHand = inHand;
 	}
 
-	public boolean isFolded() {
-		return folded;
-	}
-
-	public void setFolded(boolean folded) {
-		this.folded = folded;
-	}
-
 	@Override
 	public void raise(int chip) {
 		chips=chips-chip;
@@ -97,6 +81,7 @@ public class Player extends PokerUser implements PlayerInGame {
 
 	@Override
 	public void call(int chip) {
+		
 		chips=chips-chip;
 	}
 
@@ -121,15 +106,6 @@ public class Player extends PokerUser implements PlayerInGame {
 		return "Player [name=" + getName() + ", credits=" + getCredits() + "]";
 	}
 
-	/**
-	 * @return
-	 */
-	public boolean isRaised() {
-		// TODO Auto-generated method stub
-		// meg kell valósítani
-		return false;
-	}
-
 	public int getChips() {
 		return chips;
 	}
@@ -137,4 +113,17 @@ public class Player extends PokerUser implements PlayerInGame {
 	public void setChips(int chips) {
 		this.chips = chips;
 	}
+	
+	public int getChipsInPot() {
+		return chipsInPot;
+	}
+
+	public InGameAction getLastAction() {
+		return lastAction;
+	}
+
+	public void setLastAction(InGameAction lastAction) {
+		this.lastAction = lastAction;
+	}
+	
 }
