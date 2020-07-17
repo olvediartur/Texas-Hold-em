@@ -6,7 +6,6 @@ package hu.ak_akademia.texasholdem.control.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.ak_akademia.texasholdem.control.InGameController;
 import hu.ak_akademia.texasholdem.model.CircularLinkedList;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 import hu.ak_akademia.texasholdem.model.deck.Deck;
@@ -16,23 +15,12 @@ import hu.ak_akademia.texasholdem.model.deck.Deck;
  *
  */
 public class Hand {
+	
 	private Deck deck = new Deck();
 	private CircularLinkedList<Player> players = new CircularLinkedList<>();
-	private InGameController igc;
 	private List<Card> board = new ArrayList<>();
 	private Bid currentBid;
-	private boolean over = false;
 	private int pot = 0;
-
-	public Hand(InGameController igc) {
-		super();
-		this.igc = igc;
-	}
-
-	public Hand(CircularLinkedList<Player> players, InGameController igc) {
-		this(players);
-		this.igc = igc;
-	}
 
 	/**
 	 * @param players
@@ -63,29 +51,15 @@ public class Hand {
 
 	/**
 	 * 
-	 */
-	public void runHand() {
-		deck.shuffle();
-		deal();
-		currentBid = new Bid(players, Round.PREFLOP, igc);
-		currentBid.run();
-		if (!isOver()) {
-			dealOnStreet(Round.FLOP);
-			currentBid = new Bid(players, Round.FLOP, igc);
-			currentBid.run();
-			if (!isOver()) {
-				dealOnStreet(Round.TURN);
-				currentBid = new Bid(players, Round.TURN, igc);
-				currentBid.run();
-				if (!isOver()) {
-					dealOnStreet(Round.RIVER);
-					currentBid = new Bid(players, Round.RIVER, igc);
-					currentBid.run();
-				}
-			}
-		}
-		showDown();
-	}
+	 *//*
+		 * public void runHand() { deck.shuffle(); deal(); currentBid = new Bid(players,
+		 * Round.PREFLOP, igc); currentBid.run(); if (!isOver()) {
+		 * dealOnStreet(Round.FLOP); currentBid = new Bid(players, Round.FLOP, igc);
+		 * currentBid.run(); if (!isOver()) { dealOnStreet(Round.TURN); currentBid = new
+		 * Bid(players, Round.TURN, igc); currentBid.run(); if (!isOver()) {
+		 * dealOnStreet(Round.RIVER); currentBid = new Bid(players, Round.RIVER, igc);
+		 * currentBid.run(); } } } showDown(); }
+		 */
 
 	public CircularLinkedList<Player> getPlayers() {
 		return players;
@@ -99,13 +73,16 @@ public class Hand {
 		return currentBid;
 	}
 
-	/**
-	 * 
-	 */
-	public void showDown() {
-		// TODO
-		// Győztes meghatározása
-		// Adatok leküldése a db-be
+	public void setCurrentBid(Bid currentBid) {
+		this.currentBid = currentBid;
+	}
+
+	public int getPot() {
+		return pot;
+	}
+
+	public void setPot(int pot) {
+		this.pot = pot;
 	}
 
 	/**
@@ -152,13 +129,15 @@ public class Hand {
 		}
 		return ans;
 	}
-	
+
 	public void shuffleDeck() {
 		deck.shuffle();
 	}
-	
+
 	public Bid newBid(Round round) {
-		return new Bid(players, Round.PREFLOP);
+		Bid bid = new Bid(players, round);
+		currentBid = bid;
+		return bid;
 	}
 
 }

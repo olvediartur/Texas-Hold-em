@@ -3,6 +3,9 @@
  */
 package hu.ak_akademia.texasholdem.control.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hu.ak_akademia.texasholdem.control.bl.PokerUser;
 import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 import hu.ak_akademia.texasholdem.model.deck.Card;
@@ -124,6 +127,16 @@ public class Player extends PokerUser implements PlayerInGame {
 
 	public void setLastAction(InGameAction lastAction) {
 		this.lastAction = lastAction;
+	}
+
+	/**
+	 * @return
+	 */
+	public List<Card> getCards() {
+		List<Card> cards = new ArrayList<>();
+		cards.add(card1);
+		cards.add(card2);
+		return cards;
 	}
 	
 }

@@ -13,8 +13,8 @@ import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
  */
 public abstract class ApplicationController {
 	
-	public UI ui;
-	public DbController dbc;
+	UI ui;
+	DbController dbc;
 	
 	public Menu menu;
 	

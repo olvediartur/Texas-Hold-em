@@ -84,6 +84,7 @@ public final class UI {
 	 * @param board
 	 */
 	public void showBoard(List<Card> board) {
+		showMessage("cards_in_board");
 		String printMe = "";
 		for (int i = 0; i < board.size(); i++) {
 			printMe += board.get(i).toString();
@@ -95,6 +96,7 @@ public final class UI {
 	 * @param cards
 	 */
 	public void showPlayerCards(List<Card> cards) {
+		showMessage("your_cards");
 		String printMe = "";
 		for (int i = 0; i < cards.size(); i++) {
 			printMe += cards.get(i).toString();
@@ -121,7 +123,7 @@ public final class UI {
 	public String getStringFromUser(String askMsg) {
 		String input = "";
 		try {
-			printer.printLine(bundle.getString(askMsg));
+			showMessage((askMsg));
 			input = scanner.nextLine();
 		} catch (NoSuchElementException e) {
 			e.printStackTrace();

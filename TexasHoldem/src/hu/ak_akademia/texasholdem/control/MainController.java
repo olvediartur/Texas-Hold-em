@@ -3,11 +3,7 @@
  */
 package hu.ak_akademia.texasholdem.control;
 
-import java.util.List;
-
 import hu.ak_akademia.texasholdem.control.bl.Statistic;
-import hu.ak_akademia.texasholdem.control.db.AbstractController;
-import hu.ak_akademia.texasholdem.model.db.PlayerInGameEntity;
 import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 import hu.ak_akademia.texasholdem.view.UI;
 import hu.ak_akademia.texasholdem.view.consolemenu.Menu;

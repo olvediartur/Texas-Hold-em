@@ -71,7 +71,9 @@ public class InGameController extends ApplicationController {
 			@Override
 			public void select() {
 				// TODO write game methods
-				Player actor = session.getCurrentHand().getCurrentBid().getCurrentPlayer();
+				Hand currHand = session.getCurrentHand();
+				Bid currBid = currHand.getCurrentBid();
+				Player actor = currBid.getCurrentPlayer();
 				actor.setLastAction(InGameAction.FOLD);
 				actor.fold();
 			}
@@ -98,11 +100,7 @@ public class InGameController extends ApplicationController {
 	 */
 	@Override
 	public void start() {
-		session.start(this);
-	}
-	
-	public void run() {
-		while(session.getPlayers().getListOfPlayers().size() > 1) {
+		while(!session.isOver()) {
 			Hand hand = session.newHand();
 			runHand(hand);
 		}
@@ -114,7 +112,7 @@ public class InGameController extends ApplicationController {
 		hand.shuffleDeck();
 		hand.deal();
 		round = Round.PREFLOP;
-		bid = new Bid(hand.getPlayers(),round);
+		bid = hand.newBid(round);
 		runBid(bid,hand);
 		if (!hand.isOver()) {
 			round = Round.FLOP;
@@ -128,17 +126,12 @@ public class InGameController extends ApplicationController {
 				}
 			}
 		}
-		hand.showDown();
-	}
-	
-	private void nextRound(Hand hand, Round round) {
-		hand.dealOnStreet(round);
-		runBid(new Bid(hand.getPlayers(), round),hand);
+		showDown();
 	}
 	
 	private void runBid(Bid bid, Hand hand) {
 		for(Player p : bid.getPlayersInHand().getListOfPlayers()) {
-			p.setLastAction(null);
+			p.setLastAction(InGameAction.RAISE);
 		}
 		Player lastRaiser = bid.getBigBlind();
 		Player currentPlayer;
@@ -150,13 +143,27 @@ public class InGameController extends ApplicationController {
 		}
 		bid.setCurrentPlayer(currentPlayer);
 		while(!bid.isEndOfBid(currentPlayer, lastRaiser)) {
-			ui.showMessage("cards_in_board");
 			ui.showBoard(hand.getBoard());
+			ui.showPlayerCards(currentPlayer.getCards());
 			useMenu(menu);
 			currentPlayer = nextPlayer(currentPlayer, bid);
 		}
 	}
-	
+
+	/**
+	 * 
+	 */
+	private void showDown() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void nextRound(Hand hand, Round round) {
+		hand.dealOnStreet(round);
+		Bid bid = hand.newBid(round);
+		runBid(bid,hand);
+	}
+
 	private Player nextPlayer(Player player, Bid bid) {
 		Player nextPlayer = bid.getPlayersInHand().getNext(player);
 		ui.print(nextPlayer.getName());

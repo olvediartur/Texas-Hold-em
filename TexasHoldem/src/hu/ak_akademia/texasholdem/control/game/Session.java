@@ -3,21 +3,16 @@
  */
 package hu.ak_akademia.texasholdem.control.game;
 
-import hu.ak_akademia.texasholdem.control.InGameController;
 import hu.ak_akademia.texasholdem.model.CircularLinkedList;
-import hu.ak_akademia.texasholdem.model.deck.Deck;
-import hu.ak_akademia.texasholdem.view.UI;
 
 /**
  * @author bnagy
  * @author Artúr Ölvedi
  */
 public class Session {
-	private CircularLinkedList<Player> players = new CircularLinkedList<Player>();
-	private Deck deck = new Deck();
-	private Hand currentHand;
 	
-	UI ui = UI.getUi();
+	private CircularLinkedList<Player> players = new CircularLinkedList<Player>();
+	private Hand currentHand;
 	private int buyIn = 0;
 
 	/**
@@ -34,51 +29,54 @@ public class Session {
 		return feedbackMsg;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getBuyIn() {
 		return buyIn;
 	}
 
+	/**
+	 * @return
+	 */
 	public Hand getCurrentHand() {
 		return currentHand;
 	}
 
+	/**
+	 * @return CircularLinkedList<Player>
+	 */
 	public CircularLinkedList<Player> getPlayers() {
 		return players;
 	}
 
-	public void setBuyIn(int entry) {
-		this.buyIn = entry;
+	/**
+	 * @param buyIn
+	 * Set field buyIn to param.
+	 */
+	public void setBuyIn(int buyIn) {
+		this.buyIn = buyIn;
 	}
 
 	/**
-	 * 
+	 * Create new Hand Object.
+	 * Set field currentHand to this object.
+	 * @return Hand
 	 */
-	public void start(InGameController igc) {
-		
-		  while(players.getListOfPlayers().size() > 1) {
-		      Hand hand = new Hand(players,igc);
-		      currentHand = hand;
-		      hand.runHand(); }
-		 
-		
-		
-		/*
-		 * shuffleUpAndDeal(); deck.shuffle(); System.out.println();
-		 * System.out.print("A játék elindult a következő játékosokkal: "); for (int i =
-		 * 0; i < players.getListOfPlayers().size(); i++) {
-		 * System.out.print(players.getListOfPlayers().get(i).getName() + ":");
-		 * players.getListOfPlayers().get(i).setCard1(deck.draw()); deck.burn();
-		 * players.getListOfPlayers().get(i).setCard2(deck.draw()); deck.burn();
-		 * System.out.print(players.getListOfPlayers().get(i).getCard1());
-		 * System.out.print(players.getListOfPlayers().get(i).getCard2() + " "); }
-		 * System.out.println();
-		 */
-
-	}
 	public Hand newHand() {
 		currentHand = new Hand(players);
 		return currentHand;
 	}
+	
+	/**
+	 * Session is over when the players number
+	 * is one or less.
+	 * @return boolean
+	 */
+	public boolean isOver() {
+		return getPlayers().getListOfPlayers().size() <= 1;
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Iza
@@ -86,7 +84,7 @@ public class Session {
 	}
 
 	private void shuffleUpAndDeal() {
-		ui.showMessage("the_game_is_starting");
+		System.out.println("the_game_is_starting");
 		for (int i = 3; i > 0; i--) {
 			wait(333);
 			System.out.print(i);
@@ -97,9 +95,8 @@ public class Session {
 			wait(333);
 			System.out.print(".");
 		}
-		ui.showMessage("shuffle_up_and_deal");
+		System.out.println("shuffle_up_and_deal");
 	}
-
 	private void wait(int mSecond) {
 		try {
 			Thread.sleep(mSecond);
@@ -107,4 +104,5 @@ public class Session {
 			Thread.currentThread().interrupt();
 		}
 	}
+	
 }
