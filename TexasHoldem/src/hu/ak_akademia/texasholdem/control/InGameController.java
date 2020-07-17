@@ -16,6 +16,7 @@ import hu.ak_akademia.texasholdem.control.game.InGameAction;
 import hu.ak_akademia.texasholdem.control.game.Player;
 import hu.ak_akademia.texasholdem.control.game.Round;
 import hu.ak_akademia.texasholdem.control.game.Session;
+import hu.ak_akademia.texasholdem.model.db.HandEntity;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 import hu.ak_akademia.texasholdem.view.UI;
 import hu.ak_akademia.texasholdem.view.consolemenu.Menu;
@@ -242,7 +243,14 @@ public class InGameController extends ApplicationController {
 	private void foldPlayer(Player player, Hand hand) {
 		player.setLastAction(InGameAction.FOLD);
 		player.fold();
-		//DB-be a kezében lévő két lap.
+		HandEntity entity = new HandEntity();
+		entity.setPokerUserId(player.getId());
+		entity.setGameId(hand.getId());
+		entity.setCard1(player.getCard1());
+		entity.setCard2(player.getCard2());
+		entity.setWon(false);
+		dbc.getHandController().setSelected(entity);
+		ui.showMessage(dbc.getHandController().create());
 	}
 	
 	private void nextRound(Hand hand, Round round) {
