@@ -19,17 +19,20 @@ public class Bid {// licit
 	private InGameController igc;
 
 	public Bid(CircularLinkedList<Player> players, Round round, InGameController igc) {
-		this.round = round;
+		this(players, round);
 		this.igc = igc;
+	}
+
+	/**
+	 * @param players
+	 * @param preflop
+	 */
+	public Bid(CircularLinkedList<Player> players, Round round) {
+		this.round = round;
 		for (Player p : players) {
 			if (p.isInHand()) {
 				playersInHand.add(p);
 			}
-			/*
-			 * if(round.equals(Round.PREFLOP)) { if(p.isBigBlind()) { currentPlayer =
-			 * p.getNextPlayer(); } } else { if(p.isDealer()) { currentPlayer =
-			 * p.getNextPlayer(); } }
-			 */
 		}
 	}
 
@@ -58,7 +61,7 @@ public class Bid {// licit
 	}
 	//Akkor van vége egy licitkörnek amikor az utolsó hand-ben lévő játékos
 	//után az emelő következne ÉS az utolsó játékos nem emel vissza(vagyis csak megad vagy dob).
-	private boolean isEndOfBid(Player raisingPlayer, Player actualPlayer) {
+	public boolean isEndOfBid(Player raisingPlayer, Player actualPlayer) {
 		if (playersInHand.getNext(actualPlayer) == raisingPlayer && actualPlayer.getLastAction() != InGameAction.RAISE) {
 			return true;
 		}
@@ -76,7 +79,7 @@ public class Bid {// licit
 		return nextPlayer;
 	}
 
-	private Player getDealer() {
+	public Player getDealer() {
 		for (Player p : playersInHand) {
 			if (p.isDealer()) {
 				return p;
@@ -85,20 +88,34 @@ public class Bid {// licit
 		return null;// Ilyen nem lehet.
 	}
 
-	private Player getSmallBlind() {
+	public Player getSmallBlind() {
 		return playersInHand.getNext(getDealer());
 	}
 
-	private Player getBigBlind() {
+	public Player getBigBlind() {
 		return playersInHand.getNext(getSmallBlind());
 	}
-	
+	public Round getRound() {
+		return round;
+	}
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
 
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
 	public Player getLastRaiser() {
 		return lastRaiser;
+	}
+
+	public void setLastRaiser(Player lastRaiser) {
+		this.lastRaiser = lastRaiser;
+	}
+
+	public CircularLinkedList<Player> getPlayersInHand() {
+		return playersInHand;
 	}
 	
 }

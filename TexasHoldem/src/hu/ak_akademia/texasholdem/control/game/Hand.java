@@ -30,8 +30,15 @@ public class Hand {
 	}
 
 	public Hand(CircularLinkedList<Player> players, InGameController igc) {
-		this.players = players;
+		this(players);
 		this.igc = igc;
+	}
+
+	/**
+	 * @param players
+	 */
+	public Hand(CircularLinkedList<Player> players) {
+		this.players = players;
 		boolean hasDealer = false;
 		for (Player p : players) {
 			if (p.isDealer()) {
@@ -80,6 +87,14 @@ public class Hand {
 		showDown();
 	}
 
+	public CircularLinkedList<Player> getPlayers() {
+		return players;
+	}
+
+	public List<Card> getBoard() {
+		return board;
+	}
+
 	public Bid getCurrentBid() {
 		return currentBid;
 	}
@@ -87,7 +102,7 @@ public class Hand {
 	/**
 	 * 
 	 */
-	private void showDown() {
+	public void showDown() {
 		// TODO
 		// Győztes meghatározása
 		// Adatok leküldése a db-be
@@ -96,7 +111,7 @@ public class Hand {
 	/**
 	 * 
 	 */
-	private void dealOnStreet(Round round) {
+	public void dealOnStreet(Round round) {
 		deck.burn();
 		for (int i = 0; i < round.getValue(); i++) {
 			board.add(deck.draw());
@@ -106,7 +121,7 @@ public class Hand {
 	/**
 	 * 
 	 */
-	private void deal() {
+	public void deal() {
 		for (Player p : players) {
 			p.setCard1(deck.draw());
 		}
@@ -118,7 +133,7 @@ public class Hand {
 	/**
 	 * @return
 	 */
-	private boolean isOver() {
+	public boolean isOver() {
 		if (getNumberOfPlayersInHand() > 1) {
 			return false;
 		}
@@ -136,6 +151,14 @@ public class Hand {
 			}
 		}
 		return ans;
+	}
+	
+	public void shuffleDeck() {
+		deck.shuffle();
+	}
+	
+	public Bid newBid(Round round) {
+		return new Bid(players, Round.PREFLOP);
 	}
 
 }

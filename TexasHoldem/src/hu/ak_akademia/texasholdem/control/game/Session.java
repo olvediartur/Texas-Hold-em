@@ -75,7 +75,10 @@ public class Session {
 		 */
 
 	}
-
+	public Hand newHand() {
+		currentHand = new Hand(players);
+		return currentHand;
+	}
 	@Override
 	public String toString() {
 		// TODO Iza
