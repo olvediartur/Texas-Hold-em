@@ -138,5 +138,19 @@ public class Player extends PokerUser implements PlayerInGame {
 		cards.add(card2);
 		return cards;
 	}
+
+	/**
+	 * @param price
+	 * @return
+	 */
+	public boolean canPay(int price) {
+		if(price < 1) {
+			return false;
+		}
+		if(price > chips) {
+			return false;
+		}
+		return true;
+	}
 	
 }

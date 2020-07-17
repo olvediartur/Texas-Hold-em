@@ -17,6 +17,10 @@ public class Game {
 	private LocalDate dateOfGame;
 	private int pot;
 	
+	public Game(LocalDate dateOfGame) {
+		this.dateOfGame = dateOfGame;
+	}
+
 	public Game(GameEntity entity) {
 		id = entity.getId();
 		dateOfGame = entity.getDateOfGame();
@@ -33,6 +37,10 @@ public class Game {
 
 	public int getPot() {
 		return pot;
+	}
+
+	public void setPot(int pot) {
+		this.pot = pot;
 	}
 	
 }

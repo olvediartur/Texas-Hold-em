@@ -5,7 +5,6 @@ package hu.ak_akademia.texasholdem.control.bl;
 
 import hu.ak_akademia.texasholdem.control.DbController;
 import hu.ak_akademia.texasholdem.control.db.AbstractController;
-import hu.ak_akademia.texasholdem.control.db.PokerUserController;
 import hu.ak_akademia.texasholdem.model.db.PlayerInGameEntity;
 import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
 
@@ -14,6 +13,7 @@ import hu.ak_akademia.texasholdem.model.db.PokerUserEntity;
  *
  */
 public class WinnerPokerHand implements Comparable<WinnerPokerHand>{
+	
 	private PokerUser user;
 	private Game game;
 	private BestFive cards;
@@ -28,6 +28,12 @@ public class WinnerPokerHand implements Comparable<WinnerPokerHand>{
 		cards = entity.getBestCombination();
 	}
 	
+	public WinnerPokerHand(PokerUser user, Game game, BestFive cards) {
+		this.user = user;
+		this.game = game;
+		this.cards = cards;
+	}
+
 	public PokerUser getUser() {
 		return user;
 	}
@@ -65,6 +71,8 @@ public class WinnerPokerHand implements Comparable<WinnerPokerHand>{
 		return result;
 	}
 	
-	
+	public PlayerInGameEntity getEntity() {
+		return new PlayerInGameEntity(user.getId(), game.getId(), cards);
+	}
 	
 }

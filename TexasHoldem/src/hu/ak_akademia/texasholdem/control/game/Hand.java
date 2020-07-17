@@ -3,9 +3,11 @@
  */
 package hu.ak_akademia.texasholdem.control.game;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.ak_akademia.texasholdem.control.bl.Game;
 import hu.ak_akademia.texasholdem.model.CircularLinkedList;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 import hu.ak_akademia.texasholdem.model.deck.Deck;
@@ -14,18 +16,18 @@ import hu.ak_akademia.texasholdem.model.deck.Deck;
  * @author bnagy
  *
  */
-public class Hand {
+public class Hand extends Game {
 	
 	private Deck deck = new Deck();
 	private CircularLinkedList<Player> players = new CircularLinkedList<>();
 	private List<Card> board = new ArrayList<>();
 	private Bid currentBid;
-	private int pot = 0;
 
 	/**
 	 * @param players
 	 */
 	public Hand(CircularLinkedList<Player> players) {
+		super(LocalDate.now());
 		this.players = players;
 		boolean hasDealer = false;
 		for (Player p : players) {
@@ -49,18 +51,6 @@ public class Hand {
 		}
 	}
 
-	/**
-	 * 
-	 *//*
-		 * public void runHand() { deck.shuffle(); deal(); currentBid = new Bid(players,
-		 * Round.PREFLOP, igc); currentBid.run(); if (!isOver()) {
-		 * dealOnStreet(Round.FLOP); currentBid = new Bid(players, Round.FLOP, igc);
-		 * currentBid.run(); if (!isOver()) { dealOnStreet(Round.TURN); currentBid = new
-		 * Bid(players, Round.TURN, igc); currentBid.run(); if (!isOver()) {
-		 * dealOnStreet(Round.RIVER); currentBid = new Bid(players, Round.RIVER, igc);
-		 * currentBid.run(); } } } showDown(); }
-		 */
-
 	public CircularLinkedList<Player> getPlayers() {
 		return players;
 	}
@@ -77,12 +67,8 @@ public class Hand {
 		this.currentBid = currentBid;
 	}
 
-	public int getPot() {
-		return pot;
-	}
-
-	public void setPot(int pot) {
-		this.pot = pot;
+	public void addToPot(int chips) {
+		setPot(getPot() +  chips);
 	}
 
 	/**

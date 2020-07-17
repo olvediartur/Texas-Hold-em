@@ -15,6 +15,7 @@ public class Bid {
 	private Player lastRaiser;
 	private CircularLinkedList<Player> playersInHand = new CircularLinkedList<>();
 	private Round round;
+	private boolean wasBet = false;
 
 	/**
 	 * @param players
@@ -33,6 +34,7 @@ public class Bid {
 	 * Akkor van vége egy licitkörnek amikor az utolsó hand-ben lévő játékos
 	 * után az emelő következne ÉS az utolsó játékos nem emel vissza(vagyis csak
 	 * megad vagy dob).
+	 * Vagy akkor, ha csak egy játékos marad.
 	 * @param raisingPlayer
 	 * @param actualPlayer
 	 * @return boolean
@@ -40,6 +42,15 @@ public class Bid {
 	public boolean isEndOfBid(Player raisingPlayer, Player actualPlayer) {
 		if (playersInHand.getNext(actualPlayer) == raisingPlayer
 				&& actualPlayer.getLastAction() != InGameAction.RAISE) {
+			return true;
+		}
+		int numOfActivePlayers = 0;
+		for(Player p : playersInHand) {
+			if(p.isInHand()) {
+				numOfActivePlayers++;
+			}
+		}
+		if(numOfActivePlayers == 1) {
 			return true;
 		}
 		return false;
@@ -84,6 +95,14 @@ public class Bid {
 
 	public CircularLinkedList<Player> getPlayersInHand() {
 		return playersInHand;
+	}
+
+	public boolean wasBet() {
+		return wasBet;
+	}
+
+	public void setWasBet(boolean wasBet) {
+		this.wasBet = wasBet;
 	}
 
 }
