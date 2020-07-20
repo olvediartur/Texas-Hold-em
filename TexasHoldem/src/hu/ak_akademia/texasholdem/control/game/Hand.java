@@ -9,6 +9,7 @@ import java.util.List;
 
 import hu.ak_akademia.texasholdem.control.bl.Game;
 import hu.ak_akademia.texasholdem.model.CircularLinkedList;
+import hu.ak_akademia.texasholdem.model.db.GameEntity;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 import hu.ak_akademia.texasholdem.model.deck.Deck;
 
@@ -28,27 +29,13 @@ public class Hand extends Game {
 	 */
 	public Hand(CircularLinkedList<Player> players) {
 		super(LocalDate.now());
-		this.players = players;
-		boolean hasDealer = false;
-		for (Player p : players) {
-			if (p.isDealer()) {
-				players.getNext(p).setDealer(true);
-				p.setDealer(false);
-				hasDealer = true;
-				break;
-			}
-		}
-		if (!hasDealer) {
-			for (Player p : players) {
-				if (p.isOwner()) {
-					p.setDealer(true);
-					break;
-				}
-			}
-		}
-		for (Player p : players) {
-			p.setInHand(true);
-		}
+		initPlayers(players);
+	}
+
+	public Hand(CircularLinkedList<Player> players, GameEntity entity) {
+		super(entity);
+		initPlayers(players);
+
 	}
 
 	public CircularLinkedList<Player> getPlayers() {
@@ -116,6 +103,29 @@ public class Hand extends Game {
 		return ans;
 	}
 
+	private void initPlayers(CircularLinkedList<Player> players) {
+		this.players = players;
+		boolean hasDealer = false;
+		for (Player p : players) {
+			if (p.isDealer()) {
+				players.getNext(p).setDealer(true);
+				p.setDealer(false);
+				hasDealer = true;
+				break;
+			}
+		}
+		if (!hasDealer) {
+			for (Player p : players) {
+				if (p.isOwner()) {
+					p.setDealer(true);
+					break;
+				}
+			}
+		}
+		for (Player p : players) {
+			p.setInHand(true);
+		}
+	}
 	public void shuffleDeck() {
 		deck.shuffle();
 	}

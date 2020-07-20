@@ -90,4 +90,19 @@ public class GameDao extends AbstractDao<GameEntity> {
 		return result;
 	}
 
+	@Override
+	protected GameEntity getLast() throws SQLException {
+		String query = " SELECT * FROM game WHERE game_id = (SELECT MAX(game_id) FROM game) "; 
+		GameEntity gameEntity = new GameEntity();
+		PreparedStatement ps;
+		ps = getStatement(query);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		gameEntity.setId(rs.getInt(1));
+		Date xxx = rs.getDate(2);
+		gameEntity.setDateOfGame(LocalDate.of(xxx.getYear(), xxx.getMonth(), xxx.getDay()));
+		gameEntity.setPot(rs.getInt(3));
+		return gameEntity;
+	}
+
 }

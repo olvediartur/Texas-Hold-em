@@ -16,6 +16,7 @@ import hu.ak_akademia.texasholdem.control.game.InGameAction;
 import hu.ak_akademia.texasholdem.control.game.Player;
 import hu.ak_akademia.texasholdem.control.game.Round;
 import hu.ak_akademia.texasholdem.control.game.Session;
+import hu.ak_akademia.texasholdem.model.db.GameEntity;
 import hu.ak_akademia.texasholdem.model.db.HandEntity;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 import hu.ak_akademia.texasholdem.view.UI;
@@ -138,6 +139,12 @@ public class InGameController extends ApplicationController {
 	public void start() {
 		while(!session.isOver()) {
 			Hand hand = session.newHand();
+			dbc.getGameController()
+				.setSelected(new GameEntity(hand.getDateOfGame(),hand.getPot()));
+			dbc.getGameController().create();
+			dbc.getGameController().getLast();
+			session.setCurrentHand(
+					new Hand(session.getPlayers(),dbc.getGameController().getSelected()));
 			runHand(hand);
 		}
 	}
@@ -202,6 +209,11 @@ public class InGameController extends ApplicationController {
 		}
 		Collections.sort(wphList);
 		WinnerPokerHand winner = wphList.get(0);
+		for(Player p : hand.getPlayers()) {
+			if(p.getId() == winner.getUser().getId()) {
+				p.setChips(p.getChips() + hand.getPot());
+			}
+		}
 		dbc.getPlayerInGameController().setSelected(winner.getEntity());
 		ui.showMessage(dbc.getPlayerInGameController().create());
 	}

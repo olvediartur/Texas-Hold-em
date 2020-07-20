@@ -3,13 +3,16 @@
  */
 package hu.ak_akademia.texasholdem.control.db;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import hu.ak_akademia.texasholdem.model.db.CardsInGameEntity;
+import hu.ak_akademia.texasholdem.model.db.GameEntity;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 
 /**
@@ -101,6 +104,23 @@ public class CardsInGameDao extends AbstractDao<CardsInGameEntity> {
 			result.add(cardsInGame);
 		}
 		return result;
+	}
+
+	@Override
+	protected CardsInGameEntity getLast() throws SQLException {
+		String query = " SELECT * FROM cards_in_game WHERE cards_id = (SELECT MAX(cards_id) FROM cards_in_game) "; 
+		CardsInGameEntity cardsInGame = new CardsInGameEntity();
+		PreparedStatement ps;
+		ps = getStatement(query);
+		ResultSet rs = ps.executeQuery();
+		cardsInGame.setId(rs.getInt(1));
+		cardsInGame.setGameId(rs.getInt(2));
+		cardsInGame.setFlop1(new Card(rs.getString(3)));
+		cardsInGame.setFlop2(new Card(rs.getString(4)));
+		cardsInGame.setFlop3(new Card(rs.getString(5)));
+		cardsInGame.setTurn(new Card(rs.getString(6)));
+		cardsInGame.setRiver(new Card(rs.getString(7)));
+		return cardsInGame;
 	}
 
 }

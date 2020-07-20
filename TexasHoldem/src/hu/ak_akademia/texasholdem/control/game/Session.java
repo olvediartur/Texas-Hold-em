@@ -43,6 +43,10 @@ public class Session {
 		return currentHand;
 	}
 
+	public void setCurrentHand(Hand currentHand) {
+		this.currentHand = currentHand;
+	}
+
 	/**
 	 * @return CircularLinkedList<Player>
 	 */

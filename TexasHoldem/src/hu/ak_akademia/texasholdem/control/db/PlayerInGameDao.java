@@ -88,4 +88,9 @@ public class PlayerInGameDao extends AbstractDao<PlayerInGameEntity> {
 		return result;
 	}
 
+	@Override
+	protected PlayerInGameEntity getLast() throws SQLException {
+		return null;
+	}
+
 }

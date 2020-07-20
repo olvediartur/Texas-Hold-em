@@ -98,4 +98,21 @@ public class HandDao extends AbstractDao<HandEntity> {
 		return result;
 	}
 
+
+	@Override
+	protected HandEntity getLast() throws SQLException {
+		String query = " SELECT * FROM hand WHERE hand_id = (SELECT MAX(hand_id) FROM hand) "; 
+		HandEntity hand = new HandEntity();
+		PreparedStatement ps;
+		ps = getStatement(query);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		hand.setPokerUserId(rs.getInt(1));
+		hand.setGameId(rs.getInt(2));
+		hand.setCard1(new Card(rs.getString(3)));
+		hand.setCard2(new Card(rs.getString(4)));
+		hand.setWon(rs.getInt(5) == 1);
+		return hand;
+	}
+
 }

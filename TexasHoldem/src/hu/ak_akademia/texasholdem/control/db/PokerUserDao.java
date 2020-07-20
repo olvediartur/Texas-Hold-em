@@ -91,4 +91,19 @@ public class PokerUserDao extends AbstractDao<PokerUserEntity> {
 		return result;
 	}
 
+	@Override
+	protected PokerUserEntity getLast() throws SQLException {
+		String query = " SELECT * FROM poker_user WHERE poker_user_id = (SELECT MAX(poker_user_id) FROM poker_user) ";
+		PokerUserEntity pokerUser = new PokerUserEntity();
+		PreparedStatement ps = getStatement(query);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		pokerUser.setId(rs.getInt(1));
+		pokerUser.setName(rs.getString(2));
+		pokerUser.setPassword(rs.getNString(3));
+		pokerUser.setCredits(rs.getInt(4));
+		pokerUser.setIs_deleted(rs.getInt(5) == 1);
+		return pokerUser;
+	}
+
 }

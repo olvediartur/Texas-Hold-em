@@ -75,5 +75,20 @@ public abstract class AbstractController<T extends DbEntity> {
 		setAll();
 		return all;
 	}
+
+	/**
+	 * 
+	 */
+	public String getLast() {
+		String feedBackMsg;
+		try {
+			selected = dao.getLast();
+			feedBackMsg = "getting_succes";
+		} catch (SQLException e) {
+			feedBackMsg = "getting_failed";
+			System.err.println("Cause: " + e.getMessage());
+		}
+		return feedBackMsg;
+	};
 	
 }
