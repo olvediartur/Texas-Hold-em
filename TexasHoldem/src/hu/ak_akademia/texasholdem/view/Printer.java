@@ -44,7 +44,7 @@ public class Printer {
 	public final static void clearConsole() {
 		if (System.console() == null) {
 			for (int clear = 0; clear < 1000; clear++) {
-				System.out.println("\b");
+				System.out.println("\n");
 			}
 			return;
 		}

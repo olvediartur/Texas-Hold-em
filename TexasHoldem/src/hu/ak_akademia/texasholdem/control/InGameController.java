@@ -188,7 +188,10 @@ public class InGameController extends ApplicationController {
 		while(!bid.isEndOfBid(currentPlayer, lastRaiser)) {
 			ui.clearConsole();
 			ui.showBoard(hand.getBoard());
+			ui.print(UI.bundle.getString("pot") + hand.getPot() + "\n");
 			ui.showPlayerCards(currentPlayer.getCards());
+			ui.print(UI.bundle.getString("chips_in_pot") + currentPlayer.getChipsInPot() + "\n");
+			ui.print(UI.bundle.getString("free_chips") + currentPlayer.getChips() + "\n");
 			useMenu(menu);
 			if(!bid.wasBet() && currentPlayer.getLastAction() == InGameAction.RAISE) {
 				bid.setWasBet(true);
