@@ -25,15 +25,6 @@ public class Deck {
 		}
 	}
 
-	/**
-	 * @param color-color of the card, figure-figure of the card
-	 * 
-	 */
-	public Deck(String color, String figure) {
-		CardColor.getColorEnum(color);
-		Figure.getFigureEnum(figure);
-	}
-
 	public void shuffle() { // megkeveri a paklit
 		Collections.shuffle(cards);
 	}

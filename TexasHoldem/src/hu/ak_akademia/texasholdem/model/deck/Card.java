@@ -25,7 +25,7 @@ public class Card {
 
 	public Card(String cardInDb) {
 		char[] cards = cardInDb.toCharArray();
-		this.color = (CardColor.getColorEnum("" + cards[0])); 
+		this.color = (CardColor.getCardColorEnum("" + cards[0])); 
 		this.figure = Figure.getFigureEnum("" + cards[1]);
 		
 	}
