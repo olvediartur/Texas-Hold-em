@@ -219,6 +219,9 @@ public class InGameController extends ApplicationController {
 		}
 		dbc.getPlayerInGameController().setSelected(winner.getEntity());
 		ui.showMessage(dbc.getPlayerInGameController().create());
+		dbc.getGameController().setSelected(
+				new GameEntity(hand.getDateOfGame(),hand.getPot()));
+		dbc.getGameController().update();
 	}
 	
 	/**
