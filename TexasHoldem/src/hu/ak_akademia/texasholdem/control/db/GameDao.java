@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class GameDao extends AbstractDao<GameEntity> {
 		String feedbackMsg = "";
 		try {
 			PreparedStatement ps = getStatement(createSql);
-			ps.setDate(1, new Date(game.getDateOfGame().toEpochDay()));
+			ps.setDate(1, Date.valueOf(game.getDateOfGame()));
 			ps.setInt(2, game.getPot());
 			ps.execute();
 			feedbackMsg = "Game created";
@@ -51,7 +52,7 @@ public class GameDao extends AbstractDao<GameEntity> {
 		rs.next();
 		gameEntity.setId(rs.getInt(1));
 		Date xxx = rs.getDate(2);
-		gameEntity.setDateOfGame(LocalDate.of(xxx.getYear(), xxx.getMonth(), xxx.getDay()));
+		gameEntity.setDateOfGame(xxx.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		gameEntity.setPot(rs.getInt(3));
 		return gameEntity;
 	}
@@ -61,7 +62,7 @@ public class GameDao extends AbstractDao<GameEntity> {
 		String feedbackMsg = "";
 		try {
 			PreparedStatement ps = getStatement(createSql);
-			ps.setDate(1, new Date(game.getDateOfGame().toEpochDay()));
+			ps.setDate(1, Date.valueOf(game.getDateOfGame()));
 			ps.setInt(2, game.getPot());
 			ps.execute();
 			feedbackMsg = "game_updated";
@@ -83,7 +84,8 @@ public class GameDao extends AbstractDao<GameEntity> {
 			GameEntity gameEntity = new GameEntity();
 			gameEntity.setId(rs.getInt(1));
 			Date xxx = rs.getDate(2);
-			gameEntity.setDateOfGame(LocalDate.of(xxx.getYear(), xxx.getMonth(), xxx.getDay()));
+			LocalDate curr = xxx.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			gameEntity.setDateOfGame(curr);
 			gameEntity.setPot(rs.getInt(3));
 			result.add(gameEntity);
 		}

@@ -3,16 +3,13 @@
  */
 package hu.ak_akademia.texasholdem.control.db;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import hu.ak_akademia.texasholdem.model.db.CardsInGameEntity;
-import hu.ak_akademia.texasholdem.model.db.GameEntity;
 import hu.ak_akademia.texasholdem.model.deck.Card;
 
 /**
@@ -33,11 +30,11 @@ public class CardsInGameDao extends AbstractDao<CardsInGameEntity> {
 		try {
 			PreparedStatement ps = getStatement(createSql);
 			ps.setInt(1, game.getGameId());
-			ps.setNString(2, game.getFlop1().toString());
-			ps.setNString(3, game.getFlop2().toString());
-			ps.setNString(4, game.getFlop3().toString());
-			ps.setNString(5, game.getTurn().toString());
-			ps.setNString(6, game.getRiver().toString());
+			ps.setNString(2, game.getFlop1() == null ? "" : game.getFlop1().toString());
+			ps.setNString(3, game.getFlop2() == null ? "" : game.getFlop2().toString());
+			ps.setNString(4, game.getFlop3() == null ? "" : game.getFlop3().toString());
+			ps.setNString(5, game.getTurn() == null ? "" : game.getTurn().toString());
+			ps.setNString(6, game.getFlop1() == null ? "" : game.getRiver().toString());
 			ps.execute();
 			feedbackMsg = "cardsingame_created";
 		} catch (SQLException e) {

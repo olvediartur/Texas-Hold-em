@@ -22,7 +22,7 @@ public class Hand extends Game {
 	private Deck deck = new Deck();
 	private CircularLinkedList<Player> players = new CircularLinkedList<>();
 	private List<Card> board = new ArrayList<>();
-	private Bid currentBid;
+	private Bid currentBid = new Bid();
 
 	/**
 	 * @param players
@@ -133,7 +133,7 @@ public class Hand extends Game {
 	public Bid newBid(Round round) {
 		Bid bid = new Bid(players, round);
 		currentBid = bid;
-		return bid;
+		return currentBid;
 	}
 
 }

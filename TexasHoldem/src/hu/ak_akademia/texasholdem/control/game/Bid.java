@@ -31,6 +31,13 @@ public class Bid {
 	}
 
 	/**
+	 * 
+	 */
+	public Bid() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
 	 * Akkor van vége egy licitkörnek amikor az utolsó hand-ben lévő játékos
 	 * után az emelő következne ÉS az utolsó játékos nem emel vissza(vagyis csak
 	 * megad vagy dob).

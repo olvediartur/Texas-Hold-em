@@ -3,6 +3,7 @@
  */
 package hu.ak_akademia.texasholdem.control;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +38,7 @@ public class InGameController extends ApplicationController {
 		menu = new Menu(UI.bundle.getString("ingamemenu"));
 		initialiseInGameMenu();
 	}
-	
+
 	public InGameController(Session session) {
 		super();
 		menu = new Menu(UI.bundle.getString("ingamemenu"));
@@ -56,9 +57,9 @@ public class InGameController extends ApplicationController {
 				Bid bid = hand.getCurrentBid();
 				Player actor = bid.getCurrentPlayer();
 				int amountToCall = bid.getLastRaiser().getChipsInPot() - actor.getChipsInPot();
-				if(!actor.canPay(amountToCall)) {
-					//Ezt máshogy kell majd lekezelni.
-					//Ugye ez egy All-In :)
+				if (!actor.canPay(amountToCall)) {
+					// Ezt máshogy kell majd lekezelni.
+					// Ugye ez egy All-In :)
 					System.out.println("NOT VALID CALL!");
 					System.out.println("YOU FOLD!");
 					foldPlayer(actor, hand);
@@ -75,7 +76,7 @@ public class InGameController extends ApplicationController {
 				Hand hand = session.getCurrentHand();
 				Bid bid = hand.getCurrentBid();
 				Player actor = bid.getCurrentPlayer();
-				if(bid.wasBet()) {
+				if (bid.wasBet()) {
 					ui.showMessage("cant_check");
 					useMenu(menu);
 					return;
@@ -95,7 +96,7 @@ public class InGameController extends ApplicationController {
 					ui.showMessage(raiseMsg);
 					raiseChips = ui.getIntFromUser("how_much_raise");
 					raiseMsg = "not_valid_raise";
-				} while(!actor.canPay(raiseChips));
+				} while (!actor.canPay(raiseChips));
 				actor.raise(raiseChips);
 				hand.addToPot(raiseChips);
 				actor.setLastAction(InGameAction.RAISE);
@@ -131,24 +132,25 @@ public class InGameController extends ApplicationController {
 		menu.getOptions().add(fold);
 		menu.getOptions().add(sitOut);
 	}
-	
+
 	/**
 	 * 
 	 */
 	@Override
 	public void start() {
-		while(!session.isOver()) {
-			Hand hand = session.newHand();
-			dbc.getGameController()
-				.setSelected(new GameEntity(hand.getDateOfGame(),hand.getPot()));
+		while (!session.isOver()) {
+			// Hand hand = session.newHand();
+			// dbc.getGameController()
+			// .setSelected(new GameEntity(hand.getDateOfGame(),hand.getPot()));
+			dbc.getGameController().setSelected(new GameEntity(LocalDate.now(), 0));
 			dbc.getGameController().create();
 			dbc.getGameController().getLast();
-			session.setCurrentHand(
-					new Hand(session.getPlayers(),dbc.getGameController().getSelected()));
+			Hand hand = new Hand(session.getPlayers(), dbc.getGameController().getSelected());
+			session.setCurrentHand(hand);
 			runHand(hand);
 		}
 	}
-	
+
 	private void runHand(Hand hand) {
 		Bid bid;
 		Round round;
@@ -156,44 +158,47 @@ public class InGameController extends ApplicationController {
 		hand.deal();
 		round = Round.PREFLOP;
 		bid = hand.newBid(round);
-		runBid(bid,hand);
+		// System.out.println(bid.getCurrentPlayer().getName());
+		runBid(bid, hand);
 		if (!hand.isOver()) {
 			round = Round.FLOP;
-			nextRound(hand,round);
+			nextRound(hand, round);
 			if (!hand.isOver()) {
 				round = Round.TURN;
-				nextRound(hand,round);
+				nextRound(hand, round);
 				if (!hand.isOver()) {
 					round = Round.RIVER;
-					nextRound(hand,round);
+					nextRound(hand, round);
 				}
 			}
 		}
 		showDown(hand);
 	}
-	
+
 	private void runBid(Bid bid, Hand hand) {
-		for(Player p : bid.getPlayersInHand().getListOfPlayers()) {
+		for (Player p : bid.getPlayersInHand().getListOfPlayers()) {
 			p.setLastAction(InGameAction.RAISE);
 		}
 		Player lastRaiser = bid.getBigBlind();
 		Player currentPlayer;
-		bid.setLastRaiser(bid.getBigBlind());
-		if(bid.getRound().getValue() == 0) {
+		bid.setLastRaiser(lastRaiser);
+		if (bid.getRound().getValue() == 0) {
 			currentPlayer = bid.getPlayersInHand().getNext(bid.getLastRaiser());
 		} else {
 			currentPlayer = bid.getPlayersInHand().getNext(bid.getDealer());
 		}
 		bid.setCurrentPlayer(currentPlayer);
-		while(!bid.isEndOfBid(currentPlayer, lastRaiser)) {
+		while (!bid.isEndOfBid(currentPlayer, lastRaiser)) {
 			ui.clearConsole();
+			ui.print(bid.getCurrentPlayer().getName());
+			ui.showMessage("is_your_turn");
 			ui.showBoard(hand.getBoard());
 			ui.print(UI.bundle.getString("pot") + hand.getPot() + "\n");
-			ui.showPlayerCards(currentPlayer.getCards());
-			ui.print(UI.bundle.getString("chips_in_pot") + currentPlayer.getChipsInPot() + "\n");
-			ui.print(UI.bundle.getString("free_chips") + currentPlayer.getChips() + "\n");
+			ui.showPlayerCards(bid.getCurrentPlayer().getCards());
+			ui.print(UI.bundle.getString("chips_in_pot") + bid.getCurrentPlayer().getChipsInPot() + "\n");
+			ui.print(UI.bundle.getString("free_chips") + bid.getCurrentPlayer().getChips() + "\n");
 			useMenu(menu);
-			if(!bid.wasBet() && currentPlayer.getLastAction() == InGameAction.RAISE) {
+			if (!bid.wasBet() && bid.getCurrentPlayer().getLastAction() == InGameAction.RAISE) {
 				bid.setWasBet(true);
 			}
 			currentPlayer = nextPlayer(currentPlayer, bid);
@@ -204,26 +209,47 @@ public class InGameController extends ApplicationController {
 	 * 
 	 */
 	private void showDown(Hand hand) {
+		int counter = 0;
+		for (Player p : hand.getPlayers()) {
+			if (p.isInHand()) {
+				counter++;
+			}
+		}
 		List<WinnerPokerHand> wphList = new ArrayList<>();
-		for(Player p : hand.getPlayers()) {
-			if(p.isInHand()) {
-				wphList.add(getBestPokerHand(p, hand));
+		if (counter == 1) {
+			Player player = hand.getCurrentBid().getCurrentPlayer();
+			HandEntity entity = new HandEntity();
+			entity.setPokerUserId(player.getId());
+			entity.setGameId(hand.getId());
+			entity.setCard1(player.getCard1());
+			entity.setCard2(player.getCard2());
+			entity.setWon(true);
+			dbc.getHandController().setSelected(entity);
+			ui.showMessage(dbc.getHandController().create());
+		} else {
+			for (Player p : hand.getPlayers()) {
+				if (p.isInHand()) {
+					wphList.add(getBestPokerHand(p, hand));
+				}
 			}
-		}
-		Collections.sort(wphList);
-		WinnerPokerHand winner = wphList.get(0);
-		for(Player p : hand.getPlayers()) {
-			if(p.getId() == winner.getUser().getId()) {
-				p.setChips(p.getChips() + hand.getPot());
+			Collections.sort(wphList);
+			WinnerPokerHand winner = wphList.get(0);
+			for (Player p : hand.getPlayers()) {
+				if (p.getId() == winner.getUser().getId()) {
+					p.setChips(p.getChips() + hand.getPot());
+				}
 			}
+
+			// győztes a db-be
+			dbc.getPlayerInGameController().setSelected(winner.getEntity());
+			ui.showMessage(dbc.getPlayerInGameController().create());
+
+			// a játék a db-be
+			dbc.getGameController().setSelected(new GameEntity(hand.getDateOfGame(), hand.getPot()));
+			dbc.getGameController().update();
 		}
-		dbc.getPlayerInGameController().setSelected(winner.getEntity());
-		ui.showMessage(dbc.getPlayerInGameController().create());
-		dbc.getGameController().setSelected(
-				new GameEntity(hand.getDateOfGame(),hand.getPot()));
-		dbc.getGameController().update();
 	}
-	
+
 	/**
 	 * @param p
 	 * @param hand
@@ -235,27 +261,26 @@ public class InGameController extends ApplicationController {
 		List<Card> cards = new ArrayList<>();
 		cards.add(p.getCard1());
 		cards.add(p.getCard2());
-		for(Card c : hand.getBoard()) {
+		for (Card c : hand.getBoard()) {
 			cards.add(c);
 		}
 		List<BestFive> bestFives = new ArrayList<>();
-		for(int i = 0; i < cards.size() - 1; i++) {
-			for(int j = i + 1; j < cards.size() ;j++) {
+		for (int i = 0; i < cards.size() - 1; i++) {
+			for (int j = i + 1; j < cards.size(); j++) {
 				int index = 0;
 				Card[] cardArr = new Card[5];
-				for(int k = 0; k < cards.size(); k++) {
-					if(k == i || k == j) {
+				for (int k = 0; k < cards.size(); k++) {
+					if (k == i || k == j) {
 						continue;
 					}
 					cardArr[index] = cards.get(k);
 					index++;
 				}
-				bestFives.add(
-					new BestFive(cardArr[0], cardArr[1], cardArr[2], cardArr[3], cardArr[4]));
+				bestFives.add(new BestFive(cardArr[0], cardArr[1], cardArr[2], cardArr[3], cardArr[4]));
 			}
 		}
 		Collections.sort(bestFives, new BestFiveComparator());
-		return new WinnerPokerHand(p,hand,bestFives.get(0));
+		return new WinnerPokerHand(p, hand, bestFives.get(0));
 	}
 
 	private void foldPlayer(Player player, Hand hand) {
@@ -270,18 +295,16 @@ public class InGameController extends ApplicationController {
 		dbc.getHandController().setSelected(entity);
 		ui.showMessage(dbc.getHandController().create());
 	}
-	
+
 	private void nextRound(Hand hand, Round round) {
 		hand.dealOnStreet(round);
 		Bid bid = hand.newBid(round);
-		runBid(bid,hand);
+		runBid(bid, hand);
 	}
 
 	private Player nextPlayer(Player player, Bid bid) {
 		ui.clearConsole();
 		Player nextPlayer = bid.getPlayersInHand().getNext(player);
-		ui.print(nextPlayer.getName());
-		ui.showMessage("is_your_turn");
 		bid.setCurrentPlayer(nextPlayer);
 		ui.getStringFromUser("press_enter_to_continue");
 		return nextPlayer;
